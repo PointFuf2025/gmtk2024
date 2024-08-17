@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvm5m228pp14l"]
+
+[ext_resource type="Script" path="res://scripts/house.gd" id="1_mqvl7"]
+[ext_resource type="Texture2D" uid="uid://chh45p03oq1vk" path="res://sprites/icon.svg" id="2_4gbhl"]
+
+[node name="House" type="Node2D" node_paths=PackedStringArray("powerGauge")]
+script = ExtResource("1_mqvl7")
+powerGauge = NodePath("BackgroundPowerGauge/PowerGauge")
+startingPower = 20
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(503, 294)
+texture = ExtResource("2_4gbhl")
+
+[node name="BackgroundPowerGauge" type="Polygon2D" parent="."]
+position = Vector2(429, 186)
+polygon = PackedVector2Array(0, 0, 150, 0, 150, 25, 0, 25)
+
+[node name="PowerGauge" type="Polygon2D" parent="BackgroundPowerGauge"]
+color = Color(0.714696, 0.900576, 2.31028e-06, 1)
+polygon = PackedVector2Array(0, 0, 150, 0, 150, 25, 0, 25)
