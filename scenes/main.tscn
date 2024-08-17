@@ -1,4 +1,8 @@
-[gd_scene format=3 uid="uid://om7rxb3g0xsc"]
+[gd_scene load_steps=2 format=3 uid="uid://om7rxb3g0xsc"]
 
-[node name="Node2D" type="Node2D"]
+[ext_resource type="PackedScene" uid="uid://cvuvlq5xdpb3t" path="res://scenes/game_manager.tscn" id="1_2yt0o"]
+
+[node name="Main" type="Node2D"]
 position = Vector2(459, 221)
+
+[node name="GameManager" parent="." instance=ExtResource("1_2yt0o")]
