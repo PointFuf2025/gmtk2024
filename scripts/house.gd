@@ -3,9 +3,15 @@ extends Node2D
 
 @export var powerGauge: Node2D
 @export var startingPower : int
+@export var sprite : Sprite2D
 
 var power : float
-var isConnected : bool
+var isConnected : bool :
+	set(value):
+		isConnected = value
+		updateColor()
+	get:
+		return isConnected
 
 signal factoryDead
 
@@ -28,3 +34,6 @@ func decreasePower(delta: float):
 	powerGauge.scale.x = power / startingPower
 	if power < 0:
 		factoryDead.emit()
+	sprite.modulate = Color(1, 1, 0) if isConnected else Color(1, 1, 1)
+
+func updateColor() -> void:

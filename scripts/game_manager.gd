@@ -2,19 +2,22 @@ extends Node2D
 
 @export var generatorPackedScene : PackedScene
 
+@export_group("manager")
 @export var factory_manager : Factory_manager
 @export var cable_manager : Cable_manager
 @export var pylon_manager : Pylon_manager
 
+@export_group("Spawn") 
+@export var spawnRange_startingValue : float
+@export var spawnRange_increasePerSecond : float
+@export var factorySpawnIntervallOverTime : Curve
+var spawnRange : float
+var timeToSpawn : float # For tracking the quantity to spawn over time
+var timeSinceStart : float
+
 var generator : Generator
 var hoveredClickable : Clickable
 var selectedClickable : Clickable
-
-
-const _spawn_speed: float = 1.0 / 5.0 
-var _spawns_quantity: float # For tracking the quantity
-							# to spawn over time
-
 
 # for now just let game manager start with ready
 func _ready() -> void:
@@ -26,17 +29,25 @@ func _ready() -> void:
 	factory_manager.factoryCreated.connect(_on_factory_created)
 	factory_manager.gameOver.connect(_on_game_over)
 	pylon_manager.pylonCreated.connect(_on_pylon_created)
+	spawnRange = spawnRange_startingValue
+	timeSinceStart = 0
 	
 func _process(delta: float) -> void:
-	 # Increase spawns quantity over time
-	_spawns_quantity += delta * _spawn_speed
+	
+	spawnRange += spawnRange_increasePerSecond * delta
+	timeToSpawn -= delta
+	
 	# Check if something to spawn
-	if _spawns_quantity >= 1:
+	if timeToSpawn < 0:
 		var randomAngle = randf_range(0, 2 * PI)
-		var randomDistance = randf_range(0.8, 1) * 1000
+		var randomDistance = randf_range(0.8, 1) * spawnRange
 		var randomPosition = generator.position + (Vector2.RIGHT * randomDistance).rotated(randomAngle)
 		factory_manager.createFactory(randomPosition)
-		_spawns_quantity = 0
+		
+		var normalizedTimeSinceStart = clamp(timeSinceStart / (10 * 60), 0, 1)
+		timeToSpawn = factorySpawnIntervallOverTime.sample(normalizedTimeSinceStart)
+		
+	timeSinceStart += delta
 
 	
 func connectClickable(clickable : Clickable):
@@ -51,7 +62,7 @@ func _on_clickable_hovered(newHoveredClickable : Clickable, state : bool) -> voi
 			hoveredClickable = null
 			
 func _on_factory_created():
-		cable_manager.updateFactoryConnectivity(pylon_manager.pylons, factory_manager.factories)
+	cable_manager.updateFactoryConnectivity(pylon_manager.pylons, factory_manager.factories)
 
 func _on_pylon_created(pylon : Pylon):
 		connectClickable(pylon)
@@ -67,11 +78,25 @@ func _input(event: InputEvent) -> void:
 		var mousePosition = get_global_mouse_position();
 		
 		if hoveredClickable != null:
-			selectedClickable = hoveredClickable
-			selectedClickable.isSelected = true
+			selectClickable(hoveredClickable)
 		elif selectedClickable != null:
 			pylon_manager.createPylon(mousePosition)
-			selectedClickable.isSelected = false
-			selectedClickable = null
-			hoveredClickable = null
+			selectClickable(null)
+			
+	elif event.is_action_pressed("cancel"):
+		selectClickable(null)
+
+func selectClickable(newSelectedClickable: Clickable) -> void:
+		if newSelectedClickable == selectedClickable:
+			return
 	
+		if newSelectedClickable == null:
+			if selectedClickable != null:
+				selectedClickable.isSelected = false
+				selectedClickable = null	
+		else:
+			if selectedClickable != null:
+				selectedClickable.isSelected = false
+				selectedClickable = null
+			selectedClickable = newSelectedClickable
+			selectedClickable.isSelected = true

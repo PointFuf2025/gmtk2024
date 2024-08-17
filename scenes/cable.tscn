@@ -11,4 +11,4 @@ line = NodePath("Line2D")
 visibility_layer = 3
 points = PackedVector2Array(0, -1, 418, 217)
 width = 5.0
-default_color = Color(0, 0, 0, 1)
+default_color = Color(0, 1, 0, 0.513726)
