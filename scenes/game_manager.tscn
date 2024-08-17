@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cp4vg03r5f812"]
+[gd_scene load_steps=14 format=3 uid="uid://cp4vg03r5f812"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_7vy8g"]
 [ext_resource type="PackedScene" uid="uid://diu20lrnhwef7" path="res://scenes/generator.tscn" id="2_2nq7v"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scripts/cable_manager.gd" id="7_4m8fx"]
 [ext_resource type="Script" path="res://scripts/pylon_manager.gd" id="8_oiwh0"]
 [ext_resource type="PackedScene" uid="uid://c67bw55mxufqj" path="res://scenes/ui_manager.tscn" id="10_7u0vm"]
+[ext_resource type="PackedScene" uid="uid://og5qopicpy2p" path="res://scenes/ghost_pylon.tscn" id="10_v1b84"]
 
 [sub_resource type="Curve" id="Curve_jgp5n"]
 max_value = 6.0
@@ -17,6 +18,12 @@ _data = [Vector2(0, 6), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [node name="GameManager" type="Node2D" node_paths=PackedStringArray("factory_manager", "cable_manager", "pylon_manager", "ui_manager")]
+[sub_resource type="Curve" id="Curve_2q8xk"]
+max_value = 10.0
+_data = [Vector2(0, 0), 0.0, 16.4982, 0, 1, Vector2(1, 10), 7.48457, 0.0, 1, 0]
+point_count = 2
+
+[node name="GameManager" type="Node2D" node_paths=PackedStringArray("factory_manager", "cable_manager", "pylon_manager", "ghost_pylon")]
 script = ExtResource("1_7vy8g")
 generatorPackedScene = ExtResource("2_2nq7v")
 factory_manager = NodePath("FactoryManager")
@@ -30,6 +37,7 @@ factorySpawnIntervallOverTime = SubResource("Curve_jgp5n")
 [node name="Camera" parent="." instance=ExtResource("6_mfnfh")]
 position_smoothing_enabled = true
 position_smoothing_speed = 20.0
+ghost_pylon = NodePath("ghostPylon")
 
 [node name="CableManager" type="Node2D" parent="."]
 script = ExtResource("7_4m8fx")
@@ -45,4 +53,9 @@ script = ExtResource("6_l8cqi")
 factoryPackedScene = ExtResource("5_x0ct0")
 goldIncomeByFactory = 1
 
+[node name="Camera" parent="." instance=ExtResource("6_mfnfh")]
+position_smoothing_enabled = true
+position_smoothing_speed = 20.0
+
+[node name="ghostPylon" parent="." instance=ExtResource("10_v1b84")]
 [node name="UIManager" parent="." instance=ExtResource("10_7u0vm")]

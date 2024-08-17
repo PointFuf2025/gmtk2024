@@ -14,6 +14,9 @@ extends Node2D
 @export var spawnRange_increasePerSecond : float
 @export var factorySpawnIntervallOverTime : Curve
 
+@export_group("Ghost")
+@export var ghost_pylon : Ghost_Pylon
+ 
 var spawnRange : float
 var timeToIncome : float
 var timeToSpawn : float # For tracking the quantity to spawn over time
@@ -22,8 +25,14 @@ var gold : float
 
 var generator : Generator
 var hoveredClickable : Clickable
-var selectedClickable : Clickable
-
+var selectedClickable : Clickable:
+	set(value):
+		selectedClickable = value
+		if value != null:
+			ghost_pylon.update(selectedClickable.position, get_global_mouse_position(), true)
+		else:
+			ghost_pylon.hideGhost()
+			
 # for now just let game manager start with ready
 func _ready() -> void:
 	# create and add the generator
@@ -53,6 +62,9 @@ func process_factory_spawn(delta : float) -> void:
 		var normalizedTimeSinceStart = clamp(timeSinceStart / (10 * 60), 0, 1)
 		timeToSpawn = factorySpawnIntervallOverTime.sample(normalizedTimeSinceStart)
 	timeToSpawn -= delta
+	
+	if ghost_pylon.visible == true && selectedClickable != null:
+		ghost_pylon.update(selectedClickable.position, get_global_mouse_position(), true)
 	
 func process_factory_income(delta : float) -> void:
 	if timeToIncome <0:

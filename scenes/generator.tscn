@@ -13,7 +13,7 @@ selectedColor = Color(0.913725, 0.843137, 0, 1)
 sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.25, 0.25)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("1_fcqq1")
 
 [node name="Area2D" type="Area2D" parent="."]
