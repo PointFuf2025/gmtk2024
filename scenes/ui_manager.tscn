@@ -1,7 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c67bw55mxufqj"]
+[gd_scene load_steps=4 format=3 uid="uid://bdyal4nwun1se"]
 
 [ext_resource type="Script" path="res://scripts/ui_manager.gd" id="1_uuk0i"]
-[ext_resource type="Theme" uid="uid://dew262uvu1bmk" path="res://ui_theme.tres" id="2_1mrnx"]
+[ext_resource type="Theme" path="res://ui_theme.tres" id="2_1mrnx"]
 [ext_resource type="Texture2D" uid="uid://b51v0omukrnnn" path="res://sprites/gold.svg" id="3_fqq5x"]
 
 [node name="UIManager" type="CanvasLayer" node_paths=PackedStringArray("goldLabel", "gainPerSecondLabel")]

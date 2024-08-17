@@ -50,6 +50,8 @@ func _process(delta: float) -> void:
 	process_factory_spawn(delta)
 	process_factory_income(delta)
 	timeSinceStart += delta
+	if ghost_pylon.visible == true && selectedClickable != null:
+		ghost_pylon.update(selectedClickable.position, get_global_mouse_position(), true)
 
 func process_factory_spawn(delta : float) -> void:
 	spawnRange += spawnRange_increasePerSecond * delta	
@@ -62,9 +64,6 @@ func process_factory_spawn(delta : float) -> void:
 		var normalizedTimeSinceStart = clamp(timeSinceStart / (10 * 60), 0, 1)
 		timeToSpawn = factorySpawnIntervallOverTime.sample(normalizedTimeSinceStart)
 	timeToSpawn -= delta
-	
-	if ghost_pylon.visible == true && selectedClickable != null:
-		ghost_pylon.update(selectedClickable.position, get_global_mouse_position(), true)
 	
 func process_factory_income(delta : float) -> void:
 	if timeToIncome <0:
