@@ -14,11 +14,16 @@ func _ready() -> void:
 	super._ready()
 	pylonCreated.emit()
 	isConnected = false;
-	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	queue_redraw()
 
 func _draw() -> void:
-	draw_circle(Vector2.ZERO, radius, fillColor, true)
-	draw_circle(Vector2.ZERO, radius, strokeColor, false)
+	if isHovered:
+		draw_circle(Vector2.ZERO, radius, fillColor, true)
+		draw_circle(Vector2.ZERO, radius, strokeColor, false)
+	
+func _on_mouse_entered() -> void:
+	super._on_mouse_entered()
+	queue_redraw()
+
+func _on_mouse_exited() -> void:
+	super._on_mouse_exited()
+	queue_redraw()

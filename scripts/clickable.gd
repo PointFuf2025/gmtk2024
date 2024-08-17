@@ -14,7 +14,8 @@ var isSelected : bool :
 	set (value):
 		sprite.self_modulate = selectedColor if value else Color.WHITE
 		isSelected = value
-	 
+		
+var isHovered : bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -23,12 +24,14 @@ func _ready() -> void:
 	
 func  _on_mouse_entered() -> void:
 	print("clickable: start hovered")
+	isHovered = true
 	hovered.emit(self, true)
 	if !isSelected:
 		sprite.self_modulate = hoverColor	
 	
 func  _on_mouse_exited() -> void:
 	print("clickable: stop hovered")
+	isHovered = false
 	hovered.emit(self, false)
 	if !isSelected:
 		sprite.self_modulate = Color.WHITE
