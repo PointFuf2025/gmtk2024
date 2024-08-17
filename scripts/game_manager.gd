@@ -38,7 +38,10 @@ func _process(delta: float) -> void:
 	_spawns_quantity += delta * _spawn_speed
 	# Check if something to spawn
 	if _spawns_quantity >= 1:
-		var randomPosition = Vector2(randi_range(300,1000), randi_range(300,1000))
+		var randomAngle = randf_range(0, 2 * PI)
+		var randomDistance = randf_range(0.8, 1) * 1000
+		var randomPosition = generator.position + (Vector2.RIGHT * randomDistance).rotated(randomAngle)
+		
 		createFactory(randomPosition)
 		_spawns_quantity = 0
 
@@ -75,7 +78,7 @@ func _on_clickable_hovered(newHoveredClickable : Clickable, state : bool) -> voi
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("select"):
-		var mousePosition = get_viewport().get_mouse_position()
+		var mousePosition = get_global_mouse_position();
 		
 		if hoveredClickable != null:
 			selectedClickable = hoveredClickable
