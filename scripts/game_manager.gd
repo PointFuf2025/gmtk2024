@@ -35,8 +35,7 @@ func _process(delta: float) -> void:
 		var randomAngle = randf_range(0, 2 * PI)
 		var randomDistance = randf_range(0.8, 1) * 1000
 		var randomPosition = generator.position + (Vector2.RIGHT * randomDistance).rotated(randomAngle)
-		
-		createFactory(randomPosition)
+		factory_manager.createFactory(randomPosition)
 		_spawns_quantity = 0
 
 	
@@ -58,6 +57,7 @@ func _on_pylon_created(pylon : Pylon):
 		connectClickable(pylon)
 		#TODO optim func to update only a given pylon connectivity
 		cable_manager.updateFactoryConnectivity(pylon_manager.pylons, factory_manager.factories)
+		cable_manager.connectClickable(selectedClickable, pylon)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("select"):

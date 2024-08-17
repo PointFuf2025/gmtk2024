@@ -4,7 +4,7 @@ extends Node2D
 @export var pylgonPackedScene : PackedScene
 @export var pylonRadius : float
 
-var pylonArray : Array[Pylon]
+var pylons : Array[Pylon]
 
 signal pylonCreated(pylon : Pylon)
 
@@ -12,7 +12,7 @@ func createPylon(position : Vector2) -> void:
 	var newPylon = pylgonPackedScene.instantiate() as Pylon;
 	newPylon.position = position
 	newPylon.radius = pylonRadius
-	pylonArray.append(newPylon)		
+	pylons.append(newPylon)		
 	add_child(newPylon)
 	pylonCreated.emit(newPylon)
 	print("pylon created at " + str(position))
