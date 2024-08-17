@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dhn3xx0t0rxqv"
+path="res://.godot/imported/dodehav - liv.mp3-5a1783563dee3656783ccf5003782a61.mp3str"
+
+[deps]
+
+source_file="res://musics/dodehav - liv.mp3"
+dest_files=["res://.godot/imported/dodehav - liv.mp3-5a1783563dee3656783ccf5003782a61.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

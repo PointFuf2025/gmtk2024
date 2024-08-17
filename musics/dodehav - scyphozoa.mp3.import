@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://byqgmxrxr54uv"
+path="res://.godot/imported/dodehav - scyphozoa.mp3-e083e00a54cde8a259ed613c91db7dc5.mp3str"
+
+[deps]
+
+source_file="res://musics/dodehav - scyphozoa.mp3"
+dest_files=["res://.godot/imported/dodehav - scyphozoa.mp3-e083e00a54cde8a259ed613c91db7dc5.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

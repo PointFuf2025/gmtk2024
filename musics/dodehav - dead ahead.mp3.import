@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://d2fi8k0mjgph2"
+path="res://.godot/imported/dodehav - dead ahead.mp3-2148478e85b55771ef55e4527ea96b32.mp3str"
+
+[deps]
+
+source_file="res://musics/dodehav - dead ahead.mp3"
+dest_files=["res://.godot/imported/dodehav - dead ahead.mp3-2148478e85b55771ef55e4527ea96b32.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bgchoahavyk3o"
+path="res://.godot/imported/dodehav - marrow - 04 please haunt me.mp3-e6536960c9057fe834cc4e2ea4e218bf.mp3str"
+
+[deps]
+
+source_file="res://musics/dodehav - marrow - 04 please haunt me.mp3"
+dest_files=["res://.godot/imported/dodehav - marrow - 04 please haunt me.mp3-e6536960c9057fe834cc4e2ea4e218bf.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://de0q2yitlxy4i"
+path="res://.godot/imported/dodehav - passage.mp3-83e22489e403057a394241989af31d69.mp3str"
+
+[deps]
+
+source_file="res://musics/dodehav - passage.mp3"
+dest_files=["res://.godot/imported/dodehav - passage.mp3-83e22489e403057a394241989af31d69.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

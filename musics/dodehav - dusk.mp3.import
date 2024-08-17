@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://pfr8m3mlumy3"
+path="res://.godot/imported/dodehav - dusk.mp3-25f586bd87338b5b00d6aa6939480263.mp3str"
+
+[deps]
+
+source_file="res://musics/dodehav - dusk.mp3"
+dest_files=["res://.godot/imported/dodehav - dusk.mp3-25f586bd87338b5b00d6aa6939480263.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

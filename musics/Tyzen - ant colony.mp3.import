@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://p812ndr5ec0a"
+path="res://.godot/imported/Tyzen - ant colony.mp3-5fcd7dd6479ee688a7688899c52da2ed.mp3str"
+
+[deps]
+
+source_file="res://musics/Tyzen - ant colony.mp3"
+dest_files=["res://.godot/imported/Tyzen - ant colony.mp3-5fcd7dd6479ee688a7688899c52da2ed.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

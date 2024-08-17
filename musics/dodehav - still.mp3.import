@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cdi7o5o12wk7l"
+path="res://.godot/imported/dodehav - still.mp3-8b46620c4796d2198649081b4a727033.mp3str"
+
+[deps]
+
+source_file="res://musics/dodehav - still.mp3"
+dest_files=["res://.godot/imported/dodehav - still.mp3-8b46620c4796d2198649081b4a727033.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

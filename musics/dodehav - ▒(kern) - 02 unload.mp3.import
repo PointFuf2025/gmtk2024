@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dgnfynaqkmy78"
+path="res://.godot/imported/dodehav - ▒(kern) - 02 unload.mp3-9127d44f1c63fd164cf76bb2b4a47fcc.mp3str"
+
+[deps]
+
+source_file="res://musics/dodehav - ▒(kern) - 02 unload.mp3"
+dest_files=["res://.godot/imported/dodehav - ▒(kern) - 02 unload.mp3-9127d44f1c63fd164cf76bb2b4a47fcc.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
