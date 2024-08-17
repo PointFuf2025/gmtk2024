@@ -23,12 +23,12 @@ point_count = 2
 [node name="GameManager" type="Node2D" node_paths=PackedStringArray("factory_manager", "cable_manager", "pylon_manager")]
 script = ExtResource("1_7vy8g")
 generatorPackedScene = ExtResource("2_2nq7v")
-factory_manager = NodePath("FactoryManager")
-cable_manager = NodePath("CableManager")
-pylon_manager = NodePath("PylonManager")
 spawnRange_startingValue = 1000.0
 spawnRange_increasePerSecond = 50.0
 factorySpawnIntervallOverTime = SubResource("Curve_jgp5n")
+factory_manager = NodePath("FactoryManager")
+cable_manager = NodePath("CableManager")
+pylon_manager = NodePath("PylonManager")
 
 [node name="CableManager" type="Node2D" parent="."]
 script = ExtResource("7_4m8fx")

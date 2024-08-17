@@ -30,10 +30,12 @@ func _process(delta: float) -> void:
 func decreasePower(delta: float):
 	if isConnected:
 		return
+		
 	power -= delta * 1
 	powerGauge.scale.x = power / startingPower
+	
 	if power < 0:
 		factoryDead.emit()
-	sprite.modulate = Color(1, 1, 0) if isConnected else Color(1, 1, 1)
 
 func updateColor() -> void:
+	sprite.modulate = Color(1, 1, 0) if isConnected else Color(1, 1, 1)
