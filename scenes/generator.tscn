@@ -1,15 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://diu20lrnhwef7"]
+[gd_scene load_steps=5 format=3 uid="uid://diu20lrnhwef7"]
 
 [ext_resource type="Script" path="res://scripts/generator.gd" id="1_6ndo6"]
 [ext_resource type="Texture2D" uid="uid://ciqpp5f2p33xs" path="res://sprites/generator.svg" id="1_fcqq1"]
+[ext_resource type="Resource" uid="uid://coi7hhl65184t" path="res://color_theme/default_color_theme.tres" id="2_lp1ik"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a44ja"]
 
 [node name="Generator" type="Node2D" node_paths=PackedStringArray("area2d", "sprite")]
 script = ExtResource("1_6ndo6")
 area2d = NodePath("Area2D")
-hoverColor = Color(0.913725, 0.843137, 0, 0.498039)
-selectedColor = Color(0.913725, 0.843137, 0, 1)
+colorTheme = ExtResource("2_lp1ik")
 sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

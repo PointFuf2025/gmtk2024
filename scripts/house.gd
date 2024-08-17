@@ -4,9 +4,11 @@ extends Node2D
 @export var powerGauge: Node2D
 @export var startingPower : int
 @export var sprite : Sprite2D
+@export var colorTheme : ColorTheme
 
 var power : float
-var isConnected : bool :
+
+var isConnected : bool = false :
 	set(value):
 		isConnected = value
 		updateColor()
@@ -27,6 +29,15 @@ func _process(delta: float) -> void:
 	if !isConnected:
 		decreasePower(delta)
 
+func updateColor() -> void:
+	
+	var spriteColor = colorTheme.UnconnectedColor;
+	
+	if isConnected:
+		spriteColor = colorTheme.ConnectedColor
+	
+	sprite.modulate = spriteColor
+
 func decreasePower(delta: float):
 	if isConnected:
 		return
@@ -36,6 +47,3 @@ func decreasePower(delta: float):
 	
 	if power < 0:
 		factoryDead.emit()
-
-func updateColor() -> void:
-	sprite.modulate = Color(1, 1, 0) if isConnected else Color(1, 1, 1)

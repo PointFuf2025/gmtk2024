@@ -1,7 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://om7rxb3g0xsc"]
+[gd_scene load_steps=3 format=3 uid="uid://om7rxb3g0xsc"]
 
 [ext_resource type="PackedScene" uid="uid://cp4vg03r5f812" path="res://scenes/game_manager.tscn" id="1_2yt0o"]
+[ext_resource type="Texture2D" uid="uid://b7j0lbts5u1kf" path="res://sprites/background.png" id="1_7krmg"]
 
 [node name="Main" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+texture_repeat = 2
+position = Vector2(1000, 1000)
+scale = Vector2(6, 6)
+texture = ExtResource("1_7krmg")
+region_enabled = true
+region_rect = Rect2(0, 0, 4000, 2000)
 
 [node name="GameManager" parent="." instance=ExtResource("1_2yt0o")]

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://075k5g50djxj"
+path="res://.godot/imported/s t i l l - dodehav.mp3-b14252b74884394cd2120c0a4b9d6bfa.mp3str"
+
+[deps]
+
+source_file="res://musics/s t i l l - dodehav.mp3"
+dest_files=["res://.godot/imported/s t i l l - dodehav.mp3-b14252b74884394cd2120c0a4b9d6bfa.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
