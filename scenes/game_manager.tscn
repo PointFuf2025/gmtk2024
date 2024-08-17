@@ -1,8 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://cvuvlq5xdpb3t"]
+[gd_scene load_steps=4 format=3 uid="uid://cvuvlq5xdpb3t"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_7vy8g"]
 [ext_resource type="PackedScene" uid="uid://diu20lrnhwef7" path="res://scenes/generator.tscn" id="2_2nq7v"]
+[ext_resource type="PackedScene" uid="uid://ctnskxjhg50sx" path="res://scenes/pylon.tscn" id="3_tv0oi"]
 
 [node name="GameManager" type="Node2D"]
 script = ExtResource("1_7vy8g")
 generatorPackedScene = ExtResource("2_2nq7v")
+pylgonPackedScene = ExtResource("3_tv0oi")
+pylonRadius = 500.0

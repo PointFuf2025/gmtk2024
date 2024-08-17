@@ -1,12 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://ctnskxjhg50sx"]
+[gd_scene load_steps=4 format=3 uid="uid://ctnskxjhg50sx"]
 
 [ext_resource type="Script" path="res://scripts/pylon.gd" id="1_bdx5q"]
 [ext_resource type="Texture2D" uid="uid://l701cubyu71p" path="res://sprites/pylon.svg" id="1_x8kw8"]
 
-[node name="Pylon" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d5k8n"]
+
+[node name="Pylon" type="Node2D" node_paths=PackedStringArray("area2d")]
 script = ExtResource("1_bdx5q")
-powerRadiusColor = Color(0.513726, 0.666667, 0, 0.658824)
+fillColor = Color(0, 1, 0, 0.027451)
+strokeColor = Color(0, 1, 0, 1)
+radius = 500.0
+area2d = NodePath("Area2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("1_x8kw8")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(6.25, 6.25)
+shape = SubResource("RectangleShape2D_d5k8n")

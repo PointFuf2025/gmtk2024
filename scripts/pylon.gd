@@ -1,14 +1,14 @@
-extends Node2D
+class_name Pylon
+extends Clickable
 
-@export var powerRadiusColor: Color
-@export var radius: int
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass
+@export var fillColor: Color
+@export var strokeColor: Color
+@export var radius: float
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	queue_redraw()
 
 func _draw() -> void:
-	draw_circle(position, radius, powerRadiusColor, true)
+	draw_circle(Vector2.ZERO, radius, fillColor, true)
+	draw_circle(Vector2.ZERO, radius, strokeColor, false)

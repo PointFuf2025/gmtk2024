@@ -3,6 +3,5 @@
 [ext_resource type="PackedScene" uid="uid://cvuvlq5xdpb3t" path="res://scenes/game_manager.tscn" id="1_2yt0o"]
 
 [node name="Main" type="Node2D"]
-position = Vector2(459, 221)
 
 [node name="GameManager" parent="." instance=ExtResource("1_2yt0o")]
