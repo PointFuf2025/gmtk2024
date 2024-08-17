@@ -1,23 +1,15 @@
 extends Node2D
 
 @export var generatorPackedScene : PackedScene
-@export var pylgonPackedScene : PackedScene
-@export var cablePackedScene : PackedScene
-@export var factoryPackedScene : PackedScene
 
-@export var cableRoot : Node2D
-@export var factoryRoot : Node2D
-@export var pylonRoot : Node2D
-
-var cableArray: Array[Cable]
-var factoryArray: Array[Factory]
-
-@export var pylonRadius : float
+@export var factory_manager : Factory_manager
+@export var cable_manager : Cable_manager
+@export var pylon_manager : Pylon_manager
 
 var generator : Generator
 var hoveredClickable : Clickable
 var selectedClickable : Clickable
-var pylonArray : Array[Pylon]
+
 
 const _spawn_speed: float = 1.0 / 5.0 
 var _spawns_quantity: float # For tracking the quantity
@@ -32,6 +24,8 @@ func _ready() -> void:
 	generator.position = DisplayServer.screen_get_size() / 2
 	connectClickable(generator)
 	add_child(generator)
+	factory_manager.factoryCreated.connect(_on_factory_created)
+	pylon_manager.pylonCreated.connect(_on_pylon_created)
 	
 func _process(delta: float) -> void:
 	 # Increase spawns quantity over time
@@ -45,25 +39,6 @@ func _process(delta: float) -> void:
 		createFactory(randomPosition)
 		_spawns_quantity = 0
 
-func createPylon(position : Vector2) -> void:
-	var newPylon = pylgonPackedScene.instantiate() as Pylon;
-	newPylon.position = position
-	newPylon.radius = pylonRadius
-	connectClickable(newPylon)
-	
-	pylonArray.append(newPylon)		
-	# bug if a factory spawn after this will not connect
-	add_child(newPylon)
-	updateFactoryConnectivity()
-	
-	print("pylon created at " + str(position))
-	
-func createFactory(position: Vector2) -> void:
-	var factory = factoryPackedScene.instantiate() as Factory
-	factory.position = position
-	factoryRoot.add_child(factory)
-	factoryArray.append(factory)
-	updateFactoryConnectivity()
 	
 func connectClickable(clickable : Clickable):
 	clickable.hovered.connect(_on_clickable_hovered)
@@ -75,6 +50,14 @@ func _on_clickable_hovered(newHoveredClickable : Clickable, state : bool) -> voi
 	else:
 		if hoveredClickable == newHoveredClickable:
 			hoveredClickable = null
+			
+func _on_factory_created():
+		cable_manager.updateFactoryConnectivity(pylon_manager.pylons, factory_manager.factories)
+
+func _on_pylon_created(pylon : Pylon):
+		connectClickable(pylon)
+		#TODO optim func to update only a given pylon connectivity
+		cable_manager.updateFactoryConnectivity(pylon_manager.pylons, factory_manager.factories)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("select"):
@@ -82,20 +65,10 @@ func _input(event: InputEvent) -> void:
 		
 		if hoveredClickable != null:
 			selectedClickable = hoveredClickable
+			selectedClickable.isSelected = true
 		elif selectedClickable != null:
-			createPylon(mousePosition)
+			pylon_manager.createPylon(mousePosition)
+			selectedClickable.isSelected = false
 			selectedClickable = null
 			hoveredClickable = null
-		
-func updateFactoryConnectivity():
-	var cable : Cable
-	for pylon in pylonArray:
-		for factory in factoryArray:
-			var isInside: bool = pylon.global_position.distance_to(factory.global_position) < pylon.radius
-			if isInside && !factory.isConnected: 
-				cable = cablePackedScene.instantiate()
-				cable.connectCable(pylon.global_position, factory.global_position)
-				cableArray.append(cable)
-				cableRoot.add_child(cable)
-				factory.isConnected = true
 	

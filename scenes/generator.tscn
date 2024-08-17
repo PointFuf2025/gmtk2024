@@ -5,9 +5,12 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a44ja"]
 
-[node name="Generator" type="Node2D" node_paths=PackedStringArray("area2d")]
+[node name="Generator" type="Node2D" node_paths=PackedStringArray("area2d", "sprite")]
 script = ExtResource("1_6ndo6")
 area2d = NodePath("Area2D")
+hoverColor = Color(0.913725, 0.843137, 0, 0.498039)
+selectedColor = Color(0.913725, 0.843137, 0, 1)
+sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)

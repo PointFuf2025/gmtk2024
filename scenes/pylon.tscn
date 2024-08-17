@@ -5,12 +5,15 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d5k8n"]
 
-[node name="Pylon" type="Node2D" node_paths=PackedStringArray("area2d")]
+[node name="Pylon" type="Node2D" node_paths=PackedStringArray("area2d", "sprite")]
 script = ExtResource("1_bdx5q")
 fillColor = Color(0, 1, 0, 0.0392157)
 strokeColor = Color(0, 1, 0, 1)
 radius = 500.0
 area2d = NodePath("Area2D")
+hoverColor = Color(0.913725, 0.843137, 0, 0.498039)
+selectedColor = Color(0.913725, 0.843137, 0, 1)
+sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)
