@@ -2,6 +2,14 @@ extends Node2D
 
 @export var generatorPackedScene : PackedScene
 @export var pylgonPackedScene : PackedScene
+@export var cablePackedScene : PackedScene
+
+@export var cableRoot : Node2D
+@export var factoryRoot : Node2D
+@export var pylonRoot : Node2D
+
+var cableArray: Array[Cable]
+var factoryArray: Array[Factory]
 
 @export var pylonRadius : float
 
@@ -9,6 +17,7 @@ var generator : Generator
 var hoveredClickable : Clickable
 var selectedClickable : Clickable
 var pylons : Array[Pylon]
+
 
 # for now just let game manager start with ready
 func _ready() -> void:
@@ -57,3 +66,15 @@ func _input(event: InputEvent) -> void:
 			selectedClickable = null
 			hoveredClickable = null
 		
+	
+	
+
+func connectFactories(pylon: Pylon):
+	var cable : Cable
+	for factory in factoryArray:
+		if pylon.global_position.distance_to(factory.global_position) < pylon.radius:
+			cable = cablePackedScene.instantiate()
+			cable.connectCable(pylon.position, factory.position)
+			cableArray.append(cable)
+			cableRoot.add_child(cable)
+	

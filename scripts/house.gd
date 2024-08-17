@@ -1,3 +1,4 @@
+class_name Factory
 extends Node2D
 
 @export var powerGauge: Node2D

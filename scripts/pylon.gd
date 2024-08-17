@@ -4,6 +4,15 @@ extends Clickable
 @export var fillColor: Color
 @export var strokeColor: Color
 @export var radius: float
+
+var isConnected: bool
+
+signal pylonCreated
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pylonCreated.emit()
+	isConnected = false;
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

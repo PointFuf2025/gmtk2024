@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8qyehf7q47g4"]
+
+[ext_resource type="Script" path="res://scripts/cable.gd" id="1_qqosa"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_qqosa")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0, -1, 418, 217)
+width = 5.0
+default_color = Color(0, 0, 0, 1)
