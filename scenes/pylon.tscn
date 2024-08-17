@@ -7,7 +7,7 @@
 
 [node name="Pylon" type="Node2D" node_paths=PackedStringArray("area2d")]
 script = ExtResource("1_bdx5q")
-fillColor = Color(0, 1, 0, 0.027451)
+fillColor = Color(0, 1, 0, 0.0392157)
 strokeColor = Color(0, 1, 0, 1)
 radius = 500.0
 area2d = NodePath("Area2D")

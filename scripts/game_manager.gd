@@ -3,6 +3,7 @@ extends Node2D
 @export var generatorPackedScene : PackedScene
 @export var pylgonPackedScene : PackedScene
 @export var cablePackedScene : PackedScene
+@export var factoryPackedScene : PackedScene
 
 @export var cableRoot : Node2D
 @export var factoryRoot : Node2D
@@ -16,7 +17,11 @@ var factoryArray: Array[Factory]
 var generator : Generator
 var hoveredClickable : Clickable
 var selectedClickable : Clickable
-var pylons : Array[Pylon]
+var pylonArray : Array[Pylon]
+
+const _spawn_speed: float = 1.0 / 5.0 
+var _spawns_quantity: float # For tracking the quantity
+							# to spawn over time
 
 
 # for now just let game manager start with ready
@@ -29,8 +34,13 @@ func _ready() -> void:
 	add_child(generator)
 	
 func _process(delta: float) -> void:
-	var mousePosition = get_viewport().get_mouse_position()
-	print(mousePosition)
+	 # Increase spawns quantity over time
+	_spawns_quantity += delta * _spawn_speed
+	# Check if something to spawn
+	if _spawns_quantity >= 1:
+		var randomPosition = Vector2(randi_range(300,1000), randi_range(300,1000))
+		createFactory(randomPosition)
+		_spawns_quantity = 0
 
 func createPylon(position : Vector2) -> void:
 	var newPylon = pylgonPackedScene.instantiate() as Pylon;
@@ -38,11 +48,19 @@ func createPylon(position : Vector2) -> void:
 	newPylon.radius = pylonRadius
 	connectClickable(newPylon)
 	
-	pylons.append(newPylon)		
-	
+	pylonArray.append(newPylon)		
+	# bug if a factory spawn after this will not connect
 	add_child(newPylon)
+	updateFactoryConnectivity()
 	
 	print("pylon created at " + str(position))
+	
+func createFactory(position: Vector2) -> void:
+	var factory = factoryPackedScene.instantiate() as Factory
+	factory.position = position
+	factoryRoot.add_child(factory)
+	factoryArray.append(factory)
+	updateFactoryConnectivity()
 	
 func connectClickable(clickable : Clickable):
 	clickable.hovered.connect(_on_clickable_hovered)
@@ -66,15 +84,15 @@ func _input(event: InputEvent) -> void:
 			selectedClickable = null
 			hoveredClickable = null
 		
-	
-	
-
-func connectFactories(pylon: Pylon):
+func updateFactoryConnectivity():
 	var cable : Cable
-	for factory in factoryArray:
-		if pylon.global_position.distance_to(factory.global_position) < pylon.radius:
-			cable = cablePackedScene.instantiate()
-			cable.connectCable(pylon.position, factory.position)
-			cableArray.append(cable)
-			cableRoot.add_child(cable)
+	for pylon in pylonArray:
+		for factory in factoryArray:
+			var isInside: bool = pylon.global_position.distance_to(factory.global_position) < pylon.radius
+			if isInside && !factory.isConnected: 
+				cable = cablePackedScene.instantiate()
+				cable.connectCable(pylon.global_position, factory.global_position)
+				cableArray.append(cable)
+				cableRoot.add_child(cable)
+				factory.isConnected = true
 	
