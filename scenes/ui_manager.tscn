@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://c67bw55mxufqj"]
+
+[ext_resource type="Script" path="res://scripts/ui_manager.gd" id="1_uuk0i"]
+[ext_resource type="Theme" uid="uid://dew262uvu1bmk" path="res://ui_theme.tres" id="2_1mrnx"]
+[ext_resource type="Texture2D" uid="uid://b51v0omukrnnn" path="res://sprites/gold.svg" id="3_fqq5x"]
+
+[node name="UIManager" type="CanvasLayer" node_paths=PackedStringArray("goldLabel", "gainPerSecondLabel")]
+script = ExtResource("1_uuk0i")
+goldLabel = NodePath("PanelContainer/MarginContainer/HBoxContainer/GoldLabel")
+gainPerSecondLabel = NodePath("PanelContainer/MarginContainer/HBoxContainer/GoldPerSecondLabel")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -185.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 74.0
+grow_horizontal = 0
+theme = ExtResource("2_1mrnx")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_direction = 2
+layout_mode = 2
+theme = ExtResource("2_1mrnx")
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="GoldLabel" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "205
+"
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer"]
+modulate = Color(1, 1, 0, 1)
+layout_mode = 2
+texture = ExtResource("3_fqq5x")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="GoldPerSecondLabel" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "(+ 5)"
+horizontal_alignment = 2

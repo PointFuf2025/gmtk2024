@@ -1,3 +1,4 @@
+class_name GameManager
 extends Node2D
 
 @export var generatorPackedScene : PackedScene
@@ -6,14 +7,18 @@ extends Node2D
 @export var factory_manager : Factory_manager
 @export var cable_manager : Cable_manager
 @export var pylon_manager : Pylon_manager
+@export var ui_manager : UIManager
 
 @export_group("Spawn") 
 @export var spawnRange_startingValue : float
 @export var spawnRange_increasePerSecond : float
 @export var factorySpawnIntervallOverTime : Curve
+
 var spawnRange : float
+var timeToIncome : float
 var timeToSpawn : float # For tracking the quantity to spawn over time
 var timeSinceStart : float
+var gold : float
 
 var generator : Generator
 var hoveredClickable : Clickable
@@ -33,11 +38,12 @@ func _ready() -> void:
 	timeSinceStart = 0
 	
 func _process(delta: float) -> void:
-	
-	spawnRange += spawnRange_increasePerSecond * delta
-	timeToSpawn -= delta
-	
-	# Check if something to spawn
+	process_factory_spawn(delta)
+	process_factory_income(delta)
+	timeSinceStart += delta
+
+func process_factory_spawn(delta : float) -> void:
+	spawnRange += spawnRange_increasePerSecond * delta	
 	if timeToSpawn < 0:
 		var randomAngle = randf_range(0, 2 * PI)
 		var randomDistance = randf_range(0.8, 1) * spawnRange
@@ -46,9 +52,16 @@ func _process(delta: float) -> void:
 		
 		var normalizedTimeSinceStart = clamp(timeSinceStart / (10 * 60), 0, 1)
 		timeToSpawn = factorySpawnIntervallOverTime.sample(normalizedTimeSinceStart)
+	timeToSpawn -= delta
+	
+func process_factory_income(delta : float) -> void:
+	if timeToIncome <0:
+		var goldIncomePerSecond = factory_manager.get_gold_income_from_factories();
+		gold += goldIncomePerSecond
+		timeToIncome = 1;
+		ui_manager.updateHUD(gold, goldIncomePerSecond)
 		
-	timeSinceStart += delta
-
+	timeToIncome -= delta
 	
 func connectClickable(clickable : Clickable):
 	clickable.hovered.connect(_on_clickable_hovered)
