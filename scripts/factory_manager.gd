@@ -7,6 +7,7 @@ extends Node2D
 var factories: Array[Factory]
 
 signal factoryCreated
+signal gameOver
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -23,3 +24,7 @@ func createFactory(position: Vector2) -> void:
 	add_child(factory)
 	factories.append(factory)
 	factoryCreated.emit()
+	factory.factoryDead.connect(_on_factory_dead)
+
+func _on_factory_dead():
+	gameOver.emit()

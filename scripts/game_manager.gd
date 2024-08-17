@@ -18,13 +18,13 @@ var _spawns_quantity: float # For tracking the quantity
 
 # for now just let game manager start with ready
 func _ready() -> void:
-	
 	# create and add the generator
 	generator = generatorPackedScene.instantiate() as Generator
 	generator.position = DisplayServer.screen_get_size() / 2
 	connectClickable(generator)
 	add_child(generator)
 	factory_manager.factoryCreated.connect(_on_factory_created)
+	factory_manager.gameOver.connect(_on_game_over)
 	pylon_manager.pylonCreated.connect(_on_pylon_created)
 	
 func _process(delta: float) -> void:
@@ -58,6 +58,9 @@ func _on_pylon_created(pylon : Pylon):
 		#TODO optim func to update only a given pylon connectivity
 		cable_manager.updateFactoryConnectivity(pylon_manager.pylons, factory_manager.factories)
 		cable_manager.connectClickable(selectedClickable, pylon)
+		
+func _on_game_over():
+	get_tree().reload_current_scene()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("select"):
