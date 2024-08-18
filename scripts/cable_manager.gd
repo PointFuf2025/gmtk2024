@@ -5,11 +5,12 @@ extends Node2D
 
 var cableArray: Array[Cable]
 
-func updateFactoryConnectivity(pylons : Array[Pylon], factories : Array[Factory]):
+func updateFactoryConnectivity(pylons : Array[Pylon], factories : Array[Factory], max_distance_to_connect : float):
 	var cable : Cable
 	for pylon in pylons:
 		for factory in factories:
-			var isInside: bool = pylon.global_position.distance_to(factory.global_position) < pylon.radius
+			var distance = pylon.global_position.distance_to(factory.global_position)
+			var isInside: bool = distance < max_distance_to_connect
 			if isInside && !factory.isConnected: 
 				cable = cablePackedScene.instantiate()
 				cable.connectCable(pylon.global_position, factory.global_position)

@@ -6,23 +6,25 @@ signal hovered(clickable : Clickable, isHovered : bool)
 
 @export var area2d : Area2D
 @export var colorTheme : ColorTheme
-
-
+@export var radius: float
 
 var isSelected : bool :
 	set (value):
 		isSelected = value
 		updateColor()
+		queue_redraw()
 		
 var isHovered : bool :
 	set (value):
 		isHovered = value
 		updateColor()
+		queue_redraw()
 
 var isConnected : bool :
 	set (value):
 		isConnected = value
 		updateColor()
+		queue_redraw()
 
 func updateColor() -> void:
 	
@@ -39,6 +41,7 @@ func updateColor() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	super._ready()
 	area2d.mouse_entered.connect(_on_mouse_entered)
 	area2d.mouse_exited.connect(_on_mouse_exited)
 
@@ -51,3 +54,8 @@ func  _on_mouse_exited() -> void:
 	print("clickable: stop hovered")
 	isHovered = false
 	hovered.emit(self, false)
+	
+func _draw() -> void:
+	if isHovered || isSelected:
+		draw_circle(Vector2.ZERO, radius, colorTheme.RadiusFillColor, true)
+		draw_circle(Vector2.ZERO, radius, colorTheme.RadiusStrokeColor, false)

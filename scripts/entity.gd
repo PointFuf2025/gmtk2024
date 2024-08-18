@@ -9,11 +9,17 @@ var state : STATE
 var elapsedTime : float
 var randomOffsetForAnimation : float
 
+@export var audioStreamPlayer : AudioStreamPlayer
+@export var spawnSoundEffect : AudioStream
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	state = STATE.FADE_IN
 	scale = Vector2.ZERO;
 	randomOffsetForAnimation = randf_range(0, 10)
+	if spawnSoundEffect != null:
+		audioStreamPlayer.stream = spawnSoundEffect
+		audioStreamPlayer.play()
 
 func _process(delta: float) -> void:
 	elapsedTime += delta

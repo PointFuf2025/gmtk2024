@@ -54,19 +54,28 @@ func _on_backgroundMusicPlayer_finished():
 	playSelectedMusic()
 
 func _on_turretButton_toggled(state : bool):
-	if state:
-		mode = MODE.TURRET
-		ModeChanged.emit();
+	updateMode()
 	
 func _on_pylonButton_toggled(state : bool):
-	if state:
-		mode = MODE.PYLON
-		ModeChanged.emit();
+	updateMode()
 
 func _on_factoryButton_toggled(state : bool):
-	if state:
+	updateMode()
+
+func updateMode():
+	var previousMode = mode
+	
+	if turretButton.button_pressed:
+		mode = MODE.TURRET
+	elif pylonButtton.button_pressed:
+		mode = MODE.PYLON
+	elif factoryButton.button_pressed:
 		mode = MODE.FACTORY
-		ModeChanged.emit();
+	else:
+		mode = MODE.NONE 
+		
+	if mode != previousMode:
+		ModeChanged.emit()
 
 func playSelectedMusic():
 	var selectedMusic = backgroundMusics[backgroundMusicIndex]

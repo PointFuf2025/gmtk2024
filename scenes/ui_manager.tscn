@@ -150,7 +150,6 @@ modulate = Color(0, 1, 0, 1)
 custom_minimum_size = Vector2(128, 48)
 layout_mode = 2
 toggle_mode = true
-button_pressed = true
 action_mode = 0
 button_group = ExtResource("20_lis6x")
 text = "pylon"

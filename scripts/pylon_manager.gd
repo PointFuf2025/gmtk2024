@@ -2,16 +2,15 @@ class_name Pylon_manager
 extends Node2D
 
 @export var pylgonPackedScene : PackedScene
-@export var pylonRadius : float
 
 var pylons : Array[Pylon]
 
 signal pylonCreated(pylon : Pylon)
 
-func createPylon(position : Vector2) -> void:
+func createPylon(position : Vector2, max_distance_to_connect : float) -> void:
 	var newPylon = pylgonPackedScene.instantiate() as Pylon;
 	newPylon.position = position
-	newPylon.radius = pylonRadius
+	newPylon.radius = max_distance_to_connect
 	pylons.append(newPylon)		
 	add_child(newPylon)
 	pylonCreated.emit(newPylon)

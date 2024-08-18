@@ -2,10 +2,6 @@ class_name Pylon
 extends Clickable
 
 @export var strokeColor: Color
-@export var radius: float
-
-@export var audioStreamPlayer : AudioStreamPlayer
-@export var spawnSoundEffect : AudioStream
 
 signal pylonCreated
 
@@ -15,18 +11,9 @@ func _ready() -> void:
 	super._ready()
 	pylonCreated.emit()
 	isConnected = false;
-	audioStreamPlayer.stream = spawnSoundEffect
-	audioStreamPlayer.play()
 
-func _draw() -> void:
-	if isHovered:
-		draw_circle(Vector2.ZERO, radius, colorTheme.RadiusFillColor, true)
-		draw_circle(Vector2.ZERO, radius, colorTheme.RadiusStrokeColor, false)
-	
 func _on_mouse_entered() -> void:
 	super._on_mouse_entered()
-	queue_redraw()
 
 func _on_mouse_exited() -> void:
 	super._on_mouse_exited()
-	queue_redraw()

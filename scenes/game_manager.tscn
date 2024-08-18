@@ -17,16 +17,21 @@ max_value = 6.0
 _data = [Vector2(0, 6), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[node name="GameManager" type="Node2D" node_paths=PackedStringArray("factory_manager", "cable_manager", "pylon_manager", "ui_manager", "ghost_pylon")]
+[node name="GameManager" type="Node2D" node_paths=PackedStringArray("factory_manager", "cable_manager", "pylon_manager", "ui_manager", "camera", "ghost_pylon")]
 script = ExtResource("1_7vy8g")
 generatorPackedScene = ExtResource("2_2nq7v")
 factory_manager = NodePath("FactoryManager")
 cable_manager = NodePath("CableManager")
 pylon_manager = NodePath("PylonManager")
 ui_manager = NodePath("UIManager")
+camera = NodePath("Camera")
 spawnRange_startingValue = 1000.0
 spawnRange_increasePerSecond = 50.0
 factorySpawnIntervallOverTime = SubResource("Curve_jgp5n")
+max_distance_to_connect = 500.0
+pylon_price = 5
+turret_price = 20
+factory_price = 10
 ghost_pylon = NodePath("ghostPylon")
 
 [node name="Camera" parent="." instance=ExtResource("6_mfnfh")]
@@ -40,7 +45,6 @@ cablePackedScene = ExtResource("4_8fyyd")
 [node name="PylonManager" type="Node2D" parent="."]
 script = ExtResource("8_oiwh0")
 pylgonPackedScene = ExtResource("3_tv0oi")
-pylonRadius = 300.0
 
 [node name="FactoryManager" type="Node2D" parent="."]
 script = ExtResource("6_l8cqi")

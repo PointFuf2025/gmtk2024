@@ -7,15 +7,14 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d5k8n"]
 
-[node name="Pylon" type="Node2D" node_paths=PackedStringArray("audioStreamPlayer", "area2d", "sprite")]
+[node name="Pylon" type="Node2D" node_paths=PackedStringArray("area2d", "sprite", "audioStreamPlayer")]
 script = ExtResource("1_bdx5q")
 strokeColor = Color(0, 1, 0, 1)
-radius = 500.0
-audioStreamPlayer = NodePath("AudioStreamPlayer")
-spawnSoundEffect = ExtResource("2_lttoq")
 area2d = NodePath("Area2D")
 colorTheme = ExtResource("2_bwtvn")
 sprite = NodePath("Sprite2D")
+audioStreamPlayer = NodePath("AudioStreamPlayer")
+spawnSoundEffect = ExtResource("2_lttoq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visibility_layer = 2

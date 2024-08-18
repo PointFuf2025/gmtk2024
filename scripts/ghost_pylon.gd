@@ -1,6 +1,11 @@
 class_name Ghost_Pylon
 extends Node2D
 
+@export var sprite : Sprite2D
+@export var pylonSprite : Texture2D
+@export var turretSprite : Texture2D
+@export var factorySprite : Texture2D
+
 var clickablePosition
 var color
 var shouldDraw : bool = false
@@ -13,19 +18,29 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	timeElapsed += delta
 	
-func update(fromPosition : Vector2, cursorPosition : Vector2, canPlace : bool):
+func update(fromPosition : Vector2, cursorPosition : Vector2, mode : UIManager.MODE, canPlace : bool):
 	shouldDraw = true
 	visible = true
-	if canPlace:
-		color = Color.WHITE
-		color.a = 0.5
-	else:
-		color = Color.RED
-		color.a = 0.5
+	
+	sprite.texture = get_texture_for_mode(mode)
+	
+	color = Color.WHITE if canPlace else Color.RED
+	color.a = 0.5
+		
 	modulate = color
 	clickablePosition = fromPosition
 	position = cursorPosition
 	queue_redraw()	
+
+func get_texture_for_mode(mode : UIManager.MODE) -> Texture2D:
+	match mode:
+		UIManager.MODE.PYLON:
+			return pylonSprite
+		UIManager.MODE.FACTORY:
+			return factorySprite
+		UIManager.MODE.TURRET:
+			return turretSprite
+	return null
 
 func showGhost():
 	shouldDraw = true

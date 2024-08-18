@@ -33,7 +33,6 @@ func createFactory(position: Vector2) -> void:
 	add_child(factory)
 	factories.append(factory)
 	factoryCreated.emit()
-	factory.factoryDead.connect(_on_factory_dead)
 
 func _on_factory_dead():
 	gameOver.emit()
