@@ -31,7 +31,9 @@ func updateCables(generator : Generator, pylons : Array[Pylon], factories : Arra
 			var isInRange: bool = distance < max_distance_to_connect
 			if isInRange: 
 				var cable = get_or_create_cable(cableIndex)
+				
 				disconnectedBuilding.setParent(energyProvider)
+				
 				cable.connectCable(energyProvider.global_position, disconnectedBuilding.global_position)
 				cableIndex+=1
 				

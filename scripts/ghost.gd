@@ -5,11 +5,13 @@ extends Node2D
 @export var pylonSprite : Texture2D
 @export var turretSprite : Texture2D
 @export var factorySprite : Texture2D
+@export var colorTheme : ColorTheme
 
 var clickablePosition
 var color
 var shouldDraw : bool = false
 var timeElapsed = 0
+var radius : float
 
 func _ready() -> void:
 	visible = false
@@ -18,9 +20,11 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	timeElapsed += delta
 	
-func update(fromPosition : Vector2, cursorPosition : Vector2, mode : UIManager.MODE, canPlace : bool):
+func update(fromPosition : Vector2, cursorPosition : Vector2, mode : UIManager.MODE, canPlace : bool, radius : float):
 	shouldDraw = true
 	visible = true
+	
+	self.radius = radius
 	
 	sprite.texture = get_texture_for_mode(mode)
 	
@@ -54,3 +58,5 @@ func _draw() -> void:
 	if shouldDraw:
 		var dashLength = 5 + 5 * (floori(timeElapsed * 5) % 3 + 1)
 		draw_dashed_line(Vector2.ZERO, clickablePosition - position, color, 10, dashLength)
+		#draw_circle(Vector2.ZERO, radius, colorTheme.RadiusFillColor, true)
+		#draw_circle(Vector2.ZERO, radius, colorTheme.RadiusStrokeColor, false)

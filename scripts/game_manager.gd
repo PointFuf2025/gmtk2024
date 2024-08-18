@@ -29,6 +29,7 @@ var enemySpawnRange : float
 
 @export_group("Entity") 
 @export var max_distance_to_connect : float
+@export var minimal_distance_between_building : float
 @export var pylon_price : int
 @export var turret_price : int
 @export var factory_price : int
@@ -45,7 +46,6 @@ var gold : float
 
 var generator : Generator
 var hoveredClickable : ClickableBuilding
-var selectedClickable : ClickableBuilding
 			
 # for now just let game manager start with ready
 func _ready() -> void:
@@ -74,7 +74,6 @@ func _ready() -> void:
 	
 	generator.generatorDestroyed.connect(_on_generator_destroyed)
 	
-	ui_manager.ModeChanged.connect(_on_mode_changed)
 	ui_manager.setTurretPrices(turret_price, pylon_price, factory_price)
 	
 	for i in range(factoryCountAtStart):
@@ -95,9 +94,9 @@ func _process(delta: float) -> void:
 	process_enemy_spawn(delta)
 	process_factory_income(delta)
 	
-	if selectedClickable != null && ui_manager.mode != UIManager.MODE.NONE:
+	if ui_manager.mode != UIManager.MODE.NONE:
 		var canPlace = can_place_in_current_mode()
-		ghost_pylon.update(selectedClickable.position, get_global_mouse_position(), ui_manager.mode, canPlace)
+		ghost_pylon.update(get_global_mouse_position(), get_global_mouse_position(), ui_manager.mode, canPlace, max_distance_to_connect)
 	else:
 		ghost_pylon.hideGhost()
 		
@@ -148,19 +147,37 @@ func process_factory_income(delta : float) -> void:
 	timeToIncome -= delta
 	
 func can_place_in_current_mode() -> bool:
-	var mousePosition = get_global_mouse_position()
-	
-	if (mousePosition.distance_to(selectedClickable.position) > max_distance_to_connect):
-		return false
-	
 	match ui_manager.mode:
 		UIManager.MODE.FACTORY:
-			return gold >= factory_price
+			if gold < factory_price:
+				return false
+				
 		UIManager.MODE.PYLON:	
-			return gold >= pylon_price
+			if gold < pylon_price:
+				return false
+				
 		UIManager.MODE.TURRET:
-			return gold >= turret_price	
-	return false
+			if gold < turret_price:
+				return false
+	
+	var mousePosition = get_global_mouse_position()
+	
+	if generator.global_position.distance_to(mousePosition) < minimal_distance_between_building:
+			return false
+			
+	for pylon in pylon_manager.pylons:
+		if pylon.global_position.distance_to(mousePosition) < minimal_distance_between_building:
+			return false
+
+	for turret in turret_manager.turrets:
+		if turret.global_position.distance_to(mousePosition) < minimal_distance_between_building:
+			return false
+	
+	for factory in factory_manager.factories:
+		if factory.global_position.distance_to(mousePosition) < minimal_distance_between_building:
+			return false
+			
+	return true
 	
 func connectClickable(clickable : ClickableBuilding):
 	clickable.hovered.connect(_on_clickable_hovered)
@@ -196,60 +213,30 @@ func _on_generator_destroyed():
 	#TODO game over
 	get_tree().reload_current_scene()
 		
-func _on_mode_changed():
-	if ui_manager.mode == UIManager.MODE.NONE:
-			selectClickable(null)
-		
-func _on_game_over():
-	pass
-	#get_tree().reload_current_scene()
-
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("select"):
 		var mousePosition = get_global_mouse_position();
 		
 		if ui_manager.mode != UIManager.MODE.NONE:
-			if hoveredClickable != null:
-				selectClickable(hoveredClickable)
-			
-			elif selectedClickable != null:
+			if !can_place_in_current_mode():
+				return	
 				
-				if !can_place_in_current_mode():
-					return	
+		match ui_manager.mode:
+			UIManager.MODE.PYLON:
+				pylon_manager.createPylon(mousePosition, max_distance_to_connect)
+				gold -= pylon_price
+				ui_manager.updateHUD(gold, factory_manager.get_gold_income_from_factories())
 				
-				match ui_manager.mode:
-					UIManager.MODE.PYLON:
-						pylon_manager.createPylon(mousePosition, max_distance_to_connect)
-						gold -= pylon_price
-						selectClickable(null)
-						ui_manager.updateHUD(gold, factory_manager.get_gold_income_from_factories())
-						
-					UIManager.MODE.FACTORY:
-						factory_manager.createFactory(mousePosition)
-						gold -= factory_price
-						selectClickable(null)
-						ui_manager.updateHUD(gold, factory_manager.get_gold_income_from_factories())
-						
-					UIManager.MODE.TURRET:
-						turret_manager.createTurret(mousePosition, enemy_manager.enemies)
-						gold -= turret_price
-						selectClickable(null)
-						ui_manager.updateHUD(gold, factory_manager.get_gold_income_from_factories())
+			UIManager.MODE.FACTORY:
+				factory_manager.createFactory(mousePosition)
+				gold -= factory_price
+				ui_manager.updateHUD(gold, factory_manager.get_gold_income_from_factories())
+				
+			UIManager.MODE.TURRET:
+				turret_manager.createTurret(mousePosition, enemy_manager.enemies)
+				gold -= turret_price
+				ui_manager.updateHUD(gold, factory_manager.get_gold_income_from_factories())
 			
 	elif event.is_action_pressed("cancel"):
-		selectClickable(null)
-
-func selectClickable(newSelectedClickable: ClickableBuilding) -> void:
-		if newSelectedClickable == selectedClickable:
-			return
-	
-		if newSelectedClickable == null:
-			if selectedClickable != null:
-				selectedClickable.isSelected = false
-				selectedClickable = null	
-		else:
-			if selectedClickable != null:
-				selectedClickable.isSelected = false
-				selectedClickable = null
-			selectedClickable = newSelectedClickable
-			selectedClickable.isSelected = true
+		ui_manager.mode = UIManager.MODE.NONE
+		ui_manager.ModeChanged.emit()

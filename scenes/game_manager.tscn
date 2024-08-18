@@ -45,6 +45,7 @@ enemySpawnRangeGainPerSecond = 50.0
 enemySpawnIntervallOverTime = SubResource("Curve_chti4")
 enemySpawnIntervallMultiplierOverTime = SubResource("Curve_lxkex")
 max_distance_to_connect = 500.0
+minimal_distance_between_building = 125.0
 pylon_price = 5
 turret_price = 20
 factory_price = 10

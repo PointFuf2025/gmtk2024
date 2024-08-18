@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://ccpkrhlbfepvo"]
+[gd_scene load_steps=6 format=3 uid="uid://ccpkrhlbfepvo"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_yeyeg"]
 [ext_resource type="AudioStream" uid="uid://c0cqqk8xmyq5p" path="res://sounds/enemy-1.wav" id="2_bb638"]
+[ext_resource type="AudioStream" uid="uid://ecnkg1g5gwjc" path="res://sounds/building-placing.wav" id="2_vdp2m"]
 [ext_resource type="Texture2D" uid="uid://dpbg38t0hnqqd" path="res://sprites/enemy.svg" id="2_vr7fp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ur6y"]
@@ -15,7 +16,7 @@ deathTimer = NodePath("Timer")
 healthPoints = 3
 sprite = NodePath("Sprite2D")
 audioStreamPlayer = NodePath("AudioStreamPlayer")
-spawnSoundEffect = ExtResource("2_bb638")
+spawnSoundEffect = ExtResource("2_vdp2m")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0.87451, 0, 0, 1)

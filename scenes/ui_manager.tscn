@@ -22,7 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://dff87jjywkdml" path="res://sprites/ui_pylon.svg" id="14_tdx3j"]
 [ext_resource type="AudioStream" uid="uid://dn2cr25q2ka34" path="res://musics/dodehav - slime friends.mp3" id="15_3dxpe"]
 [ext_resource type="Texture2D" uid="uid://oht0htciq65i" path="res://sprites/ui_factory.svg" id="15_qulxs"]
-[ext_resource type="ButtonGroup" path="res://buttonGroup.tres" id="20_lis6x"]
+[ext_resource type="ButtonGroup" uid="uid://dihtt07nuyhfe" path="res://buttonGroup.tres" id="20_lis6x"]
 
 [node name="UIManager" type="CanvasLayer" node_paths=PackedStringArray("goldLabel", "gainPerSecondLabel", "musicNameLabel", "previousMusicButton", "nextMusicButton", "turretButton", "pylonButtton", "factoryButton", "backgroundMusicPlayer")]
 script = ExtResource("1_uuk0i")
@@ -97,19 +97,23 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Previous" type="Button" parent="RadioPanel/MarginContainer/HBoxContainer"]
+modulate = Color(0, 1, 0, 1)
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 icon = ExtResource("5_2hb0n")
+flat = true
 
 [node name="MusicName" type="Label" parent="RadioPanel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "liv - dodehav"
 
 [node name="Next" type="Button" parent="RadioPanel/MarginContainer/HBoxContainer"]
+modulate = Color(0, 1, 0, 1)
 layout_mode = 2
 icon = ExtResource("5_q1elf")
+flat = true
 
 [node name="ModeContainer" type="PanelContainer" parent="."]
 anchors_preset = 7
@@ -157,6 +161,7 @@ text = "pylon"
 icon = ExtResource("14_tdx3j")
 
 [node name="FactoryButton" type="Button" parent="ModeContainer/MarginContainer/HBoxContainer"]
+visible = false
 modulate = Color(1, 1, 0, 1)
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cgfbpgn23rcja"]
+[gd_scene load_steps=6 format=3 uid="uid://cgfbpgn23rcja"]
 
 [ext_resource type="Script" path="res://scripts/ghost.gd" id="1_pd2a1"]
 [ext_resource type="Texture2D" uid="uid://l701cubyu71p" path="res://sprites/pylon.svg" id="2_k4lth"]
 [ext_resource type="Texture2D" uid="uid://dg6dg3xeyl2l1" path="res://sprites/turret.svg" id="3_f8nol"]
 [ext_resource type="Texture2D" uid="uid://2o4simownmqy" path="res://sprites/factory.svg" id="4_pueek"]
+[ext_resource type="Resource" uid="uid://coi7hhl65184t" path="res://color_theme/default_color_theme.tres" id="5_wuh0k"]
 
 [node name="Ghost" type="Node2D" node_paths=PackedStringArray("sprite")]
 visibility_layer = 2
@@ -12,6 +13,7 @@ sprite = NodePath("Sprite2D")
 pylonSprite = ExtResource("2_k4lth")
 turretSprite = ExtResource("3_f8nol")
 factorySprite = ExtResource("4_pueek")
+colorTheme = ExtResource("5_wuh0k")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visibility_layer = 2
