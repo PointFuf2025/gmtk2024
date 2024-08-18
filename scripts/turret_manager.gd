@@ -23,6 +23,6 @@ func _on_turret_destroyed(building : Building):
 	var turret = building as Turret
 	
 	turrets.erase(turret)
-	remove_child(turret)
-	
+	#remove_child(turret)
+	turret.queue_free()
 	turretDestroyed.emit()

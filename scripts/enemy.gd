@@ -21,7 +21,10 @@ func _ready() -> void:
 	
 func _process(delta: float) -> void:
 	super._process(delta)
+	if target == null:
+		update_target()
 	var direction = (target.position - position).normalized()
+		
 	sprite.flip_h = direction.x < 0;
 	position +=  direction * movementSpeed * delta
 	

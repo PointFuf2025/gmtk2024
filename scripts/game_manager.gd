@@ -55,6 +55,8 @@ func _ready() -> void:
 	turret_manager.turretCreated.connect(_on_turret_created)
 	turret_manager.turretDestroyed.connect(_on_turret_destroyed)
 	
+	generator.generatorDestroyed.connect(_on_generator_destroyed)
+	
 	ui_manager.ModeChanged.connect(_on_mode_changed)
 	ui_manager.setTurretPrices(turret_price, pylon_price, factory_price)
 	spawnRange = spawnRange_startingValue
@@ -140,6 +142,10 @@ func _on_turret_created():
 		
 func _on_turret_destroyed():
 	cable_manager.updateCables(generator, pylon_manager.pylons, factory_manager.factories, turret_manager.turrets, max_distance_to_connect)
+
+func _on_generator_destroyed():
+	#TODO game over
+	get_tree().reload_current_scene()
 		
 func _on_mode_changed():
 	if ui_manager.mode == UIManager.MODE.NONE:

@@ -20,5 +20,6 @@ func createPylon(position : Vector2, max_distance_to_connect : float) -> void:
 func _on_pylon_destoyed(building : Building):
 	var pylon = building as Pylon
 	pylons.erase(pylon)
-	remove_child(pylon)
+	#remove_child(pylon)
+	pylon.queue_free()
 	pylonDestroyed.emit()
