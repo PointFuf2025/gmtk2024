@@ -56,6 +56,7 @@ func _ready() -> void:
 	turret_manager.turretDestroyed.connect(_on_turret_destroyed)
 	
 	ui_manager.ModeChanged.connect(_on_mode_changed)
+	ui_manager.setTurretPrices(turret_price, pylon_price, factory_price)
 	spawnRange = spawnRange_startingValue
 	timeSinceStart = 0
 	camera.position = generator.position

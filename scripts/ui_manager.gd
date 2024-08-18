@@ -77,6 +77,11 @@ func updateMode():
 	if mode != previousMode:
 		ModeChanged.emit()
 
+func setTurretPrices(towerPrice: int, pylonPrice: int, factoryPrice: int):
+	turretButton.text = "Tower \n (" + str(towerPrice) + ")"
+	pylonButtton.text = "Pylon \n (" + str(pylonPrice) + ")"
+	factoryButton.text = "Factory \n (" + str(factoryPrice) + ")"
+
 func playSelectedMusic():
 	var selectedMusic = backgroundMusics[backgroundMusicIndex]
 	

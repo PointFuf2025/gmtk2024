@@ -6,6 +6,8 @@ extends Building
 @export var reloadDuration : float
 @export var colorTheme : ColorTheme
 
+@export var projectilePackedScene : PackedScene
+
 var reloadTimeLeft = 0;
 
 var enemies : Array[Enemy]
@@ -34,7 +36,10 @@ func _process(delta: float) -> void:
 				nearestEnemyDistance = enemyDistance
 		
 		if nearestEnemy != null:
-			nearestEnemy.destroy()
+			var projectile = projectilePackedScene.instantiate() as Projectile
+			projectile.direction = nearestEnemy.position - position
+			add_child(projectile)
+			#nearestEnemy.destroy()
 			reloadTimeLeft = reloadDuration
 		
 	reloadTimeLeft -= delta

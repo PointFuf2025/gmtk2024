@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://0tp2m7j85qhc" path="res://scenes/camera.tscn" id="6_mfnfh"]
 [ext_resource type="Script" path="res://scripts/cable_manager.gd" id="7_4m8fx"]
 [ext_resource type="Script" path="res://scripts/pylon_manager.gd" id="8_oiwh0"]
-[ext_resource type="PackedScene" uid="uid://cosb6bq74bgox" path="res://scenes/enemy_manager.tscn" id="10_pmeqg"]
+[ext_resource type="PackedScene" path="res://scenes/enemy_manager.tscn" id="10_pmeqg"]
 [ext_resource type="PackedScene" path="res://scenes/ghost.tscn" id="10_v1b84"]
 [ext_resource type="PackedScene" path="res://scenes/turret_manager.tscn" id="11_1lgf8"]
 [ext_resource type="PackedScene" uid="uid://c67bw55mxufqj" path="res://scenes/ui_manager.tscn" id="11_r5h8c"]
@@ -36,7 +36,7 @@ max_distance_to_connect = 500.0
 pylon_price = 5
 turret_price = 20
 factory_price = 10
-ghost_pylon = NodePath("Ghost")
+ghost_pylon = NodePath("ghost")
 
 [node name="Camera" parent="." instance=ExtResource("6_mfnfh")]
 position_smoothing_enabled = true
@@ -59,6 +59,6 @@ goldIncomeByFactory = 1
 
 [node name="TurretManager" parent="." instance=ExtResource("11_1lgf8")]
 
-[node name="Ghost" parent="." instance=ExtResource("10_v1b84")]
+[node name="ghost" parent="." instance=ExtResource("10_v1b84")]
 
 [node name="UIManager" parent="." instance=ExtResource("11_r5h8c")]
