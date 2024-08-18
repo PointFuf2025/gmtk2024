@@ -49,9 +49,11 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	process_factory_spawn(delta)
 	process_factory_income(delta)
-	timeSinceStart += delta
+	
 	if ghost_pylon.visible == true && selectedClickable != null:
 		ghost_pylon.update(selectedClickable.position, get_global_mouse_position(), true)
+		
+	timeSinceStart += delta
 
 func process_factory_spawn(delta : float) -> void:
 	spawnRange += spawnRange_increasePerSecond * delta	
@@ -103,9 +105,12 @@ func _input(event: InputEvent) -> void:
 		
 		if hoveredClickable != null:
 			selectClickable(hoveredClickable)
+			
 		elif selectedClickable != null:
-			pylon_manager.createPylon(mousePosition)
-			selectClickable(null)
+			match ui_manager.mode:
+				UIManager.MODE.PYLON:
+					pylon_manager.createPylon(mousePosition)
+					selectClickable(null)
 			
 	elif event.is_action_pressed("cancel"):
 		selectClickable(null)

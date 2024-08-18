@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://c67bw55mxufqj"]
+[gd_scene load_steps=24 format=3 uid="uid://c67bw55mxufqj"]
 
 [ext_resource type="Script" path="res://scripts/ui_manager.gd" id="1_uuk0i"]
 [ext_resource type="Theme" uid="uid://dew262uvu1bmk" path="res://theme/ui_theme.tres" id="2_1mrnx"]
@@ -22,21 +22,18 @@
 [ext_resource type="Texture2D" uid="uid://dff87jjywkdml" path="res://sprites/ui_pylon.svg" id="14_tdx3j"]
 [ext_resource type="AudioStream" uid="uid://dn2cr25q2ka34" path="res://musics/dodehav - slime friends.mp3" id="15_3dxpe"]
 [ext_resource type="Texture2D" uid="uid://oht0htciq65i" path="res://sprites/ui_factory.svg" id="15_qulxs"]
+[ext_resource type="ButtonGroup" uid="uid://dihtt07nuyhfe" path="res://buttonGroup.tres" id="20_lis6x"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_ranrv"]
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_nf388"]
-allow_unpress = true
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_ub7q5"]
-
-[node name="UIManager" type="CanvasLayer" node_paths=PackedStringArray("goldLabel", "gainPerSecondLabel", "musicNameLabel", "previousMusicButton", "nextMusicButton", "backgroundMusicPlayer")]
+[node name="UIManager" type="CanvasLayer" node_paths=PackedStringArray("goldLabel", "gainPerSecondLabel", "musicNameLabel", "previousMusicButton", "nextMusicButton", "turretButton", "pylonButtton", "factoryButton", "backgroundMusicPlayer")]
 script = ExtResource("1_uuk0i")
 goldLabel = NodePath("ResourcePanel/MarginContainer/HBoxContainer/GoldLabel")
 gainPerSecondLabel = NodePath("ResourcePanel/MarginContainer/HBoxContainer/GoldPerSecondLabel")
 musicNameLabel = NodePath("RadioPanel/MarginContainer/HBoxContainer/MusicName")
 previousMusicButton = NodePath("RadioPanel/MarginContainer/HBoxContainer/Previous")
 nextMusicButton = NodePath("RadioPanel/MarginContainer/HBoxContainer/Next")
+turretButton = NodePath("ModeContainer/MarginContainer/HBoxContainer/TurretButton")
+pylonButtton = NodePath("ModeContainer/MarginContainer/HBoxContainer/PylonButton")
+factoryButton = NodePath("ModeContainer/MarginContainer/HBoxContainer/FactoryButton")
 backgroundMusics = Array[AudioStream]([ExtResource("2_aranx"), ExtResource("5_3km6j"), ExtResource("4_lyc3f"), ExtResource("5_2lqpk"), ExtResource("6_im84j"), ExtResource("7_3r2pj"), ExtResource("8_p0q6r"), ExtResource("9_kfh1w"), ExtResource("10_6um4e"), ExtResource("11_25ug7"), ExtResource("12_wvbx4"), ExtResource("13_d75le"), ExtResource("14_ap1np"), ExtResource("15_3dxpe")])
 backgroundMusicPlayer = NodePath("AudioStreamPlayer")
 
@@ -114,7 +111,6 @@ layout_mode = 2
 icon = ExtResource("5_q1elf")
 
 [node name="ModeContainer" type="PanelContainer" parent="."]
-visible = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -140,32 +136,33 @@ theme_override_constants/margin_bottom = 16
 layout_mode = 2
 alignment = 1
 
-[node name="Button" type="Button" parent="ModeContainer/MarginContainer/HBoxContainer"]
+[node name="TurretButton" type="Button" parent="ModeContainer/MarginContainer/HBoxContainer"]
 modulate = Color(0.184314, 1, 1, 1)
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 toggle_mode = true
-button_group = SubResource("ButtonGroup_ranrv")
+button_group = ExtResource("20_lis6x")
 text = "tower"
 icon = ExtResource("14_71fu3")
 
-[node name="Button2" type="Button" parent="ModeContainer/MarginContainer/HBoxContainer"]
+[node name="PylonButton" type="Button" parent="ModeContainer/MarginContainer/HBoxContainer"]
 modulate = Color(0, 1, 0, 1)
 custom_minimum_size = Vector2(128, 48)
 layout_mode = 2
 toggle_mode = true
+button_pressed = true
 action_mode = 0
-button_group = SubResource("ButtonGroup_nf388")
+button_group = ExtResource("20_lis6x")
 text = "pylon"
 icon = ExtResource("14_tdx3j")
 
-[node name="Button3" type="Button" parent="ModeContainer/MarginContainer/HBoxContainer"]
+[node name="FactoryButton" type="Button" parent="ModeContainer/MarginContainer/HBoxContainer"]
 modulate = Color(1, 1, 0, 1)
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
-button_group = SubResource("ButtonGroup_ub7q5")
+button_group = ExtResource("20_lis6x")
 text = "factory"
 icon = ExtResource("15_qulxs")
 

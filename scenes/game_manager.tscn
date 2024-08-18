@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://diu20lrnhwef7" path="res://scenes/generator.tscn" id="2_2nq7v"]
 [ext_resource type="PackedScene" uid="uid://ctnskxjhg50sx" path="res://scenes/pylon.tscn" id="3_tv0oi"]
 [ext_resource type="PackedScene" uid="uid://c8qyehf7q47g4" path="res://scenes/cable.tscn" id="4_8fyyd"]
-[ext_resource type="PackedScene" uid="uid://bvm5m228pp14l" path="res://scenes/house.tscn" id="5_x0ct0"]
+[ext_resource type="PackedScene" uid="uid://bvm5m228pp14l" path="res://scenes/factory.tscn" id="5_x0ct0"]
 [ext_resource type="Script" path="res://scripts/factory_manager.gd" id="6_l8cqi"]
 [ext_resource type="PackedScene" uid="uid://0tp2m7j85qhc" path="res://scenes/camera.tscn" id="6_mfnfh"]
 [ext_resource type="Script" path="res://scripts/cable_manager.gd" id="7_4m8fx"]

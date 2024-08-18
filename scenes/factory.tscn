@@ -1,17 +1,17 @@
 [gd_scene load_steps=4 format=3 uid="uid://bvm5m228pp14l"]
 
-[ext_resource type="Script" path="res://scripts/factory.gd" id="1_mqvl7"]
-[ext_resource type="Resource" uid="uid://coi7hhl65184t" path="res://color_theme/default_color_theme.tres" id="2_5xvy5"]
+[ext_resource type="Script" path="res://scripts/factory.gd" id="1_pb0hv"]
+[ext_resource type="Resource" uid="uid://coi7hhl65184t" path="res://color_theme/default_color_theme.tres" id="2_70pic"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gvabd"]
 load_path = "res://.godot/imported/factory.svg-9fdd390ce3858d0c85c27e367eac8afd.ctex"
 
 [node name="House" type="Node2D" node_paths=PackedStringArray("powerGauge", "sprite")]
-script = ExtResource("1_mqvl7")
+script = ExtResource("1_pb0hv")
 powerGauge = NodePath("BackgroundPowerGauge/PowerGauge")
 startingPower = 20
+colorTheme = ExtResource("2_70pic")
 sprite = NodePath("Sprite2D")
-colorTheme = ExtResource("2_5xvy5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visibility_layer = 2

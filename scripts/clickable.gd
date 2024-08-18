@@ -1,13 +1,13 @@
 class_name Clickable
 
-extends Node2D
+extends Entity
 
 signal hovered(clickable : Clickable, isHovered : bool)
 
 @export var area2d : Area2D
 @export var colorTheme : ColorTheme
 
-@export var sprite : Sprite2D
+
 
 var isSelected : bool :
 	set (value):

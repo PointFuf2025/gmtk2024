@@ -1,9 +1,9 @@
 class_name Factory
-extends Node2D
+
+extends Entity
 
 @export var powerGauge: Node2D
 @export var startingPower : int
-@export var sprite : Sprite2D
 @export var colorTheme : ColorTheme
 
 var power : float
@@ -24,7 +24,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	#TODO global var powerLossPerSecond
+	super._process(delta)
+	
 	powerGauge.get_parent().visible = !isConnected
 	if !isConnected:
 		decreasePower(delta)

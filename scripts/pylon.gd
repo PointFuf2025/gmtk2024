@@ -17,10 +17,6 @@ func _ready() -> void:
 	isConnected = false;
 	audioStreamPlayer.stream = spawnSoundEffect
 	audioStreamPlayer.play()
-	scale = Vector2.ZERO;
-
-func _process(delta: float) -> void:
-	scale = (scale + 0.1 * Vector2.ONE).clamp(Vector2.ZERO, Vector2.ONE)
 
 func _draw() -> void:
 	if isHovered:
