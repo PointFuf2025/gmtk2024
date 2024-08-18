@@ -1,7 +1,7 @@
 class_name Entity
 extends Node2D
 
-enum STATE { FADE_IN, IDLE }
+enum STATE { FADE_IN, IDLE, DEAD }
 
 @export var sprite : Sprite2D
 

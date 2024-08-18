@@ -21,9 +21,11 @@ extends Node2D
 
 @export_group("Enemy") 
 @export var isEnemyEnabled : bool
-@export var spawnRange_startingValue : float
-@export var spawnRange_increasePerSecond : float
-@export var factorySpawnIntervallOverTime : Curve
+@export var enemySpawnRangeBase : float
+@export var enemySpawnRangeGainPerSecond : float
+@export var enemySpawnIntervallOverTime : Curve
+@export var enemySpawnIntervallMultiplierOverTime : Curve
+var enemySpawnRange : float
 
 @export_group("Entity") 
 @export var max_distance_to_connect : float
@@ -35,7 +37,6 @@ extends Node2D
 @export var ghost_pylon : Ghost
  
 var factorySpawnRadius : float
-var spawnRange : float
 var timeToIncome : float
 var timeToSpawnFactory : float
 var timeToSpawnEnemy : float
@@ -51,9 +52,9 @@ func _ready() -> void:
 	# create and add the generator
 	gold = 10
 	timeSinceStart = 0
-	timeToSpawnEnemy = factorySpawnIntervallOverTime.sample(0)
+	timeToSpawnEnemy = enemySpawnIntervallOverTime.sample(0)
 	timeToSpawnFactory = factorySpawnIntervall
-	spawnRange = spawnRange_startingValue
+	enemySpawnRange = enemySpawnRangeBase
 	factorySpawnRadius = factorySpawnRadiusBase
 	
 	generator = generatorPackedScene.instantiate() as Generator
@@ -122,16 +123,18 @@ func process_enemy_spawn(delta : float) -> void:
 	if !isEnemyEnabled:
 		return
 	
-	spawnRange = 3000 # spawnRange_increasePerSecond * delta	
+	enemySpawnRange = 3000 # spawnRange_increasePerSecond * delta	
 	if timeToSpawnEnemy < 0:
 		var randomAngle = randf_range(0, 2 * PI)
-		var randomDistance = randf_range(0.8, 1) * spawnRange
+		var randomDistance = randf_range(0.8, 1) * enemySpawnRange
 		var randomPosition = generator.position + (Vector2.RIGHT * randomDistance).rotated(randomAngle)
 		
 		enemy_manager.createEnemy(randomPosition, factory_manager.factories, pylon_manager.pylons, generator)
 		
-		var normalizedTimeSinceStart = clamp(timeSinceStart / (2 * 60), 0, 1)
-		timeToSpawnEnemy = factorySpawnIntervallOverTime.sample(normalizedTimeSinceStart)
+		var normalizedTimeSinceStart : float = clamp(timeSinceStart / (2 * 60), 0, 1)
+		var moduloTimeSinceStart : float = (floori(10 * timeSinceStart) % 50) / 50.0
+		
+		timeToSpawnEnemy = enemySpawnIntervallOverTime.sample(normalizedTimeSinceStart) * enemySpawnIntervallMultiplierOverTime.sample(moduloTimeSinceStart)
 		
 	timeToSpawnEnemy -= delta
 	

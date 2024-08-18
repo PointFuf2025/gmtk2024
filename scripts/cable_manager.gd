@@ -42,11 +42,8 @@ func updateCables(generator : Generator, pylons : Array[Pylon], factories : Arra
 		
 		for newConnectedBuilding in newConnectedBuildings:
 			disconnectedBuildings.erase(newConnectedBuilding)
-	
-	while cableIndex < cables.size():
-		var cable = cables.pop_back();
-		remove_child(cable)
-		cable.queue_free()
+			
+	free_excess_cables(cableIndex)
 	
 func get_or_create_cable(index : int) -> Cable:
 	if index == cables.size():
@@ -56,3 +53,9 @@ func get_or_create_cable(index : int) -> Cable:
 		return cable
 	else:
 		return cables[index]
+
+func free_excess_cables(index : int):
+	while index < cables.size():
+		var cable = cables.pop_back();
+		remove_child(cable)
+		cable.queue_free()

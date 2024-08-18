@@ -21,11 +21,19 @@ func setParent(newParent : Building):
 func _process(delta: float) -> void:
 	super._process(delta)
 	
+	if isConnected():
+		_process_try_to_fire(delta)
+		
+func _process_try_to_fire(delta: float) -> void:
 	if reloadTimeLeft < 0:
 		var nearestEnemy : Enemy = null
 		var nearestEnemyDistance : float = 1e10
 		
 		for enemy in enemies:
+			
+			if enemy.is_dead():
+				continue
+			
 			var enemyDistance = position.distance_to(enemy.position)
 			
 			if enemyDistance > attackRadius:

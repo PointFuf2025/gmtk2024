@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cp4vg03r5f812"]
+[gd_scene load_steps=16 format=3 uid="uid://cp4vg03r5f812"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_7vy8g"]
 [ext_resource type="PackedScene" uid="uid://diu20lrnhwef7" path="res://scenes/generator.tscn" id="2_2nq7v"]
@@ -14,10 +14,15 @@
 [ext_resource type="PackedScene" uid="uid://7mmmaj7pxc5k" path="res://scenes/turret_manager.tscn" id="11_1lgf8"]
 [ext_resource type="PackedScene" uid="uid://c67bw55mxufqj" path="res://scenes/ui_manager.tscn" id="11_r5h8c"]
 
-[sub_resource type="Curve" id="Curve_jgp5n"]
-max_value = 6.0
-_data = [Vector2(0, 3), 0.0, 0.0, 0, 0, Vector2(1, 0.1), 0.0, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_chti4"]
+max_value = 3.0
+_data = [Vector2(0, 3), 0.0, 0.0, 0, 0, Vector2(1, 0.125), 0.0, 0.0, 0, 0]
 point_count = 2
+
+[sub_resource type="Curve" id="Curve_lxkex"]
+max_value = 2.0
+_data = [Vector2(0, 1.5), 0.0, 0.0, 0, 0, Vector2(0.5, 0.5), 0.0, 0.0, 0, 0, Vector2(1, 1.5), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [node name="GameManager" type="Node2D" node_paths=PackedStringArray("factory_manager", "cable_manager", "pylon_manager", "enemy_manager", "turret_manager", "ui_manager", "camera", "ghost_pylon")]
 script = ExtResource("1_7vy8g")
@@ -35,9 +40,10 @@ factorySpawnRadiusBase = 500.0
 factorySpawnRadiusDelta = 500.0
 factorySpawnRadiusPerSecond = 50.0
 isEnemyEnabled = true
-spawnRange_startingValue = 1000.0
-spawnRange_increasePerSecond = 50.0
-factorySpawnIntervallOverTime = SubResource("Curve_jgp5n")
+enemySpawnRangeBase = 1000.0
+enemySpawnRangeGainPerSecond = 50.0
+enemySpawnIntervallOverTime = SubResource("Curve_chti4")
+enemySpawnIntervallMultiplierOverTime = SubResource("Curve_lxkex")
 max_distance_to_connect = 500.0
 pylon_price = 5
 turret_price = 20

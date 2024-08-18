@@ -31,5 +31,5 @@ func _draw() -> void:
 func _on_area_entered(otherArea : Area2D):
 	var enemy = otherArea.get_parent() as Enemy
 	if enemy != null:
-		enemy.destroy()
+		enemy.takeDamage()
 		queue_free()

@@ -6,10 +6,13 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ur6y"]
 
-[node name="Enemy" type="Node2D" node_paths=PackedStringArray("area", "sprite", "audioStreamPlayer")]
+[node name="Enemy" type="Node2D" node_paths=PackedStringArray("area", "deathTimer", "sprite", "audioStreamPlayer")]
 script = ExtResource("1_yeyeg")
 area = NodePath("Area2D")
 movementSpeed = 200.0
+deathSFX = ExtResource("2_bb638")
+deathTimer = NodePath("Timer")
+healthPoints = 3
 sprite = NodePath("Sprite2D")
 audioStreamPlayer = NodePath("AudioStreamPlayer")
 spawnSoundEffect = ExtResource("2_bb638")
@@ -26,3 +29,6 @@ texture = ExtResource("2_vr7fp")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 scale = Vector2(5, 5)
 shape = SubResource("RectangleShape2D_3ur6y")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
