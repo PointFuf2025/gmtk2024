@@ -8,8 +8,8 @@
 
 [node name="Generator" type="Node2D" node_paths=PackedStringArray("area2d", "sprite")]
 script = ExtResource("1_6ndo6")
-area2d = NodePath("Area2D")
 colorTheme = ExtResource("2_lp1ik")
+area2d = NodePath("Area2D")
 sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

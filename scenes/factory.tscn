@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bvm5m228pp14l"]
+[gd_scene load_steps=6 format=3 uid="uid://bvm5m228pp14l"]
 
 [ext_resource type="Script" path="res://scripts/factory.gd" id="1_pb0hv"]
 [ext_resource type="Resource" uid="uid://coi7hhl65184t" path="res://color_theme/default_color_theme.tres" id="2_70pic"]
@@ -7,10 +7,13 @@
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gvabd"]
 load_path = "res://.godot/imported/factory.svg-9fdd390ce3858d0c85c27e367eac8afd.ctex"
 
-[node name="Factory" type="Node2D" node_paths=PackedStringArray("powerGauge", "sprite", "audioStreamPlayer")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jy2ly"]
+
+[node name="Factory" type="Node2D" node_paths=PackedStringArray("powerGauge", "area2d", "sprite", "audioStreamPlayer")]
 script = ExtResource("1_pb0hv")
 powerGauge = NodePath("BackgroundPowerGauge/PowerGauge")
 colorTheme = ExtResource("2_70pic")
+area2d = NodePath("Area2D")
 sprite = NodePath("Sprite2D")
 audioStreamPlayer = NodePath("AudioStreamPlayer")
 spawnSoundEffect = ExtResource("3_sfydy")
@@ -27,5 +30,11 @@ polygon = PackedVector2Array(0, 0, 150, 0, 150, 25, 0, 25)
 [node name="PowerGauge" type="Polygon2D" parent="BackgroundPowerGauge"]
 color = Color(0.714696, 0.900576, 2.31028e-06, 1)
 polygon = PackedVector2Array(0, 0, 150, 0, 150, 25, 0, 25)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(6.5, 6.5)
+shape = SubResource("RectangleShape2D_jy2ly")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

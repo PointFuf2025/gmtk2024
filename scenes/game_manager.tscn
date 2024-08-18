@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cp4vg03r5f812"]
+[gd_scene load_steps=15 format=3 uid="uid://cp4vg03r5f812"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_7vy8g"]
 [ext_resource type="PackedScene" uid="uid://diu20lrnhwef7" path="res://scenes/generator.tscn" id="2_2nq7v"]
@@ -9,7 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://0tp2m7j85qhc" path="res://scenes/camera.tscn" id="6_mfnfh"]
 [ext_resource type="Script" path="res://scripts/cable_manager.gd" id="7_4m8fx"]
 [ext_resource type="Script" path="res://scripts/pylon_manager.gd" id="8_oiwh0"]
-[ext_resource type="PackedScene" uid="uid://cgfbpgn23rcja" path="res://scenes/ghost_pylon.tscn" id="10_v1b84"]
+[ext_resource type="PackedScene" uid="uid://d3slxmbyvsbj2" path="res://scenes/enemy_manager.tscn" id="10_pmeqg"]
+[ext_resource type="PackedScene" uid="uid://cgfbpgn23rcja" path="res://scenes/ghost.tscn" id="10_v1b84"]
+[ext_resource type="PackedScene" uid="uid://7mmmaj7pxc5k" path="res://scenes/turret_manager.tscn" id="11_1lgf8"]
 [ext_resource type="PackedScene" uid="uid://c67bw55mxufqj" path="res://scenes/ui_manager.tscn" id="11_r5h8c"]
 
 [sub_resource type="Curve" id="Curve_jgp5n"]
@@ -17,12 +19,14 @@ max_value = 6.0
 _data = [Vector2(0, 6), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[node name="GameManager" type="Node2D" node_paths=PackedStringArray("factory_manager", "cable_manager", "pylon_manager", "ui_manager", "camera", "ghost_pylon")]
+[node name="GameManager" type="Node2D" node_paths=PackedStringArray("factory_manager", "cable_manager", "pylon_manager", "enemy_manager", "turret_manager", "ui_manager", "camera", "ghost_pylon")]
 script = ExtResource("1_7vy8g")
 generatorPackedScene = ExtResource("2_2nq7v")
 factory_manager = NodePath("FactoryManager")
 cable_manager = NodePath("CableManager")
 pylon_manager = NodePath("PylonManager")
+enemy_manager = NodePath("EnemyManager")
+turret_manager = NodePath("TurretManager")
 ui_manager = NodePath("UIManager")
 camera = NodePath("Camera")
 spawnRange_startingValue = 1000.0
@@ -32,7 +36,7 @@ max_distance_to_connect = 500.0
 pylon_price = 5
 turret_price = 20
 factory_price = 10
-ghost_pylon = NodePath("ghostPylon")
+ghost_pylon = NodePath("ghost")
 
 [node name="Camera" parent="." instance=ExtResource("6_mfnfh")]
 position_smoothing_enabled = true
@@ -51,6 +55,10 @@ script = ExtResource("6_l8cqi")
 factoryPackedScene = ExtResource("5_x0ct0")
 goldIncomeByFactory = 1
 
-[node name="ghostPylon" parent="." instance=ExtResource("10_v1b84")]
+[node name="EnemyManager" parent="." instance=ExtResource("10_pmeqg")]
+
+[node name="TurretManager" parent="." instance=ExtResource("11_1lgf8")]
+
+[node name="ghost" parent="." instance=ExtResource("10_v1b84")]
 
 [node name="UIManager" parent="." instance=ExtResource("11_r5h8c")]

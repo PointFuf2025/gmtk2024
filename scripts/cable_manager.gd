@@ -3,24 +3,52 @@ extends Node2D
 
 @export var cablePackedScene : PackedScene
 
-var cableArray: Array[Cable]
+var cables : Array[Cable]
 
-func updateFactoryConnectivity(pylons : Array[Pylon], factories : Array[Factory], max_distance_to_connect : float):
-	var cable : Cable
-	for pylon in pylons:
-		for factory in factories:
-			var distance = pylon.global_position.distance_to(factory.global_position)
-			var isInside: bool = distance < max_distance_to_connect
-			if isInside && !factory.isConnected: 
-				cable = cablePackedScene.instantiate()
-				cable.connectCable(pylon.global_position, factory.global_position)
-				cableArray.append(cable)
-				add_child(cable)
-				factory.isConnected = true
-
-func connectClickable(clickable : Clickable, otherClickable : Clickable):
-	var cable : Cable
-	cable = cablePackedScene.instantiate()
-	cable.connectCable(clickable.global_position, otherClickable.global_position)
-	cableArray.append(cable)
-	add_child(cable)
+func updateCables(generator : Generator, pylons : Array[Pylon], factories : Array[Factory], turrets : Array[Turret], max_distance_to_connect : float):
+	var cableIndex = 0;
+	
+	var disconnectedBuildings : Array[Building]
+	disconnectedBuildings.append_array(pylons)
+	disconnectedBuildings.append_array(factories)
+	disconnectedBuildings.append_array(turrets)
+	
+	for disconnectedBuilding in disconnectedBuildings:
+		disconnectedBuilding.setParent(null);
+	
+	var connectedBuildings : Array[Building]
+	connectedBuildings.append(generator)
+	
+	while connectedBuildings.size() > 0:
+		
+		var connectedBuilding = connectedBuildings.pop_front()
+		
+		var newConnectedBuildings : Array[Building]
+		
+		for disconnectedBuilding in disconnectedBuildings:
+			
+			var distance = connectedBuilding.global_position.distance_to(disconnectedBuilding.global_position)
+			var isInRange: bool = distance < max_distance_to_connect
+			if isInRange: 
+				var cable = get_or_create_cable(cableIndex)
+				disconnectedBuilding.setParent(connectedBuilding)
+				cable.connectCable(connectedBuilding.global_position, disconnectedBuilding.global_position)
+				cableIndex+=1
+				newConnectedBuildings.append(disconnectedBuilding)
+				connectedBuildings.append(disconnectedBuilding)
+		
+		for newConnectedBuilding in newConnectedBuildings:
+			disconnectedBuildings.erase(newConnectedBuilding)
+	
+	while cableIndex < cables.size():
+		var cable = cables.pop_back();
+		remove_child(cable)
+	
+func get_or_create_cable(index : int) -> Cable:
+	if index == cables.size():
+		var cable = cablePackedScene.instantiate()
+		cables.append(cable)
+		add_child(cable)
+		return cable
+	else:
+		return cables[index]

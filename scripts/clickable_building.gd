@@ -1,10 +1,8 @@
-class_name Clickable
+class_name ClickableBuilding
+extends Building
 
-extends Entity
+signal hovered(clickable : ClickableBuilding, isHovered : bool)
 
-signal hovered(clickable : Clickable, isHovered : bool)
-
-@export var area2d : Area2D
 @export var colorTheme : ColorTheme
 @export var radius: float
 
@@ -20,9 +18,8 @@ var isHovered : bool :
 		updateColor()
 		queue_redraw()
 
-var isConnected : bool :
-	set (value):
-		isConnected = value
+func setParent(newParent : Building):
+		parent = newParent
 		updateColor()
 		queue_redraw()
 
@@ -34,7 +31,7 @@ func updateColor() -> void:
 		spriteColor = colorTheme.SelectedColor
 	elif isHovered:
 		spriteColor = colorTheme.HoveredColor
-	elif is_connected:
+	elif isConnected():
 		spriteColor = colorTheme.ConnectedColor
 	
 	sprite.modulate = spriteColor

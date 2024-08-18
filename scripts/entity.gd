@@ -18,6 +18,7 @@ func _ready() -> void:
 	scale = Vector2.ZERO;
 	randomOffsetForAnimation = randf_range(0, 10)
 	if spawnSoundEffect != null:
+		audioStreamPlayer.pitch_scale = randf_range(0.8, 1.2)
 		audioStreamPlayer.stream = spawnSoundEffect
 		audioStreamPlayer.play()
 

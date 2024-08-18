@@ -7,6 +7,8 @@ extends Node2D
 @export var factory_manager : Factory_manager
 @export var cable_manager : Cable_manager
 @export var pylon_manager : Pylon_manager
+@export var enemy_manager : EnemyManager
+@export var turret_manager : TurretManager
 @export var ui_manager : UIManager
 @export var camera : Camera
 
@@ -22,7 +24,7 @@ extends Node2D
 @export var factory_price : int
 
 @export_group("Ghost")
-@export var ghost_pylon : Ghost_Pylon
+@export var ghost_pylon : Ghost
  
 var spawnRange : float
 var timeToIncome : float
@@ -31,10 +33,8 @@ var timeSinceStart : float
 var gold : float
 
 var generator : Generator
-var hoveredClickable : Clickable
-var selectedClickable : Clickable:
-	set(value):
-		selectedClickable = value
+var hoveredClickable : ClickableBuilding
+var selectedClickable : ClickableBuilding
 			
 # for now just let game manager start with ready
 func _ready() -> void:
@@ -45,13 +45,21 @@ func _ready() -> void:
 	generator.radius = max_distance_to_connect
 	connectClickable(generator)
 	add_child(generator)
+	
 	factory_manager.factoryCreated.connect(_on_factory_created)
-	factory_manager.gameOver.connect(_on_game_over)
+	factory_manager.factoryDestroyed.connect(_on_factory_destroyed)
+	
 	pylon_manager.pylonCreated.connect(_on_pylon_created)
+	pylon_manager.pylonDestroyed.connect(_on_pylon_destroyed)
+	
+	turret_manager.turretCreated.connect(_on_turret_created)
+	turret_manager.turretDestroyed.connect(_on_turret_destroyed)
+	
 	ui_manager.ModeChanged.connect(_on_mode_changed)
 	spawnRange = spawnRange_startingValue
 	timeSinceStart = 0
 	camera.position = generator.position
+	timeToSpawn = factorySpawnIntervallOverTime.sample(0)
 	
 func _process(delta: float) -> void:
 	process_enemy_spawn(delta)
@@ -66,13 +74,13 @@ func _process(delta: float) -> void:
 	timeSinceStart += delta
 
 func process_enemy_spawn(delta : float) -> void:
-	spawnRange += spawnRange_increasePerSecond * delta	
+	spawnRange = 3000 # spawnRange_increasePerSecond * delta	
 	if timeToSpawn < 0:
 		var randomAngle = randf_range(0, 2 * PI)
 		var randomDistance = randf_range(0.8, 1) * spawnRange
 		var randomPosition = generator.position + (Vector2.RIGHT * randomDistance).rotated(randomAngle)
 		
-		#spawn enemy
+		enemy_manager.createEnemy(randomPosition, factory_manager.factories, pylon_manager.pylons, generator)
 		
 		var normalizedTimeSinceStart = clamp(timeSinceStart / (10 * 60), 0, 1)
 		timeToSpawn = factorySpawnIntervallOverTime.sample(normalizedTimeSinceStart)
@@ -102,10 +110,10 @@ func can_place_in_current_mode() -> bool:
 			return gold >= turret_price	
 	return false
 	
-func connectClickable(clickable : Clickable):
+func connectClickable(clickable : ClickableBuilding):
 	clickable.hovered.connect(_on_clickable_hovered)
 
-func _on_clickable_hovered(newHoveredClickable : Clickable, state : bool) -> void:		
+func _on_clickable_hovered(newHoveredClickable : ClickableBuilding, state : bool) -> void:		
 	if state:
 		if hoveredClickable == null:
 			hoveredClickable = newHoveredClickable
@@ -114,13 +122,23 @@ func _on_clickable_hovered(newHoveredClickable : Clickable, state : bool) -> voi
 			hoveredClickable = null
 			
 func _on_factory_created():
-	cable_manager.updateFactoryConnectivity(pylon_manager.pylons, factory_manager.factories, max_distance_to_connect)
+	cable_manager.updateCables(generator, pylon_manager.pylons, factory_manager.factories, turret_manager.turrets, max_distance_to_connect)
+
+func _on_factory_destroyed():
+	cable_manager.updateCables(generator, pylon_manager.pylons, factory_manager.factories, turret_manager.turrets, max_distance_to_connect)
 
 func _on_pylon_created(pylon : Pylon):
 	connectClickable(pylon)
-	#TODO optim func to update only a given pylon connectivity
-	cable_manager.updateFactoryConnectivity(pylon_manager.pylons, factory_manager.factories, max_distance_to_connect)
-	cable_manager.connectClickable(selectedClickable, pylon)
+	cable_manager.updateCables(generator, pylon_manager.pylons, factory_manager.factories, turret_manager.turrets, max_distance_to_connect)
+
+func _on_pylon_destroyed():
+	cable_manager.updateCables(generator, pylon_manager.pylons, factory_manager.factories, turret_manager.turrets, max_distance_to_connect)
+	
+func _on_turret_created():
+	cable_manager.updateCables(generator, pylon_manager.pylons, factory_manager.factories, turret_manager.turrets, max_distance_to_connect)
+		
+func _on_turret_destroyed():
+	cable_manager.updateCables(generator, pylon_manager.pylons, factory_manager.factories, turret_manager.turrets, max_distance_to_connect)
 		
 func _on_mode_changed():
 	if ui_manager.mode == UIManager.MODE.NONE:
@@ -157,7 +175,7 @@ func _input(event: InputEvent) -> void:
 						ui_manager.updateHUD(gold, factory_manager.get_gold_income_from_factories())
 						
 					UIManager.MODE.TURRET:
-						#TODO
+						turret_manager.createTurret(mousePosition, enemy_manager.enemies)
 						gold -= turret_price
 						selectClickable(null)
 						ui_manager.updateHUD(gold, factory_manager.get_gold_income_from_factories())
@@ -165,7 +183,7 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action_pressed("cancel"):
 		selectClickable(null)
 
-func selectClickable(newSelectedClickable: Clickable) -> void:
+func selectClickable(newSelectedClickable: ClickableBuilding) -> void:
 		if newSelectedClickable == selectedClickable:
 			return
 	
