@@ -9,3 +9,6 @@ extends Resource
 
 @export var RadiusFillColor : Color
 @export var RadiusStrokeColor : Color
+
+@export var FactoryColor : Color
+@export var TurretColor : Color

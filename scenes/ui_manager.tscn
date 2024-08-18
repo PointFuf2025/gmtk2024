@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c67bw55mxufqj"]
+[gd_scene load_steps=26 format=3 uid="uid://c67bw55mxufqj"]
 
 [ext_resource type="Script" path="res://scripts/ui_manager.gd" id="1_uuk0i"]
 [ext_resource type="Theme" uid="uid://dew262uvu1bmk" path="res://theme/ui_theme.tres" id="2_1mrnx"]
@@ -13,8 +13,14 @@
 [ext_resource type="AudioStream" uid="uid://dki1cbxakg4mv" path="res://musics/liv - dodehav.mp3" id="7_3r2pj"]
 [ext_resource type="AudioStream" uid="uid://ds76v2g5b2066" path="res://musics/phase (with saiyvn.) - dodehav.mp3" id="8_p0q6r"]
 [ext_resource type="AudioStream" uid="uid://075k5g50djxj" path="res://musics/s t i l l - dodehav.mp3" id="9_kfh1w"]
+[ext_resource type="AudioStream" uid="uid://b31fxo6q3v0it" path="res://musics/dodehav - unload.mp3" id="10_6um4e"]
+[ext_resource type="AudioStream" uid="uid://okurmxixkdd1" path="res://musics/dodehav - holidays were fun.mp3" id="11_25ug7"]
+[ext_resource type="AudioStream" uid="uid://d2fi8k0mjgph2" path="res://musics/dodehav - dead ahead.mp3" id="12_wvbx4"]
+[ext_resource type="AudioStream" uid="uid://ddd0gdoapv7jl" path="res://musics/dodehav - passage (null mix).mp3" id="13_d75le"]
 [ext_resource type="Texture2D" uid="uid://c7cmjte1xdpym" path="res://sprites/ui_turret.svg" id="14_71fu3"]
+[ext_resource type="AudioStream" uid="uid://byqgmxrxr54uv" path="res://musics/dodehav - scyphozoa.mp3" id="14_ap1np"]
 [ext_resource type="Texture2D" uid="uid://dff87jjywkdml" path="res://sprites/ui_pylon.svg" id="14_tdx3j"]
+[ext_resource type="AudioStream" uid="uid://dn2cr25q2ka34" path="res://musics/dodehav - slime friends.mp3" id="15_3dxpe"]
 [ext_resource type="Texture2D" uid="uid://oht0htciq65i" path="res://sprites/ui_factory.svg" id="15_qulxs"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_ranrv"]
@@ -31,7 +37,7 @@ gainPerSecondLabel = NodePath("ResourcePanel/MarginContainer/HBoxContainer/GoldP
 musicNameLabel = NodePath("RadioPanel/MarginContainer/HBoxContainer/MusicName")
 previousMusicButton = NodePath("RadioPanel/MarginContainer/HBoxContainer/Previous")
 nextMusicButton = NodePath("RadioPanel/MarginContainer/HBoxContainer/Next")
-backgroundMusics = Array[AudioStream]([ExtResource("2_aranx"), ExtResource("5_3km6j"), ExtResource("4_lyc3f"), ExtResource("5_2lqpk"), ExtResource("6_im84j"), ExtResource("7_3r2pj"), ExtResource("8_p0q6r"), ExtResource("9_kfh1w")])
+backgroundMusics = Array[AudioStream]([ExtResource("2_aranx"), ExtResource("5_3km6j"), ExtResource("4_lyc3f"), ExtResource("5_2lqpk"), ExtResource("6_im84j"), ExtResource("7_3r2pj"), ExtResource("8_p0q6r"), ExtResource("9_kfh1w"), ExtResource("10_6um4e"), ExtResource("11_25ug7"), ExtResource("12_wvbx4"), ExtResource("13_d75le"), ExtResource("14_ap1np"), ExtResource("15_3dxpe")])
 backgroundMusicPlayer = NodePath("AudioStreamPlayer")
 
 [node name="ResourcePanel" type="PanelContainer" parent="."]

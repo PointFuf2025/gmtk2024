@@ -34,7 +34,7 @@ func updateColor() -> void:
 	var spriteColor = colorTheme.UnconnectedColor;
 	
 	if isConnected:
-		spriteColor = colorTheme.ConnectedColor
+		spriteColor = colorTheme.FactoryColor
 	
 	sprite.modulate = spriteColor
 

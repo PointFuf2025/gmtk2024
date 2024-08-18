@@ -1,12 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://c8qyehf7q47g4"]
+[gd_scene load_steps=3 format=3 uid="uid://c8qyehf7q47g4"]
 
 [ext_resource type="Script" path="res://scripts/cable.gd" id="1_qqosa"]
+[ext_resource type="Resource" uid="uid://coi7hhl65184t" path="res://color_theme/default_color_theme.tres" id="2_hql4m"]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("line")]
+[node name="Node2D" type="Node2D"]
 z_index = -1
 script = ExtResource("1_qqosa")
-line = NodePath("Line2D")
-
-[node name="Line2D" type="Line2D" parent="."]
-points = PackedVector2Array(0, -1, 418, 217)
-default_color = Color(0, 1, 0, 0.513726)
+colorTheme = ExtResource("2_hql4m")
