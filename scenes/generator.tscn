@@ -13,6 +13,7 @@ colorTheme = ExtResource("2_lp1ik")
 sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visibility_layer = 2
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("1_fcqq1")
 

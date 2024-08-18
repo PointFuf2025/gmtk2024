@@ -4,6 +4,9 @@ extends Clickable
 @export var strokeColor: Color
 @export var radius: float
 
+@export var audioStreamPlayer : AudioStreamPlayer
+@export var spawnSoundEffect : AudioStream
+
 signal pylonCreated
 
 # Called when the node enters the scene tree for the first time.
@@ -12,6 +15,12 @@ func _ready() -> void:
 	super._ready()
 	pylonCreated.emit()
 	isConnected = false;
+	audioStreamPlayer.stream = spawnSoundEffect
+	audioStreamPlayer.play()
+	scale = Vector2.ZERO;
+
+func _process(delta: float) -> void:
+	scale = (scale + 0.1 * Vector2.ONE).clamp(Vector2.ZERO, Vector2.ONE)
 
 func _draw() -> void:
 	if isHovered:

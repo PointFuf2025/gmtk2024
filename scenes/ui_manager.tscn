@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c67bw55mxufqj"]
+[gd_scene load_steps=20 format=3 uid="uid://c67bw55mxufqj"]
 
 [ext_resource type="Script" path="res://scripts/ui_manager.gd" id="1_uuk0i"]
 [ext_resource type="Theme" uid="uid://dew262uvu1bmk" path="res://theme/ui_theme.tres" id="2_1mrnx"]
@@ -13,29 +13,39 @@
 [ext_resource type="AudioStream" uid="uid://dki1cbxakg4mv" path="res://musics/liv - dodehav.mp3" id="7_3r2pj"]
 [ext_resource type="AudioStream" uid="uid://ds76v2g5b2066" path="res://musics/phase (with saiyvn.) - dodehav.mp3" id="8_p0q6r"]
 [ext_resource type="AudioStream" uid="uid://075k5g50djxj" path="res://musics/s t i l l - dodehav.mp3" id="9_kfh1w"]
+[ext_resource type="Texture2D" uid="uid://c7cmjte1xdpym" path="res://sprites/ui_turret.svg" id="14_71fu3"]
+[ext_resource type="Texture2D" uid="uid://dff87jjywkdml" path="res://sprites/ui_pylon.svg" id="14_tdx3j"]
+[ext_resource type="Texture2D" uid="uid://oht0htciq65i" path="res://sprites/ui_factory.svg" id="15_qulxs"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_ranrv"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_nf388"]
+allow_unpress = true
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_ub7q5"]
 
 [node name="UIManager" type="CanvasLayer" node_paths=PackedStringArray("goldLabel", "gainPerSecondLabel", "musicNameLabel", "previousMusicButton", "nextMusicButton", "backgroundMusicPlayer")]
 script = ExtResource("1_uuk0i")
-goldLabel = NodePath("ResourcePanelContainer/MarginContainer/HBoxContainer/GoldLabel")
-gainPerSecondLabel = NodePath("ResourcePanelContainer/MarginContainer/HBoxContainer/GoldPerSecondLabel")
-musicNameLabel = NodePath("RadioPanelContainer2/MarginContainer/HBoxContainer/MusicName")
-previousMusicButton = NodePath("RadioPanelContainer2/MarginContainer/HBoxContainer/Previous")
-nextMusicButton = NodePath("RadioPanelContainer2/MarginContainer/HBoxContainer/Next")
+goldLabel = NodePath("ResourcePanel/MarginContainer/HBoxContainer/GoldLabel")
+gainPerSecondLabel = NodePath("ResourcePanel/MarginContainer/HBoxContainer/GoldPerSecondLabel")
+musicNameLabel = NodePath("RadioPanel/MarginContainer/HBoxContainer/MusicName")
+previousMusicButton = NodePath("RadioPanel/MarginContainer/HBoxContainer/Previous")
+nextMusicButton = NodePath("RadioPanel/MarginContainer/HBoxContainer/Next")
 backgroundMusics = Array[AudioStream]([ExtResource("2_aranx"), ExtResource("5_3km6j"), ExtResource("4_lyc3f"), ExtResource("5_2lqpk"), ExtResource("6_im84j"), ExtResource("7_3r2pj"), ExtResource("8_p0q6r"), ExtResource("9_kfh1w")])
 backgroundMusicPlayer = NodePath("AudioStreamPlayer")
 
-[node name="ResourcePanelContainer" type="PanelContainer" parent="."]
+[node name="ResourcePanel" type="PanelContainer" parent="."]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -185.0
 offset_top = 16.0
 offset_right = -16.0
-offset_bottom = 74.0
+offset_bottom = 67.0
 grow_horizontal = 0
 theme = ExtResource("2_1mrnx")
 
-[node name="MarginContainer" type="MarginContainer" parent="ResourcePanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="ResourcePanel"]
 layout_direction = 2
 layout_mode = 2
 theme = ExtResource("2_1mrnx")
@@ -44,28 +54,28 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ResourcePanelContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ResourcePanel/MarginContainer"]
 layout_mode = 2
 alignment = 2
 
-[node name="GoldLabel" type="Label" parent="ResourcePanelContainer/MarginContainer/HBoxContainer"]
+[node name="GoldLabel" type="Label" parent="ResourcePanel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "205
 "
 
-[node name="TextureRect" type="TextureRect" parent="ResourcePanelContainer/MarginContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="ResourcePanel/MarginContainer/HBoxContainer"]
 modulate = Color(1, 1, 0, 1)
 layout_mode = 2
 texture = ExtResource("3_fqq5x")
 expand_mode = 3
 stretch_mode = 4
 
-[node name="GoldPerSecondLabel" type="Label" parent="ResourcePanelContainer/MarginContainer/HBoxContainer"]
+[node name="GoldPerSecondLabel" type="Label" parent="ResourcePanel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "(+ 5)"
 horizontal_alignment = 2
 
-[node name="RadioPanelContainer2" type="PanelContainer" parent="."]
+[node name="RadioPanel" type="PanelContainer" parent="."]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -74,26 +84,83 @@ offset_top = 16.0
 offset_right = 20.0
 offset_bottom = 56.0
 grow_horizontal = 2
+theme = ExtResource("2_1mrnx")
 
-[node name="MarginContainer" type="MarginContainer" parent="RadioPanelContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="RadioPanel"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="RadioPanelContainer2/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="RadioPanel/MarginContainer"]
 layout_mode = 2
 
-[node name="Previous" type="Button" parent="RadioPanelContainer2/MarginContainer/HBoxContainer"]
+[node name="Previous" type="Button" parent="RadioPanel/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 icon = ExtResource("5_2hb0n")
 
-[node name="MusicName" type="Label" parent="RadioPanelContainer2/MarginContainer/HBoxContainer"]
+[node name="MusicName" type="Label" parent="RadioPanel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "liv - dodehav"
 
-[node name="Next" type="Button" parent="RadioPanelContainer2/MarginContainer/HBoxContainer"]
+[node name="Next" type="Button" parent="RadioPanel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 icon = ExtResource("5_q1elf")
+
+[node name="ModeContainer" type="PanelContainer" parent="."]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -240.0
+offset_top = -126.0
+offset_right = 240.0
+offset_bottom = -46.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(240, 80)
+theme = ExtResource("2_1mrnx")
+
+[node name="MarginContainer" type="MarginContainer" parent="ModeContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ModeContainer/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="ModeContainer/MarginContainer/HBoxContainer"]
+modulate = Color(0.184314, 1, 1, 1)
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_ranrv")
+text = "tower"
+icon = ExtResource("14_71fu3")
+
+[node name="Button2" type="Button" parent="ModeContainer/MarginContainer/HBoxContainer"]
+modulate = Color(0, 1, 0, 1)
+custom_minimum_size = Vector2(128, 48)
+layout_mode = 2
+toggle_mode = true
+action_mode = 0
+button_group = SubResource("ButtonGroup_nf388")
+text = "pylon"
+icon = ExtResource("14_tdx3j")
+
+[node name="Button3" type="Button" parent="ModeContainer/MarginContainer/HBoxContainer"]
+modulate = Color(1, 1, 0, 1)
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+toggle_mode = true
+action_mode = 0
+button_group = SubResource("ButtonGroup_ub7q5")
+text = "factory"
+icon = ExtResource("15_qulxs")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

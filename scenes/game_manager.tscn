@@ -9,8 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://0tp2m7j85qhc" path="res://scenes/camera.tscn" id="6_mfnfh"]
 [ext_resource type="Script" path="res://scripts/cable_manager.gd" id="7_4m8fx"]
 [ext_resource type="Script" path="res://scripts/pylon_manager.gd" id="8_oiwh0"]
-[ext_resource type="PackedScene" uid="uid://og5qopicpy2p" path="res://scenes/ghost_pylon.tscn" id="10_v1b84"]
-[ext_resource type="PackedScene" path="res://scenes/ui_manager.tscn" id="11_r5h8c"]
+[ext_resource type="PackedScene" uid="uid://cgfbpgn23rcja" path="res://scenes/ghost_pylon.tscn" id="10_v1b84"]
+[ext_resource type="PackedScene" uid="uid://c67bw55mxufqj" path="res://scenes/ui_manager.tscn" id="11_r5h8c"]
 
 [sub_resource type="Curve" id="Curve_jgp5n"]
 max_value = 6.0
@@ -29,6 +29,10 @@ spawnRange_increasePerSecond = 50.0
 factorySpawnIntervallOverTime = SubResource("Curve_jgp5n")
 ghost_pylon = NodePath("ghostPylon")
 
+[node name="Camera" parent="." instance=ExtResource("6_mfnfh")]
+position_smoothing_enabled = true
+position_smoothing_speed = 20.0
+
 [node name="CableManager" type="Node2D" parent="."]
 script = ExtResource("7_4m8fx")
 cablePackedScene = ExtResource("4_8fyyd")
@@ -42,10 +46,6 @@ pylonRadius = 300.0
 script = ExtResource("6_l8cqi")
 factoryPackedScene = ExtResource("5_x0ct0")
 goldIncomeByFactory = 1
-
-[node name="Camera" parent="." instance=ExtResource("6_mfnfh")]
-position_smoothing_enabled = true
-position_smoothing_speed = 20.0
 
 [node name="ghostPylon" parent="." instance=ExtResource("10_v1b84")]
 

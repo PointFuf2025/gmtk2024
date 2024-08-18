@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://og5qopicpy2p"]
+[gd_scene load_steps=3 format=3 uid="uid://cgfbpgn23rcja"]
 
 [ext_resource type="Script" path="res://scripts/ghost_pylon.gd" id="1_ifrgu"]
 [ext_resource type="Texture2D" uid="uid://l701cubyu71p" path="res://sprites/pylon.svg" id="2_83cfd"]
 
 [node name="Node2D" type="Node2D"]
+visibility_layer = 2
 script = ExtResource("1_ifrgu")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visibility_layer = 2
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_83cfd")

@@ -1,6 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://0tp2m7j85qhc"]
+[gd_scene load_steps=6 format=3 uid="uid://0tp2m7j85qhc"]
 
 [ext_resource type="Script" path="res://scripts/camera.gd" id="1_tsj37"]
+[ext_resource type="Texture2D" uid="uid://rvl33i3b5245" path="res://sprites/circle480x480.png" id="2_1gugq"]
+
+[sub_resource type="Gradient" id="Gradient_53x80"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2vhem"]
+gradient = SubResource("Gradient_53x80")
+width = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_p4tn6"]
+blend_mode = 2
 
 [node name="Camera" type="Camera2D"]
 script = ExtResource("1_tsj37")
@@ -8,3 +20,18 @@ movementSpeed = 500.0
 zoomSpeed = 8.0
 zoomMin = 0.1
 zoomMax = 1.0
+
+[node name="LightMaskTest" type="CanvasGroup" parent="."]
+visible = false
+scale = Vector2(2, 2)
+
+[node name="Black" type="Sprite2D" parent="LightMaskTest"]
+scale = Vector2(1920, 1080)
+texture = SubResource("GradientTexture1D_2vhem")
+
+[node name="Light" type="Sprite2D" parent="LightMaskTest"]
+material = SubResource("CanvasItemMaterial_p4tn6")
+texture = ExtResource("2_1gugq")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+current = true
