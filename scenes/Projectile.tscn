@@ -1,14 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://bunwcuexksl61"]
+[gd_scene load_steps=5 format=3 uid="uid://bunwcuexksl61"]
 
 [ext_resource type="Script" path="res://scripts/Projectile.gd" id="1_2b7sc"]
+[ext_resource type="AudioStream" uid="uid://bm8ilgg2wnm7o" path="res://sounds/projectile.wav" id="2_bs06e"]
+[ext_resource type="Resource" uid="uid://coi7hhl65184t" path="res://color_theme/default_color_theme.tres" id="2_p1gix"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mvasi"]
 
 [node name="Node2D" type="Area2D" node_paths=PackedStringArray("collisionShape")]
 script = ExtResource("1_2b7sc")
+colorTheme = ExtResource("2_p1gix")
 collisionShape = NodePath("CollisionShape2D")
-speed = 20
-lifetime = 5
+speed = 2000
+lifetime = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(5, 5)
 shape = SubResource("CircleShape2D_mvasi")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_bs06e")
+autoplay = true

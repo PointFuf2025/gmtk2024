@@ -1,4 +1,5 @@
 class_name Factory
+
 extends Building
 
 @export var powerGauge: Node2D

@@ -38,11 +38,12 @@ func update_target():
 			nearestTarget = turret
 			nearestTargetDistance = turretDistance
 	
-	for factory in factories:
-		var factoryDistance = position.distance_to(factory.position)
-		if factoryDistance < nearestTargetDistance:
-			nearestTarget = factory
-			nearestTargetDistance = factoryDistance
+	# enemy cant target factories	
+	# for factory in factories:
+		#var factoryDistance = position.distance_to(factory.position)
+		#if factoryDistance < nearestTargetDistance:
+			#nearestTarget = factory
+			#nearestTargetDistance = factoryDistance
 			
 	for pylon in pylons:
 		var pylonDistance = position.distance_to(pylon.position)

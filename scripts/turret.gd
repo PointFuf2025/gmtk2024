@@ -37,9 +37,9 @@ func _process(delta: float) -> void:
 		
 		if nearestEnemy != null:
 			var projectile = projectilePackedScene.instantiate() as Projectile
-			projectile.direction = nearestEnemy.position - position
-			add_child(projectile)
-			#nearestEnemy.destroy()
+			projectile.global_position = self.global_position
+			projectile.direction = (nearestEnemy.position - position).normalized()
+			get_parent().add_child(projectile)
 			reloadTimeLeft = reloadDuration
 		
 	reloadTimeLeft -= delta

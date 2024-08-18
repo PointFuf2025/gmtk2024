@@ -3,7 +3,7 @@ extends Node2D
 
 @export var generatorPackedScene : PackedScene
 
-@export_group("manager")
+@export_group("Managers")
 @export var factory_manager : Factory_manager
 @export var cable_manager : Cable_manager
 @export var pylon_manager : Pylon_manager
@@ -12,7 +12,15 @@ extends Node2D
 @export var ui_manager : UIManager
 @export var camera : Camera
 
-@export_group("Spawn") 
+@export_group("Factory") 
+@export var factoryCountAtStart : float
+@export var factorySpawnIntervall : float
+@export var factorySpawnRadiusBase : float
+@export var factorySpawnRadiusDelta : float
+@export var factorySpawnRadiusPerSecond : float
+
+@export_group("Enemy") 
+@export var isEnemyEnabled : bool
 @export var spawnRange_startingValue : float
 @export var spawnRange_increasePerSecond : float
 @export var factorySpawnIntervallOverTime : Curve
@@ -26,9 +34,11 @@ extends Node2D
 @export_group("Ghost")
 @export var ghost_pylon : Ghost
  
+var factorySpawnRadius : float
 var spawnRange : float
 var timeToIncome : float
-var timeToSpawn : float # For tracking the quantity to spawn over time
+var timeToSpawnFactory : float
+var timeToSpawnEnemy : float
 var timeSinceStart : float
 var gold : float
 
@@ -39,7 +49,13 @@ var selectedClickable : ClickableBuilding
 # for now just let game manager start with ready
 func _ready() -> void:
 	# create and add the generator
-	gold = 50
+	gold = 10
+	timeSinceStart = 0
+	timeToSpawnEnemy = factorySpawnIntervallOverTime.sample(0)
+	timeToSpawnFactory = factorySpawnIntervall
+	spawnRange = spawnRange_startingValue
+	factorySpawnRadius = factorySpawnRadiusBase
+	
 	generator = generatorPackedScene.instantiate() as Generator
 	generator.position = DisplayServer.screen_get_size() / 2
 	generator.radius = max_distance_to_connect
@@ -59,12 +75,22 @@ func _ready() -> void:
 	
 	ui_manager.ModeChanged.connect(_on_mode_changed)
 	ui_manager.setTurretPrices(turret_price, pylon_price, factory_price)
-	spawnRange = spawnRange_startingValue
-	timeSinceStart = 0
-	camera.position = generator.position
-	timeToSpawn = factorySpawnIntervallOverTime.sample(0)
 	
+	for i in range(factoryCountAtStart):
+		var randomAngle = randf_range(0, 2 * PI)
+		var randomDistance = factorySpawnRadius + randf() * factorySpawnRadiusDelta
+		var randomPosition = generator.position + (Vector2.RIGHT * randomDistance).rotated(randomAngle)
+		
+		factory_manager.createFactory(randomPosition)
+	
+	camera.global_position = generator.global_position
+	camera.limit_left += generator.global_position.x
+	camera.limit_right += generator.global_position.x
+	camera.limit_top += generator.global_position.y
+	camera.limit_bottom += generator.global_position.y
+		
 func _process(delta: float) -> void:
+	process_factory_spawn(delta)
 	process_enemy_spawn(delta)
 	process_factory_income(delta)
 	
@@ -76,18 +102,38 @@ func _process(delta: float) -> void:
 		
 	timeSinceStart += delta
 
+func process_factory_spawn(delta : float) -> void:
+	
+	factorySpawnRadius += factorySpawnRadiusPerSecond * delta
+	
+	if timeToSpawnFactory < 0:
+	
+		var randomAngle = randf_range(0, 2 * PI)
+		var randomDistance = factorySpawnRadius + randf() * factorySpawnRadiusDelta
+		var randomPosition = generator.position + (Vector2.RIGHT * randomDistance).rotated(randomAngle)
+
+		factory_manager.createFactory(randomPosition)
+		timeToSpawnFactory = randf_range(0.8, 1.2) * factorySpawnIntervall
+		
+	timeToSpawnFactory -= delta
+
 func process_enemy_spawn(delta : float) -> void:
+	
+	if !isEnemyEnabled:
+		return
+	
 	spawnRange = 3000 # spawnRange_increasePerSecond * delta	
-	if timeToSpawn < 0:
+	if timeToSpawnEnemy < 0:
 		var randomAngle = randf_range(0, 2 * PI)
 		var randomDistance = randf_range(0.8, 1) * spawnRange
 		var randomPosition = generator.position + (Vector2.RIGHT * randomDistance).rotated(randomAngle)
 		
 		enemy_manager.createEnemy(randomPosition, factory_manager.factories, pylon_manager.pylons, generator)
 		
-		var normalizedTimeSinceStart = clamp(timeSinceStart / (10 * 60), 0, 1)
-		timeToSpawn = factorySpawnIntervallOverTime.sample(normalizedTimeSinceStart)
-	timeToSpawn -= delta
+		var normalizedTimeSinceStart = clamp(timeSinceStart / (2 * 60), 0, 1)
+		timeToSpawnEnemy = factorySpawnIntervallOverTime.sample(normalizedTimeSinceStart)
+		
+	timeToSpawnEnemy -= delta
 	
 func process_factory_income(delta : float) -> void:
 	if timeToIncome <0:

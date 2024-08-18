@@ -14,7 +14,7 @@ func get_connected_factories_count():
 	for factory in factories:
 		if factory.isConnected():
 			count += 1
-	return count
+	return count + 1
 	
 func get_gold_income_from_factories() -> int:
 	return goldIncomeByFactory * get_connected_factories_count()

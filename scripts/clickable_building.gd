@@ -41,6 +41,7 @@ func _ready() -> void:
 	super._ready()
 	area2d.mouse_entered.connect(_on_mouse_entered)
 	area2d.mouse_exited.connect(_on_mouse_exited)
+	updateColor()
 
 func  _on_mouse_entered() -> void:
 	print("clickable: start hovered")

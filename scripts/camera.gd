@@ -12,11 +12,15 @@ var zoomHadInput : bool = false
 
 var isRightDown : bool
 var isLeftDown : bool
+var lastPressedIsLeft : bool
+
 var isUpDown : bool
 var isDownDown : bool
+var lastPressedIsUp : bool
 
 func _process(delta: float) -> void:
-	position +=	 movementDirection * movementSpeed / zoom.x * delta
+	var movementSpeedScaledOnZoom = movementSpeed / zoom.x
+	position +=	 movementDirection * movementSpeedScaledOnZoom * delta
 	
 	var newZoom = zoom.x + zoomDirection * zoomSpeed * delta
 	zoom = Vector2.ONE * clamp(newZoom, zoomMin, zoomMax)	
@@ -27,35 +31,42 @@ func _process(delta: float) -> void:
 	zoomHadInput = false
 		
 func _input(event: InputEvent) -> void:
-	
-	if event.is_action_pressed("camera_left", true):
+	if event.is_action_pressed("camera_left"):
 		isLeftDown = true
+		lastPressedIsLeft = true
 	elif event.is_action_released("camera_left"):
 		isLeftDown = false
 	
-	if event.is_action_pressed("camera_right", true):
+	if event.is_action_pressed("camera_right"):
 		isRightDown = true
+		lastPressedIsLeft = false
 	elif event.is_action_released("camera_right"):
 		isRightDown = false
 		
-	if event.is_action_pressed("camera_up", true):
+	if event.is_action_pressed("camera_up"):
 		isUpDown = true
-	elif event.is_action_released("camera_up", true):
+		lastPressedIsUp = true
+	elif event.is_action_released("camera_up"):
 		isUpDown = false
 		
-	if event.is_action_pressed("camera_down", true):
+	if event.is_action_pressed("camera_down"):
 		isDownDown = true
-	elif event.is_action_released("camera_down", true):
+		lastPressedIsUp = false
+	elif event.is_action_released("camera_down"):
 		isDownDown = false
 			
-	if isLeftDown:
+	if isLeftDown && isRightDown:
+		movementDirection.x = -1 if lastPressedIsLeft else 1
+	elif isLeftDown:
 		movementDirection.x = -1
 	elif isRightDown:
 		movementDirection.x = 1
 	else:
 		movementDirection.x = 0
 		
-	if isUpDown:
+	if isLeftDown && isRightDown:
+		movementDirection.y = -1 if lastPressedIsUp else 1
+	elif isUpDown:
 		movementDirection.y = -1
 	elif isDownDown:
 		movementDirection.y = 1

@@ -16,26 +16,29 @@ func updateCables(generator : Generator, pylons : Array[Pylon], factories : Arra
 	for disconnectedBuilding in disconnectedBuildings:
 		disconnectedBuilding.setParent(null);
 	
-	var connectedBuildings : Array[Building]
-	connectedBuildings.append(generator)
+	var energyProviders : Array[Building]
+	energyProviders.append(generator)
 	
-	while connectedBuildings.size() > 0:
+	while energyProviders.size() > 0:
 		
-		var connectedBuilding = connectedBuildings.pop_front()
+		var energyProvider = energyProviders.pop_front()
 		
 		var newConnectedBuildings : Array[Building]
 		
 		for disconnectedBuilding in disconnectedBuildings:
 			
-			var distance = connectedBuilding.global_position.distance_to(disconnectedBuilding.global_position)
+			var distance = energyProvider.global_position.distance_to(disconnectedBuilding.global_position)
 			var isInRange: bool = distance < max_distance_to_connect
 			if isInRange: 
 				var cable = get_or_create_cable(cableIndex)
-				disconnectedBuilding.setParent(connectedBuilding)
-				cable.connectCable(connectedBuilding.global_position, disconnectedBuilding.global_position)
+				disconnectedBuilding.setParent(energyProvider)
+				cable.connectCable(energyProvider.global_position, disconnectedBuilding.global_position)
 				cableIndex+=1
+				
 				newConnectedBuildings.append(disconnectedBuilding)
-				connectedBuildings.append(disconnectedBuilding)
+				
+				if disconnectedBuilding is ClickableBuilding:
+					energyProviders.append(disconnectedBuilding)
 		
 		for newConnectedBuilding in newConnectedBuildings:
 			disconnectedBuildings.erase(newConnectedBuilding)
@@ -43,6 +46,7 @@ func updateCables(generator : Generator, pylons : Array[Pylon], factories : Arra
 	while cableIndex < cables.size():
 		var cable = cables.pop_back();
 		remove_child(cable)
+		cable.queue_free()
 	
 func get_or_create_cable(index : int) -> Cable:
 	if index == cables.size():
