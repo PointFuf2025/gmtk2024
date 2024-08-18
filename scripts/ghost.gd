@@ -58,5 +58,5 @@ func _draw() -> void:
 	if shouldDraw:
 		var dashLength = 5 + 5 * (floori(timeElapsed * 5) % 3 + 1)
 		draw_dashed_line(Vector2.ZERO, clickablePosition - position, color, 10, dashLength)
-		#draw_circle(Vector2.ZERO, radius, colorTheme.RadiusFillColor, true)
-		#draw_circle(Vector2.ZERO, radius, colorTheme.RadiusStrokeColor, false)
+		draw_circle(Vector2.ZERO, radius, colorTheme.RadiusFillColor, true)
+		draw_circle(Vector2.ZERO, radius, colorTheme.RadiusStrokeColor, false)

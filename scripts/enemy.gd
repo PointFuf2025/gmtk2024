@@ -34,6 +34,8 @@ func _process(delta: float) -> void:
 	if is_dead():
 		sprite.modulate.a = lerp(1, 0, (deathTimer.wait_time - deathTimer.time_left) / deathTimer.wait_time)
 		scale = (deathTimer.time_left / deathTimer.wait_time) * Vector2.ONE
+		rotation = deathTimer.time_left / deathTimer.wait_time * 90
+		position += deathTimer.time_left / deathTimer.wait_time * 250 * delta * Vector2.UP
 	else:
 		if target == null:
 			update_target()
@@ -90,14 +92,18 @@ func _on_deathTimer_over():
 	destroyed.emit(self);
 	
 func _on_area_entered(otherArea : Area2D):
-	var building = otherArea.get_parent() as Building
 	
-	if building == null:
+	if is_dead():
 		return
+	
+	var building = otherArea.get_parent() as Building
 	
 	# this has been freed bad code but we can check this
 	if pylons.find(target) == 0 || turrets.find(target) == 0:
 		target = null
+	
+	if building == null:
+		return
 	
 	if building == target:
 		target.destroy()
