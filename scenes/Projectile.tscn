@@ -10,7 +10,7 @@
 script = ExtResource("1_2b7sc")
 colorTheme = ExtResource("2_p1gix")
 collisionShape = NodePath("CollisionShape2D")
-speed = 2000
+speed = 200
 lifetime = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
