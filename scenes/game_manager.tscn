@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cp4vg03r5f812"]
+[gd_scene load_steps=18 format=3 uid="uid://cp4vg03r5f812"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_7vy8g"]
 [ext_resource type="PackedScene" uid="uid://diu20lrnhwef7" path="res://scenes/generator.tscn" id="2_2nq7v"]
@@ -13,6 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://cgfbpgn23rcja" path="res://scenes/ghost.tscn" id="10_v1b84"]
 [ext_resource type="PackedScene" uid="uid://7mmmaj7pxc5k" path="res://scenes/turret_manager.tscn" id="11_1lgf8"]
 [ext_resource type="PackedScene" uid="uid://c67bw55mxufqj" path="res://scenes/ui_manager.tscn" id="11_r5h8c"]
+[ext_resource type="Texture2D" uid="uid://bbrn4dbq2rp3v" path="res://sprites/pylon_round.png" id="13_8f1um"]
+[ext_resource type="Texture2D" uid="uid://ca2b4ux1d0q6p" path="res://sprites/factory_round.svg" id="14_6phgm"]
 
 [sub_resource type="Curve" id="Curve_chti4"]
 max_value = 3.0
@@ -39,7 +41,6 @@ factorySpawnIntervall = 10.0
 factorySpawnRadiusBase = 500.0
 factorySpawnRadiusDelta = 500.0
 factorySpawnRadiusPerSecond = 50.0
-isEnemyEnabled = true
 enemySpawnRangeBase = 1000.0
 enemySpawnRangeGainPerSecond = 50.0
 enemySpawnIntervallOverTime = SubResource("Curve_chti4")
@@ -86,5 +87,7 @@ goldIncomeByFactory = 1
 [node name="TurretManager" parent="." instance=ExtResource("11_1lgf8")]
 
 [node name="Ghost" parent="." instance=ExtResource("10_v1b84")]
+pylonSprite = ExtResource("13_8f1um")
+factorySprite = ExtResource("14_6phgm")
 
 [node name="UIManager" parent="." instance=ExtResource("11_r5h8c")]

@@ -3,15 +3,16 @@
 [ext_resource type="Script" path="res://scripts/factory.gd" id="1_pb0hv"]
 [ext_resource type="Resource" uid="uid://coi7hhl65184t" path="res://color_theme/default_color_theme.tres" id="2_70pic"]
 [ext_resource type="AudioStream" uid="uid://ecnkg1g5gwjc" path="res://sounds/building-placing.wav" id="3_sfydy"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gvabd"]
-load_path = "res://.godot/imported/factory.svg-9fdd390ce3858d0c85c27e367eac8afd.ctex"
+[ext_resource type="Texture2D" uid="uid://ca2b4ux1d0q6p" path="res://sprites/factory_round.svg" id="4_bvqhh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jy2ly"]
 
-[node name="Factory" type="Node2D" node_paths=PackedStringArray("powerGauge", "area2d", "sprite", "audioStreamPlayer")]
+[node name="Factory" type="Node2D" node_paths=PackedStringArray("powerGauge", "powerGaugeBackground", "area2d", "sprite", "audioStreamPlayer")]
 script = ExtResource("1_pb0hv")
 powerGauge = NodePath("BackgroundPowerGauge/PowerGauge")
+powerGaugeBackground = NodePath("BackgroundPowerGauge")
+incomeIntervall = 5
+income = 5
 colorTheme = ExtResource("2_70pic")
 area2d = NodePath("Area2D")
 sprite = NodePath("Sprite2D")
@@ -21,15 +22,16 @@ spawnSoundEffect = ExtResource("3_sfydy")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visibility_layer = 2
 scale = Vector2(0.25, 0.25)
-texture = SubResource("CompressedTexture2D_gvabd")
+texture = ExtResource("4_bvqhh")
 
 [node name="BackgroundPowerGauge" type="Polygon2D" parent="."]
-position = Vector2(-75, -96)
-polygon = PackedVector2Array(0, 0, 150, 0, 150, 25, 0, 25)
+position = Vector2(-50, -96)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(0, 0, 100, 0, 100, 10, 0, 10)
 
 [node name="PowerGauge" type="Polygon2D" parent="BackgroundPowerGauge"]
 color = Color(0.714696, 0.900576, 2.31028e-06, 1)
-polygon = PackedVector2Array(0, 0, 150, 0, 150, 25, 0, 25)
+polygon = PackedVector2Array(0, 0, 100, 0, 100, 10, 0, 10)
 
 [node name="Area2D" type="Area2D" parent="."]
 

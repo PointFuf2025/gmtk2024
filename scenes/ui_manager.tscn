@@ -24,10 +24,9 @@
 [ext_resource type="Texture2D" uid="uid://oht0htciq65i" path="res://sprites/ui_factory.svg" id="15_qulxs"]
 [ext_resource type="ButtonGroup" uid="uid://dihtt07nuyhfe" path="res://buttonGroup.tres" id="20_lis6x"]
 
-[node name="UIManager" type="CanvasLayer" node_paths=PackedStringArray("goldLabel", "gainPerSecondLabel", "musicNameLabel", "previousMusicButton", "nextMusicButton", "turretButton", "pylonButtton", "factoryButton", "backgroundMusicPlayer")]
+[node name="UIManager" type="CanvasLayer" node_paths=PackedStringArray("goldLabel", "musicNameLabel", "previousMusicButton", "nextMusicButton", "turretButton", "pylonButtton", "factoryButton", "backgroundMusicPlayer")]
 script = ExtResource("1_uuk0i")
 goldLabel = NodePath("ResourcePanel/MarginContainer/HBoxContainer/GoldLabel")
-gainPerSecondLabel = NodePath("ResourcePanel/MarginContainer/HBoxContainer/GoldPerSecondLabel")
 musicNameLabel = NodePath("RadioPanel/MarginContainer/HBoxContainer/MusicName")
 previousMusicButton = NodePath("RadioPanel/MarginContainer/HBoxContainer/Previous")
 nextMusicButton = NodePath("RadioPanel/MarginContainer/HBoxContainer/Next")
@@ -75,6 +74,7 @@ expand_mode = 3
 stretch_mode = 4
 
 [node name="GoldPerSecondLabel" type="Label" parent="ResourcePanel/MarginContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "(+ 5)"
 horizontal_alignment = 2

@@ -65,6 +65,7 @@ func _ready() -> void:
 	
 	factory_manager.factoryCreated.connect(_on_factory_created)
 	factory_manager.factoryDestroyed.connect(_on_factory_destroyed)
+	factory_manager.incomeGained.connect(_on_factory_income_gained)
 	
 	pylon_manager.pylonCreated.connect(_on_pylon_created)
 	pylon_manager.pylonDestroyed.connect(_on_pylon_destroyed)
@@ -77,9 +78,14 @@ func _ready() -> void:
 	ui_manager.setTurretPrices(turret_price, pylon_price, factory_price)
 	
 	for i in range(factoryCountAtStart):
-		var randomAngle = randf_range(0, 2 * PI)
-		var randomDistance = factorySpawnRadius + randf() * factorySpawnRadiusDelta
-		var randomPosition = generator.position + (Vector2.RIGHT * randomDistance).rotated(randomAngle)
+		
+		var randomPosition
+		var isPositionValid = false
+		while !isPositionValid:
+			var randomAngle = randf_range(0, 2 * PI)
+			var randomDistance = factorySpawnRadius + randf() * factorySpawnRadiusDelta
+			randomPosition = generator.position + (Vector2.RIGHT * randomDistance).rotated(randomAngle)
+			isPositionValid = is_position_valid_for_building(randomPosition, 500)
 		
 		factory_manager.createFactory(randomPosition)
 	
@@ -108,9 +114,13 @@ func process_factory_spawn(delta : float) -> void:
 	
 	if timeToSpawnFactory < 0:
 	
-		var randomAngle = randf_range(0, 2 * PI)
-		var randomDistance = factorySpawnRadius + randf() * factorySpawnRadiusDelta
-		var randomPosition = generator.position + (Vector2.RIGHT * randomDistance).rotated(randomAngle)
+		var randomPosition
+		var isPositionValid = false
+		while !isPositionValid:
+			var randomAngle = randf_range(0, 2 * PI)
+			var randomDistance = factorySpawnRadius + randf() * factorySpawnRadiusDelta
+			randomPosition = generator.position + (Vector2.RIGHT * randomDistance).rotated(randomAngle)
+			isPositionValid = is_position_valid_for_building(randomPosition, 500)
 
 		factory_manager.createFactory(randomPosition)
 		timeToSpawnFactory = randf_range(0.8, 1.2) * factorySpawnIntervall
@@ -138,13 +148,7 @@ func process_enemy_spawn(delta : float) -> void:
 	timeToSpawnEnemy -= delta
 	
 func process_factory_income(delta : float) -> void:
-	if timeToIncome <0:
-		var goldIncomePerSecond = factory_manager.get_gold_income_from_factories();
-		gold += goldIncomePerSecond
-		timeToIncome = 1;
-		ui_manager.updateHUD(gold, goldIncomePerSecond)
-		
-	timeToIncome -= delta
+	ui_manager.updateHUD(gold)
 	
 func can_place_in_current_mode() -> bool:
 	match ui_manager.mode:
@@ -162,23 +166,24 @@ func can_place_in_current_mode() -> bool:
 	
 	var mousePosition = get_global_mouse_position()
 	
-	if generator.global_position.distance_to(mousePosition) < minimal_distance_between_building:
+	return is_position_valid_for_building(mousePosition, minimal_distance_between_building)
+
+func is_position_valid_for_building(position : Vector2, distance : float):
+	
+	if generator.global_position.distance_to(position) < distance:
 			return false
 			
-	for pylon in pylon_manager.pylons:
-		if pylon.global_position.distance_to(mousePosition) < minimal_distance_between_building:
+	if !pylon_manager.is_position_available_for_building(position, distance):
 			return false
 
-	for turret in turret_manager.turrets:
-		if turret.global_position.distance_to(mousePosition) < minimal_distance_between_building:
+	if !turret_manager.is_position_available_for_building(position, distance):
 			return false
 	
-	for factory in factory_manager.factories:
-		if factory.global_position.distance_to(mousePosition) < minimal_distance_between_building:
+	if !factory_manager.is_position_available_for_building(position, distance):
 			return false
 			
 	return true
-	
+
 func connectClickable(clickable : ClickableBuilding):
 	clickable.hovered.connect(_on_clickable_hovered)
 
@@ -195,6 +200,9 @@ func _on_factory_created():
 
 func _on_factory_destroyed():
 	cable_manager.updateCables(generator, pylon_manager.pylons, factory_manager.factories, turret_manager.turrets, max_distance_to_connect)
+
+func _on_factory_income_gained(income : int):
+	gold += income
 
 func _on_pylon_created(pylon : Pylon):
 	connectClickable(pylon)
@@ -213,7 +221,7 @@ func _on_generator_destroyed():
 	#TODO game over
 	get_tree().reload_current_scene()
 		
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("select"):
 		var mousePosition = get_global_mouse_position();
 		
@@ -225,17 +233,17 @@ func _input(event: InputEvent) -> void:
 			UIManager.MODE.PYLON:
 				pylon_manager.createPylon(mousePosition, max_distance_to_connect)
 				gold -= pylon_price
-				ui_manager.updateHUD(gold, factory_manager.get_gold_income_from_factories())
+				ui_manager.updateHUD(gold)
 				
 			UIManager.MODE.FACTORY:
 				factory_manager.createFactory(mousePosition)
 				gold -= factory_price
-				ui_manager.updateHUD(gold, factory_manager.get_gold_income_from_factories())
+				ui_manager.updateHUD(gold)
 				
 			UIManager.MODE.TURRET:
 				turret_manager.createTurret(mousePosition, enemy_manager.enemies)
 				gold -= turret_price
-				ui_manager.updateHUD(gold, factory_manager.get_gold_income_from_factories())
+				ui_manager.updateHUD(gold)
 			
 	elif event.is_action_pressed("cancel"):
 		ui_manager.mode = UIManager.MODE.NONE

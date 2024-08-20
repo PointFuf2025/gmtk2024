@@ -8,6 +8,12 @@ var pylons : Array[Pylon]
 signal pylonCreated(pylon : Pylon)
 signal pylonDestroyed(pylon : Pylon)
 
+func is_position_available_for_building(position : Vector2, minimalDistance : float):
+	for pylon in pylons:
+		if pylon.global_position.distance_to(position) < minimalDistance:
+			return false
+	return true
+
 func createPylon(position : Vector2, max_distance_to_connect : float) -> void:
 	var newPylon = pylgonPackedScene.instantiate() as Pylon;
 	newPylon.position = position

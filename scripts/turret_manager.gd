@@ -9,6 +9,12 @@ signal turretDestroyed
 
 var turrets : Array[Turret]
 
+func is_position_available_for_building(position : Vector2, minimalDistance : float):
+	for turret in turrets:
+		if turret.global_position.distance_to(position) < minimalDistance:
+			return false
+	return true
+
 func createTurret(position : Vector2, enemies : Array[Enemy]):
 	var turret = turretPackedScene.instantiate() as Turret
 	turret.position = position

@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://ctnskxjhg50sx"]
 
 [ext_resource type="Script" path="res://scripts/pylon.gd" id="1_bdx5q"]
-[ext_resource type="Texture2D" uid="uid://l701cubyu71p" path="res://sprites/pylon.svg" id="1_x8kw8"]
 [ext_resource type="Resource" uid="uid://coi7hhl65184t" path="res://color_theme/default_color_theme.tres" id="2_bwtvn"]
 [ext_resource type="AudioStream" uid="uid://ecnkg1g5gwjc" path="res://sounds/building-placing.wav" id="2_lttoq"]
+[ext_resource type="Texture2D" uid="uid://bbrn4dbq2rp3v" path="res://sprites/pylon_round.png" id="4_4irqh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d5k8n"]
 
@@ -19,7 +19,7 @@ spawnSoundEffect = ExtResource("2_lttoq")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visibility_layer = 2
 scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_x8kw8")
+texture = ExtResource("4_4irqh")
 
 [node name="Area2D" type="Area2D" parent="."]
 

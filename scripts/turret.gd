@@ -56,7 +56,7 @@ func updateColor() -> void:
 	
 	var spriteColor = colorTheme.UnconnectedColor;
 	
-	if isConnected:
+	if isConnected():
 		spriteColor = colorTheme.TurretColor
 	
 	sprite.modulate = spriteColor

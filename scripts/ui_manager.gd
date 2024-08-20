@@ -5,7 +5,6 @@ enum  MODE { NONE, PYLON, TURRET, FACTORY }
 
 @export_group("UI Element")
 @export var goldLabel : Label
-@export var gainPerSecondLabel : Label
 @export var musicNameLabel : Label
 @export var previousMusicButton : Button
 @export var nextMusicButton : Button
@@ -91,6 +90,5 @@ func playSelectedMusic():
 	backgroundMusicPlayer.stream = selectedMusic
 	backgroundMusicPlayer.play()
 
-func updateHUD(gold : int, goldPerSecond : int) -> void:
+func updateHUD(gold : int) -> void:
 	goldLabel.text = str(gold)
-	gainPerSecondLabel.text = "(+ %s)" % str(goldPerSecond)
