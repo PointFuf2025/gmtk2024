@@ -9,12 +9,13 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yll35"]
 
-[node name="Turret" type="Node2D" node_paths=PackedStringArray("area2d", "sprite", "audioStreamPlayer")]
+[node name="Turret" type="Node2D" node_paths=PackedStringArray("scaleTimer", "area2d", "sprite", "audioStreamPlayer")]
 script = ExtResource("1_56sa7")
 attackRadius = 500.0
 reloadDuration = 0.5
 colorTheme = ExtResource("2_cpvcm")
 projectilePackedScene = ExtResource("3_6tji4")
+scaleTimer = NodePath("ScaleTimer")
 area2d = NodePath("Area2D")
 sprite = NodePath("Sprite2D")
 audioStreamPlayer = NodePath("AudioStreamPlayer2D")
