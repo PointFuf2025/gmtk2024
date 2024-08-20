@@ -83,12 +83,6 @@ texture = ExtResource("3_fqq5x")
 expand_mode = 3
 stretch_mode = 4
 
-[node name="GoldPerSecondLabel" type="Label" parent="ResourcePanel/MarginContainer/HBoxContainer"]
-visible = false
-layout_mode = 2
-text = "(+ 5)"
-horizontal_alignment = 2
-
 [node name="RadioPanel" type="PanelContainer" parent="."]
 anchors_preset = 5
 anchor_left = 0.5
@@ -242,6 +236,7 @@ icon = ExtResource("26_maum3")
 alignment = 0
 
 [node name="FactorySpawn" type="Button" parent="Upgrades/MarginContainer/VBoxContainer"]
+visible = false
 modulate = Color(1, 1, 0, 1)
 custom_minimum_size = Vector2(128, 48)
 layout_mode = 2

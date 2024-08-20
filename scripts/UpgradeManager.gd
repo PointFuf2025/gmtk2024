@@ -37,6 +37,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	factorySpawnRateCurrentPrice = factorySpawnRateLevel * factorySpawnRatePrice
 	factoryIncomeCurrentPrice = factoryIncomePrice * factoryIncomeLevel
-	pylonRangeCurrentPrice = pylonRangeCurrentPrice * pylonRangeLevel
-	towerRangeCurrentPrice = towerRangeCurrentPrice * towerRangeLevel
-	towerReloadTimeCurrentPrice = towerReloadTimeCurrentPrice * towerReloadTimePerLevel
+	pylonRangeCurrentPrice = pylonRangePrice * pylonRangeLevel
+	towerRangeCurrentPrice = towerRangePrice * towerRangeLevel
+	towerReloadTimeCurrentPrice = towerReloadTimePrice * towerReloadTimeLevel

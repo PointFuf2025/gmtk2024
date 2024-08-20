@@ -91,8 +91,8 @@ func setUpgradePrices(towerRange: int, towerReload: int, pylonRange: int, factor
 	towerRangeUpgrade.text = "Tower Range (" + str(towerRange) + ")"
 	towerReloadTimeUpgrade.text = "Tower Reload Time(" + str(towerReload) + ")"
 	pylonRangeUpgrade.text = "Pylon Range (" + str(pylonRange) + ")"
-	factoryIncomeUpgrade.text = "Factory Spawn Rate \n (" + str(factoryIncome) + ")"
-	factorySpawnUpgrade.text = "Factory Income \n (" + str(factorySpawn) + ")"
+	factoryIncomeUpgrade.text = "Factory Income \n (" + str(factoryIncome) + ")"
+	factorySpawnUpgrade.text = "Factory Spawn Rate \n (" + str(factorySpawn) + ")"
 	
 	towerRangeUpgrade.disabled = towerRange > gold
 	towerReloadTimeUpgrade.disabled = towerReload > gold

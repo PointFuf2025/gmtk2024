@@ -35,8 +35,9 @@ func createFactory(position: Vector2) -> void:
 	factories.append(factory)
 	factoryCreated.emit()
 
-func updateFactoryStats(income: float):
-	pass
+func updateFactoryStats(incomeUpgrade: float):
+	for factory in factories:
+		factory.income += incomeUpgrade
 
 func _on_factory_destoyed(building : Building):
 	var factory = building as Factory

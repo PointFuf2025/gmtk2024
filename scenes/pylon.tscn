@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://coi7hhl65184t" path="res://color_theme/default_color_theme.tres" id="2_bwtvn"]
 [ext_resource type="AudioStream" uid="uid://ecnkg1g5gwjc" path="res://sounds/building-placing.wav" id="2_lttoq"]
 [ext_resource type="Texture2D" uid="uid://bbrn4dbq2rp3v" path="res://sprites/pylon_round.png" id="4_4irqh"]
-[ext_resource type="PackedScene" uid="uid://cq8nvgrqwahap" path="res://scenes/audio_stream_player_2d.tscn" id="5_4h828"]
+[ext_resource type="PackedScene" path="res://scenes/audio_stream_player_2d.tscn" id="5_4h828"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d5k8n"]
 

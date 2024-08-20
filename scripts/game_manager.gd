@@ -80,10 +80,10 @@ func _ready() -> void:
 	
 	#Upgrades
 	ui_manager.pylonRangeUpgrade.button_up.connect(_on_pylon_range_clicked)
-	ui_manager.towerReloadTimeUpgrade.button_up.connect(_on_pylon_range_clicked)
-	ui_manager.towerRangeUpgrade.button_up.connect(_on_pylon_range_clicked)
-	ui_manager.pylonRangeUpgrade.button_up.connect(_on_pylon_range_clicked)
-	ui_manager.pylonRangeUpgrade.button_up.connect(_on_pylon_range_clicked)
+	ui_manager.towerReloadTimeUpgrade.button_up.connect(_on_tower_reload_clicked)
+	ui_manager.towerRangeUpgrade.button_up.connect(_on_tower_range_clicked)
+	ui_manager.factoryIncomeUpgrade.button_up.connect(_on_factory_income_clicked)
+	ui_manager.factorySpawnUpgrade.button_up.connect(_on_factory_spawn_clicked)
 	
 	for i in range(factoryCountAtStart):
 		
@@ -234,37 +234,38 @@ func _on_generator_destroyed():
 # Upgrades callbacks
 func _on_pylon_range_clicked():
 	var cost = upgrade_manager.pylonRangeCurrentPrice
-	if gold > cost:
+	if gold >= cost:
 		gold -= cost
-		pylon_manager.updatePylonStats(upgrade_manager.pylonRangeLevel * upgrade_manager.pylonRangePerLevel)
+		#pylon_manager.updatePylonStats(upgrade_manager.pylonRangeLevel * upgrade_manager.pylonRangePerLevel)
+		max_distance_to_connect += upgrade_manager.pylonRangePerLevel
 		upgrade_manager.pylonRangeLevel += 1
 
 func _on_tower_range_clicked():
 	var cost = upgrade_manager.towerRangeCurrentPrice
-	if gold > cost:
+	if gold >= cost:
 		gold -= cost
-		turret_manager.updateTurretStats(upgrade_manager.towerReloadTimeLevel * upgrade_manager.towerReloadTimePerLevel, upgrade_manager.towerRangeLevel * upgrade_manager.towerRangePerLevel)
+		turret_manager.updateTurretStats(0, upgrade_manager.towerRangePerLevel)
 		upgrade_manager.towerRangeLevel += 1
 
 func _on_tower_reload_clicked():
 	var cost = upgrade_manager.towerReloadTimeCurrentPrice
-	if gold > cost:
+	if gold >= cost:
 		gold -= cost
-		turret_manager.updateTurretStats(upgrade_manager.towerReloadTimeLevel * upgrade_manager.towerReloadTimePerLevel, upgrade_manager.towerRangeLevel * upgrade_manager.towerRangePerLevel)
+		turret_manager.updateTurretStats(upgrade_manager.towerReloadTimePerLevel, 0)
 		upgrade_manager.towerReloadTimeLevel += 1
 
 func _on_factory_income_clicked():
 	var cost = upgrade_manager.factoryIncomeCurrentPrice
-	if gold > cost:
+	if gold >= cost:
 		gold -= cost
-		#todo
+		factory_manager.updateFactoryStats(upgrade_manager.factoryIncomePerLevel)
 		upgrade_manager.factoryIncomeLevel += 1
 
 func _on_factory_spawn_clicked():
 	var cost = upgrade_manager.factorySpawnRateCurrentPrice
-	if gold > cost:
+	if gold >= cost:
 		gold -= cost
-		#todo
+		factorySpawnIntervall -= upgrade_manager.factorySpawnRatePerLevel
 		upgrade_manager.factorySpawnRateLevel += 1
 			
 func _unhandled_input(event: InputEvent) -> void:

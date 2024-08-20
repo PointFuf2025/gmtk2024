@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6ynol4kktjxn"]
+
+[ext_resource type="Script" path="res://scripts/UpgradeManager.gd" id="1_uydp6"]
+
+[node name="UpgradeManager" type="Node2D"]
+script = ExtResource("1_uydp6")
+factoryIncomePerLevel = 5.0
+pylonRangePerLevel = 100.0
+towerRangePerLevel = 100.0
+towerReloadTimePerLevel = 0.03
+factoryIncomePrice = 100
+pylonRangePrice = 50
+towerRangePrice = 50
+towerReloadTimePrice = 50

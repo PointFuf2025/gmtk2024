@@ -31,5 +31,5 @@ func _on_pylon_destoyed(building : Building):
 	pylonDestroyed.emit()
 
 func updatePylonStats(range: float):
-	#TODO
-	pass
+	for pylon in pylons:
+		pylon.radius += range

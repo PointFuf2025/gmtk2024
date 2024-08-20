@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://c67bw55mxufqj" path="res://scenes/ui_manager.tscn" id="11_r5h8c"]
 [ext_resource type="Texture2D" uid="uid://bbrn4dbq2rp3v" path="res://sprites/pylon_round.png" id="13_8f1um"]
 [ext_resource type="Texture2D" uid="uid://ca2b4ux1d0q6p" path="res://sprites/factory_round.svg" id="14_6phgm"]
-[ext_resource type="Script" path="res://scenes/UpgradeManager.gd" id="13_k8aka"]
+[ext_resource type="PackedScene" uid="uid://c6ynol4kktjxn" path="res://scenes/upgrade_manager.tscn" id="15_qgl5d"]
 
 [sub_resource type="Curve" id="Curve_chti4"]
 max_value = 3.0
@@ -92,7 +92,6 @@ goldIncomeByFactory = 1
 pylonSprite = ExtResource("13_8f1um")
 factorySprite = ExtResource("14_6phgm")
 
-[node name="UpgradeManager" type="Node2D" parent="."]
-script = ExtResource("13_k8aka")
+[node name="UpgradeManager" parent="." instance=ExtResource("15_qgl5d")]
 
 [node name="UIManager" parent="." instance=ExtResource("11_r5h8c")]
