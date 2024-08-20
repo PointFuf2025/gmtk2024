@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://ccpkrhlbfepvo"]
+[gd_scene load_steps=7 format=3 uid="uid://ccpkrhlbfepvo"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_yeyeg"]
 [ext_resource type="AudioStream" uid="uid://c0cqqk8xmyq5p" path="res://sounds/enemy-1.wav" id="2_bb638"]
 [ext_resource type="AudioStream" uid="uid://ecnkg1g5gwjc" path="res://sounds/building-placing.wav" id="2_vdp2m"]
 [ext_resource type="Texture2D" uid="uid://dpbg38t0hnqqd" path="res://sprites/enemy.svg" id="2_vr7fp"]
+[ext_resource type="PackedScene" uid="uid://cq8nvgrqwahap" path="res://scenes/audio_stream_player_2d.tscn" id="5_qtldt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ur6y"]
 
@@ -15,7 +16,7 @@ deathSFX = ExtResource("2_bb638")
 deathTimer = NodePath("Timer")
 healthPoints = 3
 sprite = NodePath("Sprite2D")
-audioStreamPlayer = NodePath("AudioStreamPlayer")
+audioStreamPlayer = NodePath("AudioStreamPlayer2D")
 spawnSoundEffect = ExtResource("2_vdp2m")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -23,7 +24,7 @@ modulate = Color(0.87451, 0, 0, 1)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_vr7fp")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayer2D" parent="." instance=ExtResource("5_qtldt")]
 
 [node name="Area2D" type="Area2D" parent="."]
 

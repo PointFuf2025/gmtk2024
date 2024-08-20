@@ -13,6 +13,8 @@ var timeLeftToIncome : float
 @export var income : int
 @export var colorTheme : ColorTheme
 
+@export var incomeAudioStream : AudioStream
+
 func _ready() -> void:
 	super._ready()	
 	timeLeftToIncome = incomeIntervall
@@ -26,7 +28,9 @@ func _process(delta: float) -> void:
 	
 	if isConnected:
 		if timeLeftToIncome < 0:
-			incomeGained.emit(income);
+			audioStreamPlayer.stream = incomeAudioStream
+			audioStreamPlayer.play()
+			incomeGained.emit(income);			
 			timeLeftToIncome = incomeIntervall
 		else:
 			timeLeftToIncome -= delta

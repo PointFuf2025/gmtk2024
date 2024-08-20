@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://diu20lrnhwef7"]
+[gd_scene load_steps=7 format=3 uid="uid://diu20lrnhwef7"]
 
 [ext_resource type="Script" path="res://scripts/generator.gd" id="1_6ndo6"]
 [ext_resource type="Resource" uid="uid://coi7hhl65184t" path="res://color_theme/default_color_theme.tres" id="2_lp1ik"]
 [ext_resource type="AudioStream" uid="uid://ecnkg1g5gwjc" path="res://sounds/building-placing.wav" id="3_xvkv7"]
 [ext_resource type="Texture2D" uid="uid://bmsqvf7q1lexi" path="res://sprites/generator_round.png" id="4_3dyt3"]
+[ext_resource type="PackedScene" uid="uid://cq8nvgrqwahap" path="res://scenes/audio_stream_player_2d.tscn" id="5_457pn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a44ja"]
 
@@ -12,7 +13,7 @@ script = ExtResource("1_6ndo6")
 colorTheme = ExtResource("2_lp1ik")
 area2d = NodePath("Area2D")
 sprite = NodePath("Sprite2D")
-audioStreamPlayer = NodePath("AudioStreamPlayer")
+audioStreamPlayer = NodePath("AudioStreamPlayer2D")
 spawnSoundEffect = ExtResource("3_xvkv7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -26,4 +27,4 @@ texture = ExtResource("4_3dyt3")
 scale = Vector2(6.25, 6.25)
 shape = SubResource("RectangleShape2D_a44ja")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayer2D" parent="." instance=ExtResource("5_457pn")]

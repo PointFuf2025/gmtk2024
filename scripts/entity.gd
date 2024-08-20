@@ -9,7 +9,7 @@ var state : STATE
 var elapsedTime : float
 var randomOffsetForAnimation : float
 
-@export var audioStreamPlayer : AudioStreamPlayer
+@export var audioStreamPlayer : AudioStreamPlayer2D
 @export var spawnSoundEffect : AudioStream
 
 # Called when the node enters the scene tree for the first time.

@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bvm5m228pp14l"]
+[gd_scene load_steps=8 format=3 uid="uid://bvm5m228pp14l"]
 
 [ext_resource type="Script" path="res://scripts/factory.gd" id="1_pb0hv"]
 [ext_resource type="Resource" uid="uid://coi7hhl65184t" path="res://color_theme/default_color_theme.tres" id="2_70pic"]
+[ext_resource type="AudioStream" uid="uid://djae36b8cq1gh" path="res://sounds/income.wav" id="3_b156g"]
 [ext_resource type="AudioStream" uid="uid://ecnkg1g5gwjc" path="res://sounds/building-placing.wav" id="3_sfydy"]
 [ext_resource type="Texture2D" uid="uid://ca2b4ux1d0q6p" path="res://sprites/factory_round.svg" id="4_bvqhh"]
+[ext_resource type="PackedScene" uid="uid://cq8nvgrqwahap" path="res://scenes/audio_stream_player_2d.tscn" id="5_fd37w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jy2ly"]
 
@@ -14,9 +16,10 @@ powerGaugeBackground = NodePath("BackgroundPowerGauge")
 incomeIntervall = 5
 income = 5
 colorTheme = ExtResource("2_70pic")
+incomeAudioStream = ExtResource("3_b156g")
 area2d = NodePath("Area2D")
 sprite = NodePath("Sprite2D")
-audioStreamPlayer = NodePath("AudioStreamPlayer")
+audioStreamPlayer = NodePath("AudioStreamPlayer2D")
 spawnSoundEffect = ExtResource("3_sfydy")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -39,4 +42,4 @@ polygon = PackedVector2Array(0, 0, 100, 0, 100, 10, 0, 10)
 scale = Vector2(6.5, 6.5)
 shape = SubResource("RectangleShape2D_jy2ly")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayer2D" parent="." instance=ExtResource("5_fd37w")]

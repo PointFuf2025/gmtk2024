@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://ctnskxjhg50sx"]
+[gd_scene load_steps=7 format=3 uid="uid://ctnskxjhg50sx"]
 
 [ext_resource type="Script" path="res://scripts/pylon.gd" id="1_bdx5q"]
 [ext_resource type="Resource" uid="uid://coi7hhl65184t" path="res://color_theme/default_color_theme.tres" id="2_bwtvn"]
 [ext_resource type="AudioStream" uid="uid://ecnkg1g5gwjc" path="res://sounds/building-placing.wav" id="2_lttoq"]
 [ext_resource type="Texture2D" uid="uid://bbrn4dbq2rp3v" path="res://sprites/pylon_round.png" id="4_4irqh"]
+[ext_resource type="PackedScene" uid="uid://cq8nvgrqwahap" path="res://scenes/audio_stream_player_2d.tscn" id="5_4h828"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d5k8n"]
 
@@ -13,7 +14,7 @@ strokeColor = Color(0, 1, 0, 1)
 colorTheme = ExtResource("2_bwtvn")
 area2d = NodePath("Area2D")
 sprite = NodePath("Sprite2D")
-audioStreamPlayer = NodePath("AudioStreamPlayer")
+audioStreamPlayer = NodePath("AudioStreamPlayer2D")
 spawnSoundEffect = ExtResource("2_lttoq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -27,5 +28,4 @@ texture = ExtResource("4_4irqh")
 scale = Vector2(6.25, 6.25)
 shape = SubResource("RectangleShape2D_d5k8n")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_lttoq")
+[node name="AudioStreamPlayer2D" parent="." instance=ExtResource("5_4h828")]

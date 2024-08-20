@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://uoa2caol0sb4"]
+[gd_scene load_steps=8 format=3 uid="uid://uoa2caol0sb4"]
 
 [ext_resource type="Script" path="res://scripts/turret.gd" id="1_56sa7"]
 [ext_resource type="Resource" uid="uid://coi7hhl65184t" path="res://color_theme/default_color_theme.tres" id="2_cpvcm"]
 [ext_resource type="AudioStream" uid="uid://c26o7ogas81hb" path="res://sounds/turret.wav" id="2_rjahw"]
 [ext_resource type="PackedScene" uid="uid://bunwcuexksl61" path="res://scenes/Projectile.tscn" id="3_6tji4"]
 [ext_resource type="Texture2D" uid="uid://dg6dg3xeyl2l1" path="res://sprites/turret.svg" id="3_ntf8u"]
+[ext_resource type="PackedScene" uid="uid://cq8nvgrqwahap" path="res://scenes/audio_stream_player_2d.tscn" id="6_ge5w7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yll35"]
 
@@ -16,7 +17,7 @@ colorTheme = ExtResource("2_cpvcm")
 projectilePackedScene = ExtResource("3_6tji4")
 area2d = NodePath("Area2D")
 sprite = NodePath("Sprite2D")
-audioStreamPlayer = NodePath("AudioStreamPlayer")
+audioStreamPlayer = NodePath("AudioStreamPlayer2D")
 spawnSoundEffect = ExtResource("2_rjahw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -29,4 +30,4 @@ texture = ExtResource("3_ntf8u")
 scale = Vector2(5.25, 5.25)
 shape = SubResource("RectangleShape2D_yll35")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayer2D" parent="." instance=ExtResource("6_ge5w7")]
