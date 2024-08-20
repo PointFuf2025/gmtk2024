@@ -23,7 +23,7 @@
 [ext_resource type="AudioStream" uid="uid://dn2cr25q2ka34" path="res://musics/dodehav - slime friends.mp3" id="15_3dxpe"]
 [ext_resource type="Texture2D" uid="uid://oht0htciq65i" path="res://sprites/ui_factory.svg" id="15_qulxs"]
 [ext_resource type="Texture2D" uid="uid://d3e2h557q2xrc" path="res://sprites/compact-disc.svg" id="18_umocr"]
-[ext_resource type="ButtonGroup" uid="uid://dihtt07nuyhfe" path="res://buttonGroup.tres" id="20_lis6x"]
+[ext_resource type="ButtonGroup" path="res://buttonGroup.tres" id="20_lis6x"]
 [ext_resource type="Texture2D" uid="uid://bx3qvp43fqmbc" path="res://sprites/play-button.svg" id="21_ttfjk"]
 [ext_resource type="Texture2D" uid="uid://b5n2bhrn3xuog" path="res://sprites/pause-button.svg" id="22_20mht"]
 [ext_resource type="Texture2D" uid="uid://ciytfidn7on0u" path="res://sprites/ui_turret_range.svg" id="24_uqg3i"]
@@ -213,6 +213,8 @@ alignment = 1
 modulate = Color(0.184314, 1, 1, 1)
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
+tooltip_text = "Add a Turret to shoot zombies.
+Turret must be connected to network to work"
 toggle_mode = true
 button_group = ExtResource("20_lis6x")
 text = "Tower"
@@ -223,6 +225,7 @@ alignment = 0
 modulate = Color(0, 1, 0, 1)
 custom_minimum_size = Vector2(128, 48)
 layout_mode = 2
+tooltip_text = "Add a Pylon to the network to connect factories and turrets"
 toggle_mode = true
 action_mode = 0
 button_group = ExtResource("20_lis6x")

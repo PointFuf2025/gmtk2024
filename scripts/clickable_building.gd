@@ -21,9 +21,7 @@ func updateColor() -> void:
 	
 	var spriteColor = colorTheme.UnconnectedColor;
 	
-	if isHovered:
-		spriteColor = colorTheme.HoveredColor
-	elif isConnected():
+	if isConnected():
 		spriteColor = colorTheme.ConnectedColor
 	
 	sprite.modulate = spriteColor

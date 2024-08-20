@@ -58,7 +58,7 @@ var hoveredClickable : ClickableBuilding
 # for now just let game manager start with ready
 func _ready() -> void:
 	# create and add the generator
-	gold = 30
+	gold = 40
 	timeSinceStart = 0
 	timeToSpawnEnemy = enemySpawnIntervallOverTime.sample(0)
 	timeToSpawnFactory = factorySpawnIntervall
@@ -91,6 +91,9 @@ func _ready() -> void:
 	ui_manager.towerRangeUpgrade.button_up.connect(_on_tower_range_clicked)
 	ui_manager.factoryIncomeUpgrade.button_up.connect(_on_factory_income_clicked)
 	ui_manager.factorySpawnUpgrade.button_up.connect(_on_factory_spawn_clicked)
+	
+	# add a first factory connected to the network
+	factory_manager.createFactory(generator.position + (max_distance_to_connect / 2) * Vector2.RIGHT)
 	
 	for i in range(factoryCountAtStart):
 		var randomPosition

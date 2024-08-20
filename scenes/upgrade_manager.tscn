@@ -4,7 +4,7 @@
 
 [node name="UpgradeManager" type="Node2D"]
 script = ExtResource("1_uydp6")
-factoryIncomePerLevel = 5.0
+factoryIncomePerLevel = 3.0
 pylonRangePerLevel = 100.0
 towerRangePerLevel = 100.0
 towerReloadTimePerLevel = 0.03
