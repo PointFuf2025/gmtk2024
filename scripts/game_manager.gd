@@ -109,6 +109,7 @@ func _ready() -> void:
 	camera.limit_bottom += generator.global_position.y
 		
 func _process(delta: float) -> void:
+	
 	process_factory_spawn(delta)
 	process_enemy_spawn(delta)
 	process_factory_income(delta)

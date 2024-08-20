@@ -9,10 +9,12 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jy2ly"]
 
-[node name="Factory" type="Node2D" node_paths=PackedStringArray("powerGauge", "powerGaugeBackground", "area2d", "sprite", "audioStreamPlayer")]
+[node name="Factory" type="Node2D" node_paths=PackedStringArray("powerGauge", "powerGaugeBackground", "label", "labelTimer", "area2d", "sprite", "audioStreamPlayer")]
 script = ExtResource("1_pb0hv")
 powerGauge = NodePath("BackgroundPowerGauge/PowerGauge")
 powerGaugeBackground = NodePath("BackgroundPowerGauge")
+label = NodePath("Label")
+labelTimer = NodePath("LabelTimer")
 incomeIntervall = 5
 income = 5
 colorTheme = ExtResource("2_70pic")
@@ -43,3 +45,18 @@ scale = Vector2(6.5, 6.5)
 shape = SubResource("RectangleShape2D_jy2ly")
 
 [node name="AudioStreamPlayer2D" parent="." instance=ExtResource("5_fd37w")]
+
+[node name="Label" type="Label" parent="."]
+self_modulate = Color(1, 1, 0, 1)
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -9.5
+offset_top = -150.0
+offset_right = 9.5
+offset_bottom = -127.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 50
+text = "+5"
+
+[node name="LabelTimer" type="Timer" parent="."]
+one_shot = true

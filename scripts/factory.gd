@@ -9,6 +9,9 @@ var timeLeftToIncome : float
 @export var powerGauge: Node2D
 @export var powerGaugeBackground : Node2D
 
+@export var label : Label
+@export var labelTimer : Timer
+
 @export var incomeIntervall : int
 @export var income : int
 @export var colorTheme : ColorTheme
@@ -26,12 +29,20 @@ func _process(delta: float) -> void:
 	
 	powerGaugeBackground.visible = isConnected;
 	
+	scale += 0.5 * Vector2.ONE * labelTimer.time_left / labelTimer.wait_time
+	label.position.y = -150 - 20 * labelTimer.time_left / labelTimer.wait_time
+	label.modulate.a = labelTimer.time_left / labelTimer.wait_time
+	
 	if isConnected:
 		if timeLeftToIncome < 0:
 			audioStreamPlayer.stream = incomeAudioStream
 			audioStreamPlayer.play()
 			incomeGained.emit(income);			
 			timeLeftToIncome = incomeIntervall
+			
+			label.text = "+" + str(income)
+			labelTimer.start()
+			
 		else:
 			timeLeftToIncome -= delta
 	

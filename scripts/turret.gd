@@ -8,6 +8,8 @@ extends Building
 
 @export var projectilePackedScene : PackedScene
 
+@export var scaleTimer : Timer
+
 var isHovered = false
 var reloadTimeLeft = 0;
 
@@ -27,6 +29,10 @@ func  _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	super._process(delta)
+	
+	area2d.position = Vector2.ZERO
+	
+	scale += 0.5 * Vector2.ONE * scaleTimer.time_left / scaleTimer.wait_time
 	
 	if isConnected():
 		_process_try_to_fire(delta)
@@ -53,9 +59,16 @@ func _process_try_to_fire(delta: float) -> void:
 				nearestEnemyDistance = enemyDistance
 		
 		if nearestEnemy != null:
+			
+			var enemyDirection = (nearestEnemy.position - position).normalized()
+			
+			scaleTimer.start()
+			
+			sprite.flip_h = enemyDirection.x < 0
+			
 			var projectile = projectilePackedScene.instantiate() as Projectile
 			projectile.global_position = self.global_position
-			projectile.direction = (nearestEnemy.position - position).normalized()
+			projectile.direction = enemyDirection
 			get_parent().add_child(projectile)
 			reloadTimeLeft = reloadDuration
 		

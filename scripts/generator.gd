@@ -9,4 +9,3 @@ func _ready() -> void:
 
 func _on_generator_destoyed(building : Building):
 	generatorDestroyed.emit()
-	queue_free()
