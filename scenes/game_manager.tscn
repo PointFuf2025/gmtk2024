@@ -18,8 +18,8 @@
 [ext_resource type="PackedScene" uid="uid://c6ynol4kktjxn" path="res://scenes/upgrade_manager.tscn" id="15_qgl5d"]
 
 [sub_resource type="Curve" id="Curve_chti4"]
-max_value = 3.0
-_data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(1, 0.1), 0.0, 0.0, 0, 0]
+max_value = 5.0
+_data = [Vector2(0, 4), 0.0, 0.0, 0, 0, Vector2(1, 0.1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_lxkex"]
@@ -48,6 +48,11 @@ enemySpawnRangeBase = 1000.0
 enemySpawnRangeGainPerSecond = 50.0
 enemySpawnIntervallOverTime = SubResource("Curve_chti4")
 enemySpawnIntervallMultiplierOverTime = SubResource("Curve_lxkex")
+enemySpawnIntervallOverTimeDuration = 7.0
+gameOverCanvasLayer = NodePath("GameOverCanvasLayer")
+gameOverTimer = NodePath("GameOverTimer")
+gameOverSoundEffect = ExtResource("3_36r38")
+audioStreamPlayer = NodePath("AudioStreamPlayer")
 max_distance_to_connect = 500.0
 minimal_distance_between_building = 125.0
 pylon_price = 5

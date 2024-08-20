@@ -26,6 +26,8 @@ extends Node2D
 @export var enemySpawnRangeGainPerSecond : float
 @export var enemySpawnIntervallOverTime : Curve
 @export var enemySpawnIntervallMultiplierOverTime : Curve
+@export var enemySpawnIntervallOverTimeDuration : float
+
 var enemySpawnRange : float
 
 @export var gameOverCanvasLayer : CanvasLayer
@@ -91,12 +93,11 @@ func _ready() -> void:
 	ui_manager.factorySpawnUpgrade.button_up.connect(_on_factory_spawn_clicked)
 	
 	for i in range(factoryCountAtStart):
-		
 		var randomPosition
 		var isPositionValid = false
 		while !isPositionValid:
 			var randomAngle = randf_range(0, 2 * PI)
-			var randomDistance = factorySpawnRadius + randf() * factorySpawnRadiusDelta
+			var randomDistance = (0.5 + (0.5 * i / factoryCountAtStart)) * (factorySpawnRadius + randf() * factorySpawnRadiusDelta)
 			randomPosition = generator.position + (Vector2.RIGHT * randomDistance).rotated(randomAngle)
 			isPositionValid = is_position_valid_for_building(randomPosition, 500)
 		
@@ -156,7 +157,7 @@ func process_enemy_spawn(delta : float) -> void:
 		
 		enemy_manager.createEnemy(randomPosition, factory_manager.factories, pylon_manager.pylons, turret_manager.turrets, generator)
 		
-		var normalizedTimeSinceStart : float = clamp(timeSinceStart / (2 * 60), 0, 1)
+		var normalizedTimeSinceStart : float = clamp(timeSinceStart / (enemySpawnIntervallOverTimeDuration * 60), 0, 1)
 		var moduloTimeSinceStart : float = (floori(10 * timeSinceStart) % 50) / 50.0
 		
 		timeToSpawnEnemy = enemySpawnIntervallOverTime.sample(normalizedTimeSinceStart) * enemySpawnIntervallMultiplierOverTime.sample(moduloTimeSinceStart)
