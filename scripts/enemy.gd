@@ -14,11 +14,13 @@ var turrets : Array[Turret]
 var factories : Array[Factory]
 var pylons : Array[Pylon]
 var generator : Generator
+
+var targetTimeToUpdate : float
 var target : Building
 var currentHealthPoints : int
 
 func is_dead() -> bool:
-	return state == STATE.DEAD
+	return currentHealthPoints <= 0 || state == STATE.DEAD
 
 func _ready() -> void:
 	super._ready()
@@ -27,6 +29,8 @@ func _ready() -> void:
 	area.area_entered.connect(_on_area_entered)
 	update_target()
 	deathTimer.timeout.connect(_on_deathTimer_over)
+	
+	sprite.modulate = sprite.modulate.from_hsv(sprite.modulate.h + randf_range(0, 0.01), sprite.modulate.s, sprite.modulate.v)
 	
 func _process(delta: float) -> void:
 	super._process(delta)
@@ -37,6 +41,10 @@ func _process(delta: float) -> void:
 		rotation = deathTimer.time_left / deathTimer.wait_time * 90
 		position += deathTimer.time_left / deathTimer.wait_time * 250 * delta * Vector2.UP
 	else:
+		targetTimeToUpdate -= delta
+		if targetTimeToUpdate < 0:
+			target = null
+		
 		if target == null:
 			update_target()
 		var direction = (target.position - position).normalized()
@@ -49,28 +57,22 @@ func update_target():
 	var nearestTargetDistance : float = 1e10
 
 	for turret in turrets:
-		var turretDistance = position.distance_to(turret.position)
+		var turretDistance = global_position.distance_to(turret.global_position)
 		if turretDistance < nearestTargetDistance:
 			nearestTarget = turret
 			nearestTargetDistance = turretDistance
-	
-	# enemy cant target factories	
-	# for factory in factories:
-		#var factoryDistance = position.distance_to(factory.position)
-		#if factoryDistance < nearestTargetDistance:
-			#nearestTarget = factory
-			#nearestTargetDistance = factoryDistance
 			
 	for pylon in pylons:
-		var pylonDistance = position.distance_to(pylon.position)
+		var pylonDistance = global_position.distance_to(pylon.global_position)
 		if pylonDistance < nearestTargetDistance:
 			nearestTarget = pylon
 			nearestTargetDistance = pylonDistance
 			
-	var generatorDistance = position.distance_to(generator.position)
-	if generatorDistance < nearestTargetDistance:
-		nearestTarget = generator
-		nearestTargetDistance = generatorDistance
+	if generator != null:		
+		var generatorDistance = global_position.distance_to(generator.global_position)
+		if generatorDistance < nearestTargetDistance:
+			nearestTarget = generator
+			nearestTargetDistance = generatorDistance
 		
 	target = nearestTarget
 
@@ -90,9 +92,8 @@ func destroy():
 	
 func _on_deathTimer_over():
 	destroyed.emit(self);
-	
+
 func _on_area_entered(otherArea : Area2D):
-	
 	if is_dead():
 		return
 	

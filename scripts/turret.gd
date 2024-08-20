@@ -8,6 +8,7 @@ extends Building
 
 @export var projectilePackedScene : PackedScene
 
+var isHovered = false
 var reloadTimeLeft = 0;
 
 var enemies : Array[Enemy]
@@ -17,12 +18,20 @@ func setParent(newParent : Building):
 	parent = newParent
 	updateColor()
 
+func  _ready() -> void:
+	super._ready()
+	
+	area2d.mouse_entered.connect(_on_mouse_entered)
+	area2d.mouse_exited.connect(_on_mouse_exited)
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	super._process(delta)
 	
 	if isConnected():
 		_process_try_to_fire(delta)
+	
+	queue_redraw()
 		
 func _process_try_to_fire(delta: float) -> void:
 	if reloadTimeLeft < 0:
@@ -51,6 +60,17 @@ func _process_try_to_fire(delta: float) -> void:
 			reloadTimeLeft = reloadDuration
 		
 	reloadTimeLeft -= delta
+
+func _draw() -> void:
+		if isHovered:
+			draw_circle(Vector2.ZERO, attackRadius, colorTheme.RadiusFillColor, true)
+			draw_circle(Vector2.ZERO, attackRadius, colorTheme.RadiusStrokeColor, false)
+		
+func  _on_mouse_entered() -> void:
+	isHovered = true
+	
+func  _on_mouse_exited() -> void:
+	isHovered = false
 		
 func updateColor() -> void:
 	

@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://0tp2m7j85qhc"]
+[gd_scene load_steps=7 format=3 uid="uid://0tp2m7j85qhc"]
 
 [ext_resource type="Script" path="res://scripts/camera.gd" id="1_tsj37"]
 [ext_resource type="Texture2D" uid="uid://rvl33i3b5245" path="res://sprites/circle480x480.png" id="2_1gugq"]
+[ext_resource type="Material" uid="uid://hhtxr4ec8ep4" path="res://crt_monitor.tres" id="2_r7jnw"]
 
 [sub_resource type="Gradient" id="Gradient_53x80"]
 offsets = PackedFloat32Array(0)
@@ -21,6 +22,20 @@ zoomSpeed = 8.0
 zoomMin = 0.1
 zoomMax = 1.0
 
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+current = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = ExtResource("2_r7jnw")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="LightMaskTest" type="CanvasGroup" parent="."]
 visible = false
 scale = Vector2(2, 2)
@@ -32,6 +47,3 @@ texture = SubResource("GradientTexture1D_2vhem")
 [node name="Light" type="Sprite2D" parent="LightMaskTest"]
 material = SubResource("CanvasItemMaterial_p4tn6")
 texture = ExtResource("2_1gugq")
-
-[node name="AudioListener2D" type="AudioListener2D" parent="."]
-current = true

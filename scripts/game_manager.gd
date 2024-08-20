@@ -28,6 +28,11 @@ extends Node2D
 @export var enemySpawnIntervallMultiplierOverTime : Curve
 var enemySpawnRange : float
 
+@export var gameOverCanvasLayer : CanvasLayer
+@export var gameOverTimer : Timer
+@export var gameOverSoundEffect : AudioStream
+@export var audioStreamPlayer : AudioStreamPlayer
+
 @export_group("Entity") 
 @export var max_distance_to_connect : float
 @export var minimal_distance_between_building : float
@@ -51,7 +56,7 @@ var hoveredClickable : ClickableBuilding
 # for now just let game manager start with ready
 func _ready() -> void:
 	# create and add the generator
-	gold = 10
+	gold = 30
 	timeSinceStart = 0
 	timeToSpawnEnemy = enemySpawnIntervallOverTime.sample(0)
 	timeToSpawnFactory = factorySpawnIntervall
@@ -148,7 +153,7 @@ func process_enemy_spawn(delta : float) -> void:
 		var randomDistance = randf_range(0.8, 1) * enemySpawnRange
 		var randomPosition = generator.position + (Vector2.RIGHT * randomDistance).rotated(randomAngle)
 		
-		enemy_manager.createEnemy(randomPosition, factory_manager.factories, pylon_manager.pylons, generator)
+		enemy_manager.createEnemy(randomPosition, factory_manager.factories, pylon_manager.pylons, turret_manager.turrets, generator)
 		
 		var normalizedTimeSinceStart : float = clamp(timeSinceStart / (2 * 60), 0, 1)
 		var moduloTimeSinceStart : float = (floori(10 * timeSinceStart) % 50) / 50.0
@@ -229,6 +234,13 @@ func _on_turret_destroyed():
 
 func _on_generator_destroyed():
 	#TODO game over
+	audioStreamPlayer.stream = gameOverSoundEffect
+	audioStreamPlayer.play()
+	gameOverCanvasLayer.visible = true
+	gameOverTimer.timeout.connect(_on_gameover_timer_timeout)
+	gameOverTimer.start()
+
+func _on_gameover_timer_timeout():
 	get_tree().reload_current_scene()
 
 # Upgrades callbacks
