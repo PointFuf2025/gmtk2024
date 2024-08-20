@@ -22,7 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://dff87jjywkdml" path="res://sprites/ui_pylon.svg" id="14_tdx3j"]
 [ext_resource type="AudioStream" uid="uid://dn2cr25q2ka34" path="res://musics/dodehav - slime friends.mp3" id="15_3dxpe"]
 [ext_resource type="Texture2D" uid="uid://oht0htciq65i" path="res://sprites/ui_factory.svg" id="15_qulxs"]
-[ext_resource type="ButtonGroup" path="res://buttonGroup.tres" id="20_lis6x"]
+[ext_resource type="ButtonGroup" uid="uid://dihtt07nuyhfe" path="res://buttonGroup.tres" id="20_lis6x"]
 [ext_resource type="Texture2D" uid="uid://ciytfidn7on0u" path="res://sprites/ui_turret_range.svg" id="24_uqg3i"]
 [ext_resource type="Texture2D" uid="uid://cdj0jysepxajb" path="res://sprites/ui_turret_reload.svg" id="25_ecd4j"]
 [ext_resource type="Texture2D" uid="uid://crd5ymb45qovd" path="res://sprites/ui_pylon_range_upgrade.svg" id="26_maum3"]
