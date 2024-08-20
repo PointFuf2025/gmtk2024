@@ -32,6 +32,7 @@ corner_radius_bottom_left = 2
 corner_detail = 2
 
 [resource]
+Button/constants/h_separation = 15
 Button/constants/icon_max_width = 0
 Button/styles/focus = SubResource("StyleBoxEmpty_6bb7e")
 Button/styles/pressed = SubResource("StyleBoxFlat_bpral")

@@ -9,6 +9,12 @@ enum  MODE { NONE, PYLON, TURRET, FACTORY }
 @export var previousMusicButton : Button
 @export var nextMusicButton : Button
 
+@export var towerRangeUpgrade : Button
+@export var towerReloadTimeUpgrade : Button
+@export var pylonRangeUpgrade : Button
+@export var factorySpawnUpgrade : Button
+@export var factoryIncomeUpgrade : Button
+
 @export var turretButton : Button
 @export var pylonButtton : Button
 @export var factoryButton : Button
@@ -81,6 +87,19 @@ func setTurretPrices(towerPrice: int, pylonPrice: int, factoryPrice: int):
 	pylonButtton.text = "Pylon \n (" + str(pylonPrice) + ")"
 	factoryButton.text = "Factory \n (" + str(factoryPrice) + ")"
 
+func setUpgradePrices(towerRange: int, towerReload: int, pylonRange: int, factoryIncome: int, factorySpawn: int, gold: int):
+	towerRangeUpgrade.text = "Tower Range (" + str(towerRange) + ")"
+	towerReloadTimeUpgrade.text = "Tower Reload Time(" + str(towerReload) + ")"
+	pylonRangeUpgrade.text = "Pylon Range (" + str(pylonRange) + ")"
+	factoryIncomeUpgrade.text = "Factory Spawn Rate \n (" + str(factoryIncome) + ")"
+	factorySpawnUpgrade.text = "Factory Income \n (" + str(factorySpawn) + ")"
+	
+	towerRangeUpgrade.disabled = towerRange > gold
+	towerReloadTimeUpgrade.disabled = towerReload > gold
+	pylonRangeUpgrade.disabled = pylonRange > gold
+	factoryIncomeUpgrade.disabled = factoryIncome > gold
+	factorySpawnUpgrade.disabled = factorySpawn > gold
+	
 func playSelectedMusic():
 	var selectedMusic = backgroundMusics[backgroundMusicIndex]
 	

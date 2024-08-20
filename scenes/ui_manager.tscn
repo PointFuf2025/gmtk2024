@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://c67bw55mxufqj"]
+[gd_scene load_steps=29 format=3 uid="uid://c67bw55mxufqj"]
 
 [ext_resource type="Script" path="res://scripts/ui_manager.gd" id="1_uuk0i"]
 [ext_resource type="Theme" uid="uid://dew262uvu1bmk" path="res://theme/ui_theme.tres" id="2_1mrnx"]
@@ -22,14 +22,24 @@
 [ext_resource type="Texture2D" uid="uid://dff87jjywkdml" path="res://sprites/ui_pylon.svg" id="14_tdx3j"]
 [ext_resource type="AudioStream" uid="uid://dn2cr25q2ka34" path="res://musics/dodehav - slime friends.mp3" id="15_3dxpe"]
 [ext_resource type="Texture2D" uid="uid://oht0htciq65i" path="res://sprites/ui_factory.svg" id="15_qulxs"]
-[ext_resource type="ButtonGroup" uid="uid://dihtt07nuyhfe" path="res://buttonGroup.tres" id="20_lis6x"]
+[ext_resource type="ButtonGroup" path="res://buttonGroup.tres" id="20_lis6x"]
+[ext_resource type="Texture2D" uid="uid://ciytfidn7on0u" path="res://sprites/ui_turret_range.svg" id="24_uqg3i"]
+[ext_resource type="Texture2D" uid="uid://cdj0jysepxajb" path="res://sprites/ui_turret_reload.svg" id="25_ecd4j"]
+[ext_resource type="Texture2D" uid="uid://crd5ymb45qovd" path="res://sprites/ui_pylon_range_upgrade.svg" id="26_maum3"]
+[ext_resource type="Texture2D" uid="uid://dhcir28ll3w76" path="res://sprites/ui_factory_income.svg" id="27_e4025"]
+[ext_resource type="Texture2D" uid="uid://di4pokb1jobdn" path="res://sprites/ui_factory_spawn.svg" id="28_pl1w0"]
 
-[node name="UIManager" type="CanvasLayer" node_paths=PackedStringArray("goldLabel", "musicNameLabel", "previousMusicButton", "nextMusicButton", "turretButton", "pylonButtton", "factoryButton", "backgroundMusicPlayer")]
+[node name="UIManager" type="CanvasLayer" node_paths=PackedStringArray("goldLabel", "musicNameLabel", "previousMusicButton", "nextMusicButton", "towerRangeUpgrade", "towerReloadTimeUpgrade", "pylonRangeUpgrade", "factorySpawnUpgrade", "factoryIncomeUpgrade", "turretButton", "pylonButtton", "factoryButton", "backgroundMusicPlayer")]
 script = ExtResource("1_uuk0i")
 goldLabel = NodePath("ResourcePanel/MarginContainer/HBoxContainer/GoldLabel")
 musicNameLabel = NodePath("RadioPanel/MarginContainer/HBoxContainer/MusicName")
 previousMusicButton = NodePath("RadioPanel/MarginContainer/HBoxContainer/Previous")
 nextMusicButton = NodePath("RadioPanel/MarginContainer/HBoxContainer/Next")
+towerRangeUpgrade = NodePath("Upgrades/MarginContainer/VBoxContainer/TurretButtonUpgrade1")
+towerReloadTimeUpgrade = NodePath("Upgrades/MarginContainer/VBoxContainer/TurretButtonUpgrade2")
+pylonRangeUpgrade = NodePath("Upgrades/MarginContainer/VBoxContainer/PylonButton")
+factorySpawnUpgrade = NodePath("Upgrades/MarginContainer/VBoxContainer/FactorySpawn")
+factoryIncomeUpgrade = NodePath("Upgrades/MarginContainer/VBoxContainer/FactoryIncome")
 turretButton = NodePath("ModeContainer/MarginContainer/HBoxContainer/TurretButton")
 pylonButtton = NodePath("ModeContainer/MarginContainer/HBoxContainer/PylonButton")
 factoryButton = NodePath("ModeContainer/MarginContainer/HBoxContainer/FactoryButton")
@@ -149,6 +159,7 @@ toggle_mode = true
 button_group = ExtResource("20_lis6x")
 text = "Tower"
 icon = ExtResource("14_71fu3")
+alignment = 0
 
 [node name="PylonButton" type="Button" parent="ModeContainer/MarginContainer/HBoxContainer"]
 modulate = Color(0, 1, 0, 1)
@@ -159,6 +170,7 @@ action_mode = 0
 button_group = ExtResource("20_lis6x")
 text = "pylon"
 icon = ExtResource("14_tdx3j")
+alignment = 0
 
 [node name="FactoryButton" type="Button" parent="ModeContainer/MarginContainer/HBoxContainer"]
 visible = false
@@ -172,3 +184,78 @@ text = "factory"
 icon = ExtResource("15_qulxs")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="Upgrades" type="PanelContainer" parent="."]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -296.0
+offset_top = -42.0
+offset_bottom = 42.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("2_1mrnx")
+
+[node name="MarginContainer" type="MarginContainer" parent="Upgrades"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Upgrades/MarginContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Upgrades/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(10, 30)
+layout_mode = 2
+bbcode_enabled = true
+text = "[center]Upgrades[/center]
+"
+fit_content = true
+
+[node name="TurretButtonUpgrade1" type="Button" parent="Upgrades/MarginContainer/VBoxContainer"]
+modulate = Color(0.184314, 1, 1, 1)
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Tower range"
+icon = ExtResource("24_uqg3i")
+alignment = 0
+
+[node name="TurretButtonUpgrade2" type="Button" parent="Upgrades/MarginContainer/VBoxContainer"]
+modulate = Color(0.184314, 1, 1, 1)
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Tower reload time"
+icon = ExtResource("25_ecd4j")
+alignment = 0
+
+[node name="PylonButton" type="Button" parent="Upgrades/MarginContainer/VBoxContainer"]
+modulate = Color(0, 1, 0, 1)
+custom_minimum_size = Vector2(128, 48)
+layout_mode = 2
+action_mode = 0
+text = "Pylon range"
+icon = ExtResource("26_maum3")
+alignment = 0
+
+[node name="FactorySpawn" type="Button" parent="Upgrades/MarginContainer/VBoxContainer"]
+modulate = Color(1, 1, 0, 1)
+custom_minimum_size = Vector2(128, 48)
+layout_mode = 2
+action_mode = 0
+text = "Factory Spawn Rate"
+icon = ExtResource("27_e4025")
+alignment = 0
+
+[node name="FactoryIncome" type="Button" parent="Upgrades/MarginContainer/VBoxContainer"]
+modulate = Color(1, 1, 0, 1)
+custom_minimum_size = Vector2(128, 48)
+layout_mode = 2
+action_mode = 0
+text = "Factory Income
+"
+icon = ExtResource("28_pl1w0")
+alignment = 0

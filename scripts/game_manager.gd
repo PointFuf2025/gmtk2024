@@ -9,6 +9,7 @@ extends Node2D
 @export var pylon_manager : Pylon_manager
 @export var enemy_manager : EnemyManager
 @export var turret_manager : TurretManager
+@export var upgrade_manager : UpgradeManager
 @export var ui_manager : UIManager
 @export var camera : Camera
 
@@ -36,7 +37,7 @@ var enemySpawnRange : float
 
 @export_group("Ghost")
 @export var ghost_pylon : Ghost
- 
+
 var factorySpawnRadius : float
 var timeToIncome : float
 var timeToSpawnFactory : float
@@ -77,6 +78,13 @@ func _ready() -> void:
 	
 	ui_manager.setTurretPrices(turret_price, pylon_price, factory_price)
 	
+	#Upgrades
+	ui_manager.pylonRangeUpgrade.button_up.connect(_on_pylon_range_clicked)
+	ui_manager.towerReloadTimeUpgrade.button_up.connect(_on_pylon_range_clicked)
+	ui_manager.towerRangeUpgrade.button_up.connect(_on_pylon_range_clicked)
+	ui_manager.pylonRangeUpgrade.button_up.connect(_on_pylon_range_clicked)
+	ui_manager.pylonRangeUpgrade.button_up.connect(_on_pylon_range_clicked)
+	
 	for i in range(factoryCountAtStart):
 		
 		var randomPosition
@@ -99,6 +107,9 @@ func _process(delta: float) -> void:
 	process_factory_spawn(delta)
 	process_enemy_spawn(delta)
 	process_factory_income(delta)
+	
+	
+	ui_manager.setUpgradePrices(upgrade_manager.towerRangeCurrentPrice, upgrade_manager.towerReloadTimeCurrentPrice, upgrade_manager.pylonRangeCurrentPrice, upgrade_manager.factoryIncomeCurrentPrice, upgrade_manager.factorySpawnRateCurrentPrice, gold)
 	
 	if ui_manager.mode != UIManager.MODE.NONE:
 		var canPlace = can_place_in_current_mode()
@@ -128,7 +139,6 @@ func process_factory_spawn(delta : float) -> void:
 	timeToSpawnFactory -= delta
 
 func process_enemy_spawn(delta : float) -> void:
-	
 	if !isEnemyEnabled:
 		return
 	
@@ -220,7 +230,43 @@ func _on_turret_destroyed():
 func _on_generator_destroyed():
 	#TODO game over
 	get_tree().reload_current_scene()
-		
+
+# Upgrades callbacks
+func _on_pylon_range_clicked():
+	var cost = upgrade_manager.pylonRangeCurrentPrice
+	if gold > cost:
+		gold -= cost
+		pylon_manager.updatePylonStats(upgrade_manager.pylonRangeLevel * upgrade_manager.pylonRangePerLevel)
+		upgrade_manager.pylonRangeLevel += 1
+
+func _on_tower_range_clicked():
+	var cost = upgrade_manager.towerRangeCurrentPrice
+	if gold > cost:
+		gold -= cost
+		turret_manager.updateTurretStats(upgrade_manager.towerReloadTimeLevel * upgrade_manager.towerReloadTimePerLevel, upgrade_manager.towerRangeLevel * upgrade_manager.towerRangePerLevel)
+		upgrade_manager.towerRangeLevel += 1
+
+func _on_tower_reload_clicked():
+	var cost = upgrade_manager.towerReloadTimeCurrentPrice
+	if gold > cost:
+		gold -= cost
+		turret_manager.updateTurretStats(upgrade_manager.towerReloadTimeLevel * upgrade_manager.towerReloadTimePerLevel, upgrade_manager.towerRangeLevel * upgrade_manager.towerRangePerLevel)
+		upgrade_manager.towerReloadTimeLevel += 1
+
+func _on_factory_income_clicked():
+	var cost = upgrade_manager.factoryIncomeCurrentPrice
+	if gold > cost:
+		gold -= cost
+		#todo
+		upgrade_manager.factoryIncomeLevel += 1
+
+func _on_factory_spawn_clicked():
+	var cost = upgrade_manager.factorySpawnRateCurrentPrice
+	if gold > cost:
+		gold -= cost
+		#todo
+		upgrade_manager.factorySpawnRateLevel += 1
+			
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("select"):
 		var mousePosition = get_global_mouse_position();

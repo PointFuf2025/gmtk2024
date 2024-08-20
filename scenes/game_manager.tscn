@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cp4vg03r5f812"]
+[gd_scene load_steps=19 format=3 uid="uid://cp4vg03r5f812"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_7vy8g"]
 [ext_resource type="PackedScene" uid="uid://diu20lrnhwef7" path="res://scenes/generator.tscn" id="2_2nq7v"]
@@ -11,10 +11,11 @@
 [ext_resource type="Script" path="res://scripts/pylon_manager.gd" id="8_oiwh0"]
 [ext_resource type="PackedScene" uid="uid://cosb6bq74bgox" path="res://scenes/enemy_manager.tscn" id="10_pmeqg"]
 [ext_resource type="PackedScene" uid="uid://cgfbpgn23rcja" path="res://scenes/ghost.tscn" id="10_v1b84"]
-[ext_resource type="PackedScene" uid="uid://7mmmaj7pxc5k" path="res://scenes/turret_manager.tscn" id="11_1lgf8"]
+[ext_resource type="PackedScene" path="res://scenes/turret_manager.tscn" id="11_1lgf8"]
 [ext_resource type="PackedScene" uid="uid://c67bw55mxufqj" path="res://scenes/ui_manager.tscn" id="11_r5h8c"]
 [ext_resource type="Texture2D" uid="uid://bbrn4dbq2rp3v" path="res://sprites/pylon_round.png" id="13_8f1um"]
 [ext_resource type="Texture2D" uid="uid://ca2b4ux1d0q6p" path="res://sprites/factory_round.svg" id="14_6phgm"]
+[ext_resource type="Script" path="res://scenes/UpgradeManager.gd" id="13_k8aka"]
 
 [sub_resource type="Curve" id="Curve_chti4"]
 max_value = 3.0
@@ -26,7 +27,7 @@ max_value = 2.0
 _data = [Vector2(0, 1.5), 0.0, 0.0, 0, 0, Vector2(0.5, 0.5), 0.0, 0.0, 0, 0, Vector2(1, 1.5), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[node name="GameManager" type="Node2D" node_paths=PackedStringArray("factory_manager", "cable_manager", "pylon_manager", "enemy_manager", "turret_manager", "ui_manager", "camera", "ghost_pylon")]
+[node name="GameManager" type="Node2D" node_paths=PackedStringArray("factory_manager", "cable_manager", "pylon_manager", "enemy_manager", "turret_manager", "upgrade_manager", "ui_manager", "camera", "ghost_pylon")]
 script = ExtResource("1_7vy8g")
 generatorPackedScene = ExtResource("2_2nq7v")
 factory_manager = NodePath("FactoryManager")
@@ -34,6 +35,7 @@ cable_manager = NodePath("CableManager")
 pylon_manager = NodePath("PylonManager")
 enemy_manager = NodePath("EnemyManager")
 turret_manager = NodePath("TurretManager")
+upgrade_manager = NodePath("UpgradeManager")
 ui_manager = NodePath("UIManager")
 camera = NodePath("Camera")
 factoryCountAtStart = 10.0
@@ -89,5 +91,8 @@ goldIncomeByFactory = 1
 [node name="Ghost" parent="." instance=ExtResource("10_v1b84")]
 pylonSprite = ExtResource("13_8f1um")
 factorySprite = ExtResource("14_6phgm")
+
+[node name="UpgradeManager" type="Node2D" parent="."]
+script = ExtResource("13_k8aka")
 
 [node name="UIManager" parent="." instance=ExtResource("11_r5h8c")]

@@ -29,3 +29,7 @@ func _on_pylon_destoyed(building : Building):
 	#remove_child(pylon)
 	pylon.queue_free()
 	pylonDestroyed.emit()
+
+func updatePylonStats(range: float):
+	#TODO
+	pass

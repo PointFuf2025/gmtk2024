@@ -32,3 +32,8 @@ func _on_turret_destroyed(building : Building):
 	#remove_child(turret)
 	turret.queue_free()
 	turretDestroyed.emit()
+
+func updateTurretStats(reloadTime : float, range : float):
+	for turret in turrets:
+		turret.reloadDuration -= reloadTime
+		turret.attackRadius += range
