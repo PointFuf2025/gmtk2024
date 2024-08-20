@@ -8,6 +8,9 @@ enum  MODE { NONE, PYLON, TURRET, FACTORY }
 @export var musicNameLabel : Label
 @export var previousMusicButton : Button
 @export var nextMusicButton : Button
+@export var playMusicButton : Button
+@export var pauseMusicButton : Button
+@export var sliderVolume : Slider
 
 @export var towerRangeUpgrade : Button
 @export var towerReloadTimeUpgrade : Button
@@ -32,6 +35,9 @@ func _ready() -> void:
 	previousMusicButton.button_up.connect(_on_previousMusicButton_up)
 	nextMusicButton.button_up.connect(_on_nextMusicButton_up)
 	backgroundMusicPlayer.finished.connect(_on_backgroundMusicPlayer_finished)
+	playMusicButton.button_up.connect(_on_playMusicButton_up)
+	pauseMusicButton.button_up.connect(_on_pauseMusicButton_up)
+	sliderVolume.value_changed.connect(_on_sliderVolumeValue_changed)
 	
 	turretButton.toggled.connect(_on_turretButton_toggled)
 	pylonButtton.toggled.connect(_on_pylonButton_toggled)
@@ -40,6 +46,15 @@ func _ready() -> void:
 	backgroundMusicIndex = randi_range(0, backgroundMusics.size() - 1)
 	playSelectedMusic()
 
+func _on_playMusicButton_up():
+	backgroundMusicPlayer.stream_paused = false
+
+func _on_sliderVolumeValue_changed(value):
+	backgroundMusicPlayer.volume_db = linear_to_db(value)
+
+func _on_pauseMusicButton_up():
+		backgroundMusicPlayer.stream_paused = true
+	
 func _on_previousMusicButton_up():
 	backgroundMusicIndex += 1
 	if backgroundMusicIndex == backgroundMusics.size():
