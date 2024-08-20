@@ -7,6 +7,10 @@ var parent : Building
 
 signal destroyed(building : Building)
 
+func _process(delta: float) -> void:
+	super._process(delta)
+	area2d.position = Vector2.ZERO
+
 func setParent(newParent : Building):
 	parent = newParent
 

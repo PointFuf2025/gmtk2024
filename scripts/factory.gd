@@ -26,7 +26,7 @@ func _process(delta: float) -> void:
 	super._process(delta)	
 	
 	var isConnected = isConnected()
-	
+		
 	powerGaugeBackground.visible = isConnected;
 	
 	scale += 0.5 * Vector2.ONE * labelTimer.time_left / labelTimer.wait_time

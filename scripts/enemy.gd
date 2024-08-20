@@ -41,6 +41,8 @@ func _process(delta: float) -> void:
 		rotation = deathTimer.time_left / deathTimer.wait_time * 90
 		position += deathTimer.time_left / deathTimer.wait_time * 250 * delta * Vector2.UP
 	else:
+		area.position = Vector2.ZERO
+		
 		targetTimeToUpdate -= delta
 		if targetTimeToUpdate < 0:
 			target = null
