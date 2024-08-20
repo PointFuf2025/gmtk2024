@@ -2,25 +2,25 @@
 
 [ext_resource type="Script" path="res://scripts/ui_manager.gd" id="1_uuk0i"]
 [ext_resource type="Theme" uid="uid://dew262uvu1bmk" path="res://theme/ui_theme.tres" id="2_1mrnx"]
-[ext_resource type="AudioStream" uid="uid://dt5tdjtme3bkt" path="res://musics/05 Tureis - dodehav.mp3" id="2_aranx"]
+[ext_resource type="AudioStream" uid="uid://p812ndr5ec0a" path="res://musics/Tyzen - ant colony.mp3" id="2_y22ag"]
 [ext_resource type="Texture2D" uid="uid://b51v0omukrnnn" path="res://sprites/gold.svg" id="3_fqq5x"]
-[ext_resource type="AudioStream" uid="uid://pyas6pyjvtie" path="res://musics/curse chant - dodehav.mp3" id="4_lyc3f"]
+[ext_resource type="AudioStream" uid="uid://cdi7o5o12wk7l" path="res://musics/dodehav - still.mp3" id="4_0ixoi"]
 [ext_resource type="Texture2D" uid="uid://disykiarsmvxx" path="res://sprites/previous-arrow.svg" id="5_2hb0n"]
-[ext_resource type="AudioStream" uid="uid://dlpxgbp8xg5t7" path="res://musics/død - dodehav .mp3" id="5_2lqpk"]
-[ext_resource type="AudioStream" uid="uid://dk1ingyjdtrm2" path="res://musics/ant colony - Tyzen.mp3" id="5_3km6j"]
 [ext_resource type="Texture2D" uid="uid://corsytbn0d2ph" path="res://sprites/next-arrow.svg" id="5_q1elf"]
-[ext_resource type="AudioStream" uid="uid://cryqaub6icfks" path="res://musics/empty - dodehav.mp3" id="6_im84j"]
-[ext_resource type="AudioStream" uid="uid://dki1cbxakg4mv" path="res://musics/liv - dodehav.mp3" id="7_3r2pj"]
-[ext_resource type="AudioStream" uid="uid://ds76v2g5b2066" path="res://musics/phase (with saiyvn.) - dodehav.mp3" id="8_p0q6r"]
-[ext_resource type="AudioStream" uid="uid://075k5g50djxj" path="res://musics/s t i l l - dodehav.mp3" id="9_kfh1w"]
+[ext_resource type="AudioStream" uid="uid://bg0txtydlas8w" path="res://musics/dodehav - please haunt me.mp3" id="7_2nrm8"]
+[ext_resource type="AudioStream" uid="uid://dme36a45qj2ai" path="res://musics/dodehav - phase (with saiyvn.).mp3" id="8_j3lxr"]
+[ext_resource type="AudioStream" uid="uid://de0q2yitlxy4i" path="res://musics/dodehav - passage.mp3" id="9_8ww0c"]
 [ext_resource type="AudioStream" uid="uid://b31fxo6q3v0it" path="res://musics/dodehav - unload.mp3" id="10_6um4e"]
+[ext_resource type="AudioStream" uid="uid://dhn3xx0t0rxqv" path="res://musics/dodehav - liv.mp3" id="10_befpj"]
 [ext_resource type="AudioStream" uid="uid://okurmxixkdd1" path="res://musics/dodehav - holidays were fun.mp3" id="11_25ug7"]
+[ext_resource type="AudioStream" uid="uid://bf2i8i77se5sb" path="res://musics/dodehav - empty.mp3" id="12_83ibd"]
 [ext_resource type="AudioStream" uid="uid://d2fi8k0mjgph2" path="res://musics/dodehav - dead ahead.mp3" id="12_wvbx4"]
-[ext_resource type="AudioStream" uid="uid://ddd0gdoapv7jl" path="res://musics/dodehav - passage (null mix).mp3" id="13_d75le"]
+[ext_resource type="AudioStream" uid="uid://pfr8m3mlumy3" path="res://musics/dodehav - dusk.mp3" id="13_kjv1f"]
 [ext_resource type="Texture2D" uid="uid://c7cmjte1xdpym" path="res://sprites/ui_turret.svg" id="14_71fu3"]
 [ext_resource type="AudioStream" uid="uid://byqgmxrxr54uv" path="res://musics/dodehav - scyphozoa.mp3" id="14_ap1np"]
 [ext_resource type="Texture2D" uid="uid://dff87jjywkdml" path="res://sprites/ui_pylon.svg" id="14_tdx3j"]
 [ext_resource type="AudioStream" uid="uid://dn2cr25q2ka34" path="res://musics/dodehav - slime friends.mp3" id="15_3dxpe"]
+[ext_resource type="AudioStream" uid="uid://wwdmvmgru23n" path="res://musics/dodehav - curse chant.mp3" id="15_o6rwm"]
 [ext_resource type="Texture2D" uid="uid://oht0htciq65i" path="res://sprites/ui_factory.svg" id="15_qulxs"]
 [ext_resource type="Texture2D" uid="uid://d3e2h557q2xrc" path="res://sprites/compact-disc.svg" id="18_umocr"]
 [ext_resource type="ButtonGroup" uid="uid://dihtt07nuyhfe" path="res://buttonGroup.tres" id="20_lis6x"]
@@ -49,7 +49,7 @@ factoryIncomeUpgrade = NodePath("Upgrades/MarginContainer/VBoxContainer/FactoryI
 turretButton = NodePath("ModeContainer/MarginContainer/HBoxContainer/TurretButton")
 pylonButtton = NodePath("ModeContainer/MarginContainer/HBoxContainer/PylonButton")
 factoryButton = NodePath("ModeContainer/MarginContainer/HBoxContainer/FactoryButton")
-backgroundMusics = Array[AudioStream]([ExtResource("2_aranx"), ExtResource("5_3km6j"), ExtResource("4_lyc3f"), ExtResource("5_2lqpk"), ExtResource("6_im84j"), ExtResource("7_3r2pj"), ExtResource("8_p0q6r"), ExtResource("9_kfh1w"), ExtResource("10_6um4e"), ExtResource("11_25ug7"), ExtResource("12_wvbx4"), ExtResource("13_d75le"), ExtResource("14_ap1np"), ExtResource("15_3dxpe")])
+backgroundMusics = Array[AudioStream]([ExtResource("2_y22ag"), ExtResource("10_6um4e"), ExtResource("4_0ixoi"), ExtResource("15_3dxpe"), ExtResource("14_ap1np"), ExtResource("7_2nrm8"), ExtResource("8_j3lxr"), ExtResource("9_8ww0c"), ExtResource("10_befpj"), ExtResource("11_25ug7"), ExtResource("12_83ibd"), ExtResource("13_kjv1f"), ExtResource("12_wvbx4"), ExtResource("15_o6rwm")])
 backgroundMusicPlayer = NodePath("AudioStreamPlayer")
 
 [node name="ResourcePanel" type="PanelContainer" parent="."]
