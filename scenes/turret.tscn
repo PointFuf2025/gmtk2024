@@ -5,17 +5,16 @@
 [ext_resource type="AudioStream" uid="uid://c26o7ogas81hb" path="res://sounds/turret.wav" id="2_rjahw"]
 [ext_resource type="PackedScene" uid="uid://bunwcuexksl61" path="res://scenes/Projectile.tscn" id="3_6tji4"]
 [ext_resource type="Texture2D" uid="uid://dg6dg3xeyl2l1" path="res://sprites/turret.svg" id="3_ntf8u"]
-[ext_resource type="PackedScene" uid="uid://cq8nvgrqwahap" path="res://scenes/audio_stream_player_2d.tscn" id="6_ge5w7"]
+[ext_resource type="PackedScene" path="res://scenes/audio_stream_player_2d.tscn" id="6_ge5w7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yll35"]
 
-[node name="Turret" type="Node2D" node_paths=PackedStringArray("scaleTimer", "area2d", "sprite", "audioStreamPlayer")]
+[node name="Turret" type="Node2D" node_paths=PackedStringArray("area2d", "sprite", "audioStreamPlayer")]
 script = ExtResource("1_56sa7")
 attackRadius = 500.0
 reloadDuration = 0.5
 colorTheme = ExtResource("2_cpvcm")
 projectilePackedScene = ExtResource("3_6tji4")
-scaleTimer = NodePath("ScaleTimer")
 area2d = NodePath("Area2D")
 sprite = NodePath("Sprite2D")
 audioStreamPlayer = NodePath("AudioStreamPlayer2D")
