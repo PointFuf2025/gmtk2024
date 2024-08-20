@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dtb1c4bxbdf8u"]
+[gd_scene format=3 uid="uid://cq8nvgrqwahap"]
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D"]
 attenuation = 9.18957
